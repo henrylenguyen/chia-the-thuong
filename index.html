@@ -1,2063 +1,1496 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Học Tiếng Nhật - Thể Thường (普通形)</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Học Tiếng Nhật - Thể Thường (普通形)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            --warning-gradient: linear-gradient(135deg, #fce38a 0%, #f38181 100%);
-            
-            --primary-color: #667eea;
-            --secondary-color: #f5576c;
-            --accent-color: #4facfe;
-            --success-color: #38ef7d;
-            --warning-color: #f38181;
-            --error-color: #ff6b6b;
-            
-            --bg-light: #fafbfc;
-            --bg-dark: #0f0f1a;
-            --surface-light: #ffffff;
-            --surface-dark: #1a1a2e;
-            --text-light: #2d3748;
-            --text-dark: #e2e8f0;
-            --text-secondary-light: #718096;
-            --text-secondary-dark: #a0aec0;
-            --border-light: #e2e8f0;
-            --border-dark: #2d3748;
-            
-            --glass-bg-light: rgba(255, 255, 255, 0.7);
-            --glass-bg-dark: rgba(26, 26, 46, 0.7);
-            --glass-border-light: rgba(255, 255, 255, 0.2);
-            --glass-border-dark: rgba(255, 255, 255, 0.1);
-            
-            --shadow-light: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --shadow-hover-light: 0 20px 40px rgba(0, 0, 0, 0.15);
-            --shadow-dark: 0 10px 25px rgba(0, 0, 0, 0.3);
-            --shadow-hover-dark: 0 20px 40px rgba(0, 0, 0, 0.5);
-            
-            --border-radius-sm: 8px;
-            --border-radius-md: 12px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 24px;
-            
-            --transition-fast: 0.2s ease;
-            --transition-normal: 0.3s ease;
-            --transition-slow: 0.5s ease;
-        }
-
-        [data-theme="light"] {
-            --bg-color: var(--bg-light);
-            --surface-color: var(--surface-light);
-            --text-color: var(--text-light);
-            --text-secondary: var(--text-secondary-light);
-            --border-color: var(--border-light);
-            --glass-bg: var(--glass-bg-light);
-            --glass-border: var(--glass-border-light);
-            --shadow: var(--shadow-light);
-            --shadow-hover: var(--shadow-hover-light);
-        }
-
-        [data-theme="dark"] {
-            --bg-color: var(--bg-dark);
-            --surface-color: var(--surface-dark);
-            --text-color: var(--text-dark);
-            --text-secondary: var(--text-secondary-dark);
-            --border-color: var(--border-dark);
-            --glass-bg: var(--glass-bg-dark);
-            --glass-border: var(--glass-border-dark);
-            --shadow: var(--shadow-dark);
-            --shadow-hover: var(--shadow-hover-dark);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
-            transition: all var(--transition-normal);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-        }
-
-        .animated-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background: var(--primary-gradient); }
-            33% { background: var(--secondary-gradient); }
-            66% { background: var(--accent-gradient); }
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--surface-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--border-color);
-            border-top: 4px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .loading-progress {
-            width: 200px;
-            height: 4px;
-            background: var(--border-color);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .loading-progress-bar {
-            height: 100%;
-            background: var(--primary-gradient);
-            border-radius: 2px;
-            animation: loadingProgress 2s ease-in-out;
-        }
-
-        @keyframes loadingProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* Glassmorphism Container */
-        .glass-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        .header {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all var(--transition-normal);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all var(--transition-normal);
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 8px;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 12px 20px;
-            border-radius: var(--border-radius-xl);
-            transition: all var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            transition: left var(--transition-normal);
-            z-index: -1;
-        }
-
-        .nav-link:hover::before,
-        .nav-link.active::before {
-            left: 0;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        .theme-toggle {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            color: var(--text-color);
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            font-size: 1.1rem;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(180deg);
-            box-shadow: var(--shadow);
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 40px 0;
-            min-height: calc(100vh - 74px);
-        }
-
-        .page {
-            display: none;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px);
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'sans-serif'],
+            'japanese': ['Noto Sans JP', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.6s ease-out',
+            'bounce-in': 'bounceIn 0.5s ease-out',
+            'shimmer': 'shimmer 2s infinite',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            bounceIn: {
+              '0%': { transform: 'scale(0.3)', opacity: '0' },
+              '50%': { transform: 'scale(1.05)' },
+              '70%': { transform: 'scale(0.9)' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            },
+            shimmer: {
+              '0%': { left: '-100%' },
+              '100%': { left: '100%' },
             }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
-        /* Hero Section */
-        .hero-section {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .hero-title {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Mind Map with Modern Design */
-        .mindmap-container {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-xl);
-            padding: 50px;
-            margin-bottom: 50px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mindmap-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: var(--primary-gradient);
-            opacity: 0.03;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .mindmap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .mindmap-title {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--text-color);
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .central-node {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 30px 50px;
-            border-radius: var(--border-radius-xl);
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            box-shadow: var(--shadow);
-            transform: scale(1);
-            transition: all var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .central-node::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .central-node:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .central-node:hover::before {
-            left: 100%;
-        }
-
-        .branches {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            width: 100%;
-        }
-
-        .branch {
-            background: var(--surface-color);
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            padding: 30px;
-            text-align: center;
-            transition: all var(--transition-normal);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .branch::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-gradient);
-            transform: scaleX(0);
-            transition: transform var(--transition-normal);
-        }
-
-        .branch:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            border-color: transparent;
-        }
-
-        .branch:hover::before {
-            transform: scaleX(1);
-        }
-
-        .branch-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .branch-examples {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .example {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(245, 87, 108, 0.1));
-            padding: 12px 16px;
-            border-radius: var(--border-radius-md);
-            font-size: 0.95rem;
-            font-family: 'Noto Sans JP', sans-serif;
-            transition: all var(--transition-fast);
-        }
-
-        .example:hover {
-            transform: scale(1.02);
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(245, 87, 108, 0.15));
-        }
-
-        /* Modern Card Grid */
-        .theory-cards,
-        .exercise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .theory-card,
-        .exercise-card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 35px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: all var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .theory-card::before,
-        .exercise-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-            z-index: -1;
-        }
-
-        .theory-card:hover,
-        .exercise-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-            color: white;
-        }
-
-        .theory-card:hover::before,
-        .exercise-card:hover::before {
-            opacity: 0.9;
-        }
-
-        .card-title,
-        .exercise-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: color var(--transition-normal);
-        }
-
-        .theory-card:hover .card-title,
-        .exercise-card:hover .exercise-title {
-            color: white;
-        }
-
-        /* Practice Dashboard */
-        .practice-dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .stat-card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: all var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--success-gradient);
-            transform: scaleX(0);
-            transition: transform var(--transition-normal);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .stat-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            background: var(--success-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: var(--text-color);
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* Exercise Cards */
-        .exercise-card {
-            cursor: pointer;
-            position: relative;
-        }
-
-        .exercise-card.completed::after {
-            content: '✓';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--success-gradient);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .exercise-description {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.6;
-            transition: color var(--transition-normal);
-        }
-
-        .exercise-card:hover .exercise-description {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .exercise-progress {
-            background: var(--border-color);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-
-        .exercise-progress-bar {
-            height: 100%;
-            background: var(--success-gradient);
-            border-radius: 4px;
-            transition: width var(--transition-slow);
-        }
-
-        /* Quiz Interface */
-        .quiz-container {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-xl);
-            padding: 50px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            display: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quiz-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-gradient);
-        }
-
-        .quiz-container.active {
-            display: block;
-            animation: slideInFromRight 0.6s ease;
-        }
-
-        @keyframes slideInFromRight {
-            from { 
-                transform: translateX(50px);
-                opacity: 0;
-            }
-            to { 
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .quiz-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .quiz-progress {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .progress-bar {
-            width: 250px;
-            height: 12px;
-            background: var(--border-color);
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--primary-gradient);
-            border-radius: 6px;
-            transition: width var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .question-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(245, 87, 108, 0.05));
-            border-radius: var(--border-radius-lg);
-            padding: 40px;
-            margin-bottom: 30px;
-            border-left: 5px solid;
-            border-image: var(--primary-gradient) 1;
-            position: relative;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-
-        .japanese-text {
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 15px 0;
-        }
-
-        .answer-input {
-            width: 100%;
-            padding: 20px 25px;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            font-size: 1.2rem;
-            font-family: 'Noto Sans JP', sans-serif;
-            background: var(--surface-color);
-            color: var(--text-color);
-            transition: all var(--transition-normal);
-            font-weight: 500;
-        }
-
-        .answer-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            transform: scale(1.01);
-        }
-
-        /* Modern Buttons */
-        .quiz-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: var(--border-radius-xl);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-width: 140px;
-            justify-content: center;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .btn-secondary {
-            background: var(--surface-color);
-            color: var(--text-color);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-gradient);
-            color: white;
-            border-color: transparent;
-            transform: translateY(-3px);
-        }
-
-        .btn-success {
-            background: var(--success-gradient);
-            color: white;
-        }
-
-        .btn-warning {
-            background: var(--warning-gradient);
-            color: white;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Feedback Messages */
-        .feedback {
-            padding: 25px;
-            border-radius: var(--border-radius-lg);
-            margin-top: 25px;
-            font-weight: 600;
-            text-align: center;
-            animation: bounceIn 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes bounceIn {
-            0% { 
-                transform: scale(0.3);
-                opacity: 0;
-            }
-            50% { 
-                transform: scale(1.05);
-            }
-            70% { 
-                transform: scale(0.9);
-            }
-            100% { 
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .feedback.correct {
-            background: linear-gradient(135deg, rgba(56, 239, 125, 0.1), rgba(17, 153, 142, 0.1));
-            color: var(--success-color);
-            border: 2px solid var(--success-color);
-        }
-
-        .feedback.incorrect {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(243, 129, 129, 0.1));
-            color: var(--error-color);
-            border: 2px solid var(--error-color);
-        }
-
-        /* Results */
-        .results-container {
-            text-align: center;
-            padding: 50px;
-            background: var(--surface-color);
-            border-radius: var(--border-radius-xl);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .results-score {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: var(--success-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .results-message {
-            font-size: 1.4rem;
-            margin-bottom: 40px;
-            color: var(--text-secondary);
-        }
-
-        /* Rule Table */
-        .rule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
-            border-radius: var(--border-radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .rule-table th {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 18px;
-            font-weight: 600;
-            text-align: left;
-        }
-
-        .rule-table td {
-            padding: 16px 18px;
-            border-bottom: 1px solid var(--border-color);
-            font-family: 'Noto Sans JP', sans-serif;
-            transition: background var(--transition-fast);
-        }
-
-        .rule-table tr:hover td {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(245, 87, 108, 0.05));
-        }
-
-        /* Error Message */
-        .error-message {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(243, 129, 129, 0.1));
-            border: 2px solid var(--error-color);
-            border-radius: var(--border-radius-lg);
-            color: var(--error-color);
-            margin: 20px 0;
-        }
-
-        .error-message h3 {
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .error-message p {
-            margin-bottom: 10px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .header-content {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-
-            .nav-menu {
-                gap: 5px;
-            }
-
-            .nav-link {
-                padding: 10px 15px;
-                font-size: 0.9rem;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .mindmap-container,
-            .quiz-container {
-                padding: 25px;
-            }
-
-            .branches {
-                grid-template-columns: 1fr;
-            }
-
-            .quiz-header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .progress-bar {
-                width: 100%;
-            }
-
-            .quiz-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .theory-cards,
-            .exercise-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .practice-dashboard {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-        }
-
-        /* Accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Focus styles for accessibility */
-        .btn:focus,
-        .answer-input:focus,
-        .nav-link:focus,
-        .theme-toggle:focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            :root {
-                --border-color: #000000;
-                --text-color: #000000;
-            }
-            
-            [data-theme="dark"] {
-                --border-color: #ffffff;
-                --text-color: #ffffff;
-            }
-        }
-    </style>
+          }
+        }
+      },
+      darkMode: 'class',
+    }
+  </script>
+
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass-effect {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .shimmer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shimmer 2s infinite;
+    }
+  </style>
 </head>
-<body data-theme="light">
-    <div class="animated-bg"></div>
-    
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Đang tải dữ liệu...</div>
-        <div class="loading-progress">
-            <div class="loading-progress-bar"></div>
-        </div>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+  <!-- Loading Screen -->
+  <div id="loading-screen"
+    class="fixed inset-0 bg-white dark:bg-gray-900 flex flex-col items-center justify-center z-50">
+    <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mb-4"></div>
+    <div class="text-xl font-medium text-gray-700 dark:text-gray-300 mb-2">Đang tải dữ liệu...</div>
+    <div class="w-64 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+      <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full animate-pulse"
+        style="width: 100%; animation-duration: 2s;"></div>
     </div>
-    
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-torii-gate"></i>
-                    日本語学習 - 普通形
-                </div>
-                <nav>
-                    <ul class="nav-menu">
-                        <li><a href="#" class="nav-link active" data-page="theory">
-                            <i class="fas fa-book"></i> Lí Thuyết
-                        </a></li>
-                        <li><a href="#" class="nav-link" data-page="practice">
-                            <i class="fas fa-pencil-alt"></i> Thực Hành
-                        </a></li>
-                    </ul>
-                </nav>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Chuyển đổi chế độ sáng/tối">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-            </div>
+  </div>
+
+  <!-- Header -->
+  <header
+    class="sticky top-0 z-40 glass-effect bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex items-center space-x-3">
+          <i class="fas fa-torii-gate text-2xl gradient-text"></i>
+          <h1 class="text-xl font-bold gradient-text font-japanese">日本語学習</h1>
         </div>
-    </header>
 
-    <main class="main-content">
-        <div class="container">
-            <!-- Theory Page -->
-            <div class="page active" id="theory-page">
-                <div class="hero-section">
-                    <h1 class="hero-title">Thể Thường (普通形)</h1>
-                    <p class="hero-subtitle">Nắm vững kiến thức cơ bản về thể thường trong tiếng Nhật một cách dễ dàng và trực quan</p>
-                </div>
+        <!-- Navigation -->
+        <nav class="hidden md:flex space-x-2">
+          <button class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 bg-blue-500 text-white"
+            data-page="theory">
+            <i class="fas fa-book mr-2"></i>Lý Thuyết
+          </button>
+          <button
+            class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            data-page="practice">
+            <i class="fas fa-pencil-alt mr-2"></i>Thực Hành
+          </button>
+          <button
+            class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            data-page="review">
+            <i class="fas fa-redo mr-2"></i>Ôn Tập
+          </button>
+          <button
+            class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+            data-page="statistics">
+            <i class="fas fa-chart-bar mr-2"></i>Thống Kê
+          </button>
+        </nav>
 
-                <div class="mindmap-container glass-container">
-                    <h2 class="mindmap-title">
-                        <i class="fas fa-sitemap"></i> Sơ Đồ Tư Duy - Thể Thường
-                    </h2>
-                    <div class="mindmap">
-                        <div class="central-node">
-                            普通形<br><small style="font-size: 0.8em;">(Thể Thường)</small>
-                        </div>
-                        <div class="branches">
-                            <div class="branch">
-                                <div class="branch-title">
-                                    <i class="fas fa-running"></i> Động Từ (動詞)
-                                </div>
-                                <div class="branch-examples">
-                                    <div class="example">Hiện tại: いきます → いく</div>
-                                    <div class="example">Quá khứ: いきました → いった</div>
-                                    <div class="example">Phủ định: いきません → いかない</div>
-                                    <div class="example">Quá khứ PĐ: いきませんでした → いかなかった</div>
-                                </div>
-                            </div>
-                            <div class="branch">
-                                <div class="branch-title">
-                                    <i class="fas fa-palette"></i> Tính Từ い
-                                </div>
-                                <div class="branch-examples">
-                                    <div class="example">おいしいです → おいしい</div>
-                                    <div class="example">おいしかったです → おいしかった</div>
-                                    <div class="example">おいしくないです → おいしくない</div>
-                                    <div class="example">おいしくなかったです → おいしくなかった</div>
-                                </div>
-                            </div>
-                            <div class="branch">
-                                <div class="branch-title">
-                                    <i class="fas fa-star"></i> Tính Từ な
-                                </div>
-                                <div class="branch-examples">
-                                    <div class="example">きれいです → きれいだ</div>
-                                    <div class="example">きれいでした → きれいだった</div>
-                                    <div class="example">きれいじゃありません → きれいじゃない</div>
-                                    <div class="example">きれいじゃありませんでした → きれいじゃなかった</div>
-                                </div>
-                            </div>
-                            <div class="branch">
-                                <div class="branch-title">
-                                    <i class="fas fa-cube"></i> Danh Từ (名詞)
-                                </div>
-                                <div class="branch-examples">
-                                    <div class="example">がくせいです → がくせいだ</div>
-                                    <div class="example">がくせいでした → がくせいだった</div>
-                                    <div class="example">がくせいじゃありません → がくせいじゃない</div>
-                                    <div class="example">がくせいじゃありませんでした → がくせいじゃなかった</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Theme Toggle -->
+        <button id="theme-toggle"
+          class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <i class="fas fa-moon dark:hidden"></i>
+          <i class="fas fa-sun hidden dark:block"></i>
+        </button>
 
-                <div class="theory-cards">
-                    <div class="theory-card">
-                        <h3 class="card-title">
-                            <i class="fas fa-info-circle"></i> Thể Thường là gì?
-                        </h3>
-                        <p>Thể Thường (普通形) là một trong những thể của động từ, tính từ và danh từ trong tiếng Nhật. Nó được sử dụng trong:</p>
-                        <ul style="margin-top: 15px; padding-left: 20px; line-height: 1.8;">
-                            <li>🗣️ Các tình huống thân mật, không trang trọng</li>
-                            <li>👫 Nói chuyện với bạn bè, người thân</li>
-                            <li>📝 Văn viết không yêu cầu sự trang trọng (blog, diary, manga)</li>
-                            <li>🔗 Kết hợp với các mẫu ngữ pháp đặc biệt</li>
-                        </ul>
-                    </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
 
-                    <div class="theory-card">
-                        <h3 class="card-title">
-                            <i class="fas fa-exchange-alt"></i> Quy Tắc Chuyển Đổi
-                        </h3>
-                        <table class="rule-table">
-                            <thead>
-                                <tr>
-                                    <th>Loại từ</th>
-                                    <th>Thể Lịch Sự</th>
-                                    <th>Thể Thường</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Động từ (hiện tại)</strong></td>
-                                    <td>Vます</td>
-                                    <td>Vる</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Động từ (quá khứ)</strong></td>
-                                    <td>Vました</td>
-                                    <td>Vた</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Động từ (phủ định)</strong></td>
-                                    <td>Vません</td>
-                                    <td>Vない</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Tính từ い</strong></td>
-                                    <td>Aいです</td>
-                                    <td>Aい</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Tính từ な</strong></td>
-                                    <td>Aなです</td>
-                                    <td>Aだ</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Danh từ</strong></td>
-                                    <td>Nです</td>
-                                    <td>Nだ</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu"
+      class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/90">
+      <div class="px-4 py-2 space-y-1">
+        <button class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium bg-blue-500 text-white"
+          data-page="theory">
+          <i class="fas fa-book mr-2"></i>Lý Thuyết
+        </button>
+        <button
+          class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          data-page="practice">
+          <i class="fas fa-pencil-alt mr-2"></i>Thực Hành
+        </button>
+        <button
+          class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          data-page="review">
+          <i class="fas fa-redo mr-2"></i>Ôn Tập
+        </button>
+        <button
+          class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          data-page="statistics">
+          <i class="fas fa-chart-bar mr-2"></i>Thống Kê
+        </button>
+      </div>
+    </div>
+  </header>
 
-                    <div class="theory-card">
-                        <h3 class="card-title">
-                            <i class="fas fa-lightbulb"></i> Mẹo Học Tập
-                        </h3>
-                        <ul style="padding-left: 20px; line-height: 1.8;">
-                            <li>🔄 <strong>Luyện tập thường xuyên</strong> với bạn bè người Nhật</li>
-                            <li>🎬 <strong>Xem anime, drama</strong> để nghe thể thường trong thực tế</li>
-                            <li>📱 <strong>Đọc manga, tin nhắn</strong> social media</li>
-                            <li>🎯 <strong>Đừng sợ sai</strong> - học từ sai lầm</li>
-                            <li>📚 <strong>Ôn lại kiến thức</strong> định kỳ</li>
-                            <li>🗣️ <strong>Thực hành với AI chatbot</strong> tiếng Nhật</li>
-                        </ul>
-                    </div>
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Theory Page -->
+    <div id="theory-page" class="page animate-slide-up">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4 font-japanese">
+          普通形 (Thể Thường)
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          Nắm vững kiến thức cơ bản về thể thường trong tiếng Nhật một cách dễ dàng và trực quan
+        </p>
+      </div>
 
-                    <div class="theory-card">
-                        <h3 class="card-title">
-                            <i class="fas fa-puzzle-piece"></i> Ứng Dụng Thực Tế
-                        </h3>
-                        <p>Thể thường thường xuất hiện trong các mẫu ngữ pháp:</p>
-                        <div style="margin-top: 20px;">
-                            <div class="example" style="margin-bottom: 10px;">
-                                <strong>と思います</strong> - tôi nghĩ rằng...
-                            </div>
-                            <div class="example" style="margin-bottom: 10px;">
-                                <strong>でしょう</strong> - có lẽ, phải không
-                            </div>
-                            <div class="example" style="margin-bottom: 10px;">
-                                <strong>かもしれません</strong> - có thể
-                            </div>
-                            <div class="example" style="margin-bottom: 10px;">
-                                <strong>時、前に、後で</strong> - khi, trước, sau
-                            </div>
-                            <div class="example">
-                                <strong>ので、のに</strong> - vì, mặc dù
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <!-- Enhanced Mind Map -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-12 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold text-center mb-8 gradient-text">
+          <i class="fas fa-sitemap mr-3"></i>Sơ Đồ Kiến Thức - Thể Thường
+        </h2>
+
+        <!-- Central Node -->
+        <div class="flex flex-col items-center">
+          <div class="gradient-bg text-white px-8 py-6 rounded-2xl text-2xl font-bold shadow-2xl mb-8 font-japanese">
+            普通形<br><small class="text-sm opacity-90">(Thể Thường)</small>
+          </div>
+
+          <!-- Branches -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+            <!-- Verbs -->
+            <div
+              class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-l-4 border-blue-500 hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-running text-blue-500 text-2xl mr-3"></i>
+                <h3 class="text-lg font-bold text-blue-700 dark:text-blue-300">Động Từ</h3>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">行きます → 行く</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">行きました → 行った</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">行きません → 行かない</div>
+              </div>
             </div>
 
-            <!-- Practice Page -->
-            <div class="page" id="practice-page">
-                <div class="hero-section">
-                    <h1 class="hero-title">Thực Hành Bài Tập</h1>
-                    <p class="hero-subtitle">Luyện tập và kiểm tra kiến thức thể thường của bạn qua các bài tập tương tác</p>
-                </div>
-
-                <!-- Stats Dashboard -->
-                <div class="practice-dashboard">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="stat-value" id="correct-count">0</div>
-                        <div class="stat-label">Câu Đúng</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-clipboard-list"></i>
-                        </div>
-                        <div class="stat-value" id="total-count">0</div>
-                        <div class="stat-label">Tổng Câu</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-fire"></i>
-                        </div>
-                        <div class="stat-value" id="streak-count">0</div>
-                        <div class="stat-label">Streak</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div class="stat-value" id="accuracy-rate">0%</div>
-                        <div class="stat-label">Độ Chính Xác</div>
-                    </div>
-                </div>
-
-                <!-- Exercise Selection -->
-                <div class="exercise-grid" id="exercise-selection">
-                    <!-- Exercises will be populated by JavaScript -->
-                </div>
-
-                <!-- Quiz Container -->
-                <div class="quiz-container" id="quiz-container">
-                    <div class="quiz-header">
-                        <div class="quiz-title" id="quiz-title">Bài Tập</div>
-                        <div class="quiz-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="quiz-progress-fill" style="width: 0%"></div>
-                            </div>
-                            <span id="quiz-progress-text">1/25</span>
-                        </div>
-                    </div>
-
-                    <div class="question-card">
-                        <div class="question-text" id="question-text">
-                            Chuyển câu sau sang thể thường:
-                        </div>
-                        <div class="japanese-text" id="japanese-sentence">
-                            がっこうに いきます。
-                        </div>
-                        <div style="margin: 10px 0; font-style: italic; color: var(--text-secondary);" id="vietnamese-meaning">
-                            (đi học)
-                        </div>
-                        <div style="margin-bottom: 20px; font-size: 1.1rem;">
-                            → <span id="sentence-prefix">がっこうに</span> <span style="border-bottom: 2px dashed var(--primary-color); padding: 5px 15px; min-width: 120px; display: inline-block; text-align: center;">_____</span>。
-                        </div>
-                        <input type="text" class="answer-input" id="answer-input" placeholder="Nhập đáp án bằng hiragana..." autocomplete="off">
-                    </div>
-
-                    <div class="quiz-buttons">
-                        <button class="btn btn-secondary" onclick="showHint()" id="hint-btn">
-                            <i class="fas fa-lightbulb"></i> Gợi Ý
-                        </button>
-                        <button class="btn btn-primary" onclick="checkAnswer()" id="check-btn">
-                            <i class="fas fa-check"></i> Kiểm Tra
-                        </button>
-                        <button class="btn btn-success" onclick="nextQuestion()" id="next-btn" style="display: none;">
-                            <i class="fas fa-arrow-right"></i> Tiếp Theo
-                        </button>
-                    </div>
-
-                    <div id="feedback"></div>
-
-                    <div class="quiz-buttons" style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
-                        <button class="btn btn-secondary" onclick="backToSelection()">
-                            <i class="fas fa-arrow-left"></i> Quay Lại
-                        </button>
-                        <button class="btn btn-warning" onclick="skipQuestion()" id="skip-btn">
-                            <i class="fas fa-forward"></i> Bỏ Qua
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Results Container -->
-                <div class="results-container" id="results-container" style="display: none;">
-                    <div style="margin-bottom: 30px;">
-                        <i class="fas fa-trophy" style="font-size: 4rem; color: var(--warning-color); margin-bottom: 20px;"></i>
-                    </div>
-                    <div class="results-score" id="results-score">0/0</div>
-                    <div class="results-message" id="results-message">Chúc mừng bạn đã hoàn thành bài tập!</div>
-                    <div style="margin: 30px 0;">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; max-width: 400px; margin: 0 auto;">
-                            <div>
-                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--success-color);" id="final-correct">0</div>
-                                <div style="color: var(--text-secondary);">Đúng</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--error-color);" id="final-wrong">0</div>
-                                <div style="color: var(--text-secondary);">Sai</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 1.5rem; font-weight: bold; color: var(--warning-color);" id="final-skipped">0</div>
-                                <div style="color: var(--text-secondary);">Bỏ qua</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="quiz-buttons">
-                        <button class="btn btn-primary" onclick="retryExercise()">
-                            <i class="fas fa-redo"></i> Làm Lại
-                        </button>
-                        <button class="btn btn-secondary" onclick="backToSelection()">
-                            <i class="fas fa-home"></i> Về Trang Chủ
-                        </button>
-                    </div>
-                </div>
+            <!-- i-Adjectives -->
+            <div
+              class="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-l-4 border-green-500 hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-palette text-green-500 text-2xl mr-3"></i>
+                <h3 class="text-lg font-bold text-green-700 dark:text-green-300">Tính Từ い</h3>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">おいしいです → おいしい</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">おいしかった</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">おいしくない</div>
+              </div>
             </div>
+
+            <!-- na-Adjectives -->
+            <div
+              class="bg-gradient-to-br from-purple-50 to-violet-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-l-4 border-purple-500 hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-star text-purple-500 text-2xl mr-3"></i>
+                <h3 class="text-lg font-bold text-purple-700 dark:text-purple-300">Tính Từ な</h3>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">きれいです → きれいだ</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">きれいだった</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">きれいじゃない</div>
+              </div>
+            </div>
+
+            <!-- Nouns -->
+            <div
+              class="bg-gradient-to-br from-orange-50 to-amber-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-l-4 border-orange-500 hover:shadow-lg transition-all duration-300 hover:scale-105">
+              <div class="flex items-center mb-4">
+                <i class="fas fa-cube text-orange-500 text-2xl mr-3"></i>
+                <h3 class="text-lg font-bold text-orange-700 dark:text-orange-300">Danh Từ</h3>
+              </div>
+              <div class="space-y-2 text-sm">
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">学生です → 学生だ</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">学生だった</div>
+                <div class="bg-white dark:bg-gray-800 p-2 rounded font-japanese">学生じゃない</div>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
 
-    <script>
-        // App Configuration
-        const APP_CONFIG = {
-            STORAGE_KEY: 'japaneseApp',
-            ANIMATION_DURATION: 300,
-            AUTO_SAVE_INTERVAL: 5000,
-            QUESTIONS_URL: './questions.json',
-            ANSWERS_URL: './answers.json'
+      <!-- Theory Cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- What is Casual Form -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+          <h3 class="text-2xl font-bold mb-6 flex items-center text-blue-600 dark:text-blue-400">
+            <i class="fas fa-info-circle mr-3"></i>Thể Thường là gì?
+          </h3>
+          <div class="space-y-4 text-gray-700 dark:text-gray-300">
+            <p>Thể Thường (普通形) được sử dụng trong:</p>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-comments text-blue-500 mt-1 mr-3"></i>
+                <span>Các tình huống thân mật, không trang trọng</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-users text-green-500 mt-1 mr-3"></i>
+                <span>Nói chuyện với bạn bè, người thân</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-book-open text-purple-500 mt-1 mr-3"></i>
+                <span>Văn viết không trang trọng (blog, diary, manga)</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-link text-orange-500 mt-1 mr-3"></i>
+                <span>Kết hợp với các mẫu ngữ pháp đặc biệt</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conversion Rules -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+          <h3 class="text-2xl font-bold mb-6 flex items-center text-green-600 dark:text-green-400">
+            <i class="fas fa-exchange-alt mr-3"></i>Quy Tắc Chuyển Đổi
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-gray-200 dark:border-gray-600">
+                  <th class="text-left py-2 text-gray-700 dark:text-gray-300">Loại từ</th>
+                  <th class="text-left py-2 text-gray-700 dark:text-gray-300">Lịch sự</th>
+                  <th class="text-left py-2 text-gray-700 dark:text-gray-300">Thường</th>
+                </tr>
+              </thead>
+              <tbody class="space-y-2">
+                <tr class="border-b border-gray-100 dark:border-gray-700">
+                  <td class="py-2 font-medium">Động từ</td>
+                  <td class="py-2 font-japanese">Vます</td>
+                  <td class="py-2 font-japanese text-blue-600">Vる</td>
+                </tr>
+                <tr class="border-b border-gray-100 dark:border-gray-700">
+                  <td class="py-2 font-medium">Tính từ い</td>
+                  <td class="py-2 font-japanese">Aいです</td>
+                  <td class="py-2 font-japanese text-green-600">Aい</td>
+                </tr>
+                <tr class="border-b border-gray-100 dark:border-gray-700">
+                  <td class="py-2 font-medium">Tính từ な</td>
+                  <td class="py-2 font-japanese">Aなです</td>
+                  <td class="py-2 font-japanese text-purple-600">Aだ</td>
+                </tr>
+                <tr>
+                  <td class="py-2 font-medium">Danh từ</td>
+                  <td class="py-2 font-japanese">Nです</td>
+                  <td class="py-2 font-japanese text-orange-600">Nだ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Learning Tips -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+          <h3 class="text-2xl font-bold mb-6 flex items-center text-yellow-600 dark:text-yellow-400">
+            <i class="fas fa-lightbulb mr-3"></i>Mẹo Học Tập
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <i class="fas fa-repeat text-blue-500 mt-1"></i>
+              <span>Luyện tập thường xuyên với bạn bè người Nhật</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <i class="fas fa-film text-red-500 mt-1"></i>
+              <span>Xem anime, drama để nghe thể thường trong thực tế</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <i class="fas fa-book-reader text-green-500 mt-1"></i>
+              <span>Đọc manga, tin nhắn social media</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <i class="fas fa-target text-purple-500 mt-1"></i>
+              <span>Đừng sợ sai - học từ sai lầm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practical Applications -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300">
+          <h3 class="text-2xl font-bold mb-6 flex items-center text-purple-600 dark:text-purple-400">
+            <i class="fas fa-puzzle-piece mr-3"></i>Ứng Dụng Thực Tế
+          </h3>
+          <p class="mb-4 text-gray-700 dark:text-gray-300">Thể thường thường xuất hiện trong các mẫu ngữ pháp:</p>
+          <div class="space-y-3">
+            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+              <strong class="font-japanese text-blue-600">と思います</strong> - tôi nghĩ rằng...
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+              <strong class="font-japanese text-green-600">でしょう</strong> - có lẽ, phải không
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+              <strong class="font-japanese text-purple-600">かもしれません</strong> - có thể
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
+              <strong class="font-japanese text-orange-600">時、前に、後で</strong> - khi, trước, sau
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practice Page -->
+    <div id="practice-page" class="page hidden">
+      <!-- Hero Section -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Thực Hành Bài Tập</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">Luyện tập và kiểm tra kiến thức thể thường</p>
+      </div>
+
+      <!-- Stats Dashboard -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center border border-gray-200 dark:border-gray-700">
+          <i class="fas fa-check-circle text-3xl text-green-500 mb-2"></i>
+          <div class="text-2xl font-bold text-gray-800 dark:text-gray-200" id="correct-count">0</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Câu Đúng</div>
+        </div>
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center border border-gray-200 dark:border-gray-700">
+          <i class="fas fa-clipboard-list text-3xl text-blue-500 mb-2"></i>
+          <div class="text-2xl font-bold text-gray-800 dark:text-gray-200" id="total-count">0</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Tổng Câu</div>
+        </div>
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center border border-gray-200 dark:border-gray-700">
+          <i class="fas fa-fire text-3xl text-orange-500 mb-2"></i>
+          <div class="text-2xl font-bold text-gray-800 dark:text-gray-200" id="streak-count">0</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Streak</div>
+        </div>
+        <div
+          class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center border border-gray-200 dark:border-gray-700">
+          <i class="fas fa-percentage text-3xl text-purple-500 mb-2"></i>
+          <div class="text-2xl font-bold text-gray-800 dark:text-gray-200" id="accuracy-rate">0%</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Độ Chính Xác</div>
+        </div>
+      </div>
+
+      <!-- Exercise Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="exercise-grid">
+        <!-- Exercise cards will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Review Page -->
+    <div id="review-page" class="page hidden">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Ôn Tập Câu Sai</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">Ôn lại những câu bạn đã làm sai để học tập hiệu quả hơn</p>
+      </div>
+
+      <div id="review-content" class="space-y-6">
+        <!-- Review content will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Statistics Page -->
+    <div id="statistics-page" class="page hidden">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold gradient-text mb-4">Thống Kê Học Tập</h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">Theo dõi tiến độ học tập của bạn</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Progress Chart -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold mb-4">Tiến Độ Theo Thời Gian</h3>
+          <div id="progress-chart" class="h-64 flex items-center justify-center text-gray-500">
+            Biểu đồ tiến độ sẽ được hiển thị ở đây
+          </div>
+        </div>
+
+        <!-- Exercise Progress -->
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+          <h3 class="text-xl font-bold mb-4">Tiến Độ Bài Tập</h3>
+          <div id="exercise-progress" class="space-y-4">
+            <!-- Exercise progress will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div id="quiz-container"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <!-- Quiz Header -->
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold gradient-text" id="quiz-title">Bài Tập</h2>
+            <button id="close-quiz" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div class="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+              <div
+                class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-300 relative overflow-hidden"
+                id="quiz-progress-bar" style="width: 0%">
+                <div class="absolute inset-0 shimmer"></div>
+              </div>
+            </div>
+            <span class="text-sm font-medium text-gray-600 dark:text-gray-400" id="quiz-progress-text">1/25</span>
+          </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="p-6">
+          <div
+            class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 rounded-xl p-6 mb-6">
+            <div class="text-lg mb-4" id="question-text">Chuyển câu sau sang thể thường:</div>
+            <div class="text-2xl font-bold font-japanese mb-2 text-blue-700 dark:text-blue-300" id="japanese-sentence">
+              がっこうに いきます。
+            </div>
+            <div class="text-gray-600 dark:text-gray-400 italic mb-4" id="vietnamese-meaning">(đi học)</div>
+            <div class="text-lg mb-4">
+              → <span id="sentence-prefix">がっこうに</span>
+              <span
+                class="border-b-2 border-dashed border-blue-500 px-4 py-1 mx-2 min-w-[120px] inline-block text-center bg-white dark:bg-gray-800 rounded">_____</span>。
+            </div>
+
+            <!-- Answer Input -->
+            <input type="text" id="answer-input"
+              class="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl font-japanese text-lg bg-white dark:bg-gray-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800 transition-all duration-300"
+              placeholder="Nhập đáp án bằng hiragana..." autocomplete="off">
+          </div>
+
+          <!-- Feedback -->
+          <div id="feedback" class="mb-6"></div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-3 justify-center">
+            <button id="check-btn"
+              class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
+              <i class="fas fa-check mr-2"></i>Kiểm Tra
+            </button>
+            <button id="next-btn"
+              class="hidden px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-105">
+              <i class="fas fa-arrow-right mr-2"></i>Tiếp Theo
+            </button>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="flex justify-between mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <button id="back-to-selection"
+              class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors">
+              <i class="fas fa-arrow-left mr-2"></i>Quay Lại
+            </button>
+            <button id="retry-wrong"
+              class="px-4 py-2 text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-200 transition-colors">
+              <i class="fas fa-redo mr-2"></i>Làm Lại Câu Sai
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="results-modal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md text-center p-8">
+        <div class="text-6xl mb-4">🎉</div>
+        <h2 class="text-3xl font-bold mb-4 gradient-text">Hoàn Thành!</h2>
+        <div class="text-4xl font-bold mb-2" id="final-score">0/0</div>
+        <div class="text-gray-600 dark:text-gray-400 mb-6" id="final-message">Chúc mừng bạn!</div>
+
+        <div class="grid grid-cols-3 gap-4 mb-6">
+          <div>
+            <div class="text-2xl font-bold text-green-500" id="final-correct">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Đúng</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-red-500" id="final-wrong">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Sai</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold text-orange-500" id="final-skipped">0</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Bỏ qua</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button id="retry-exercise"
+            class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+            <i class="fas fa-redo mr-2"></i>Làm Lại
+          </button>
+          <button id="close-results"
+            class="flex-1 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            <i class="fas fa-home mr-2"></i>Trang Chủ
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // App State and Configuration
+    class JapaneseApp {
+      constructor() {
+        this.currentExercise = null;
+        this.currentQuestionIndex = 0;
+        this.sessionStats = { correct: 0, total: 0, streak: 0, wrong: 0 };
+        this.wrongAnswers = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+        this.globalStats = this.loadGlobalStats();
+        this.questionsData = {};
+        this.answersData = {};
+        this.isDataLoaded = false;
+        this.currentPage = 'theory';
+
+        this.exerciseDefinitions = {
+          'verbs-present': {
+            title: 'Động Từ - Hiện Tại',
+            description: 'Luyện tập chuyển đổi động từ hiện tại từ thể lịch sự sang thể thường',
+            icon: 'fas fa-play',
+            color: 'blue',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi động từ hiện tại:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• います → う (Group 1): 書きます → 書く</li>
+                                <li>• ます → る (Group 2): 食べます → 食べる</li>
+                                <li>• します → する (Irregular): 勉強します → 勉強する</li>
+                                <li>• きます → くる (Irregular): 来ます → 来る</li>
+                            </ul>
+                        `
+          },
+          'verbs-past': {
+            title: 'Động Từ - Quá Khứ',
+            description: 'Luyện tập chuyển đổi động từ quá khứ từ thể lịch sự sang thể thường',
+            icon: 'fas fa-history',
+            color: 'green',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi động từ quá khứ:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• きました → いた: 書きました → 書いた</li>
+                                <li>• ぎました → いだ: 泳ぎました → 泳いだ</li>
+                                <li>• しました → した: 話しました → 話した</li>
+                                <li>• ちました → った: 待ちました → 待った</li>
+                                <li>• にました → んだ: 死にました → 死んだ</li>
+                            </ul>
+                        `
+          },
+          'verbs-negative': {
+            title: 'Động Từ - Phủ Định',
+            description: 'Luyện tập chuyển đổi động từ phủ định từ thể lịch sự sang thể thường',
+            icon: 'fas fa-times-circle',
+            color: 'red',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi động từ phủ định:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• きません → かない: 書きません → 書かない</li>
+                                <li>• ぎません → がない: 泳ぎません → 泳がない</li>
+                                <li>• しません → さない: 話しません → 話さない</li>
+                                <li>• ちません → たない: 待ちません → 待たない</li>
+                                <li>• にません → なない: 死にません → 死なない</li>
+                            </ul>
+                        `
+          },
+          'verbs-past-negative': {
+            title: 'Động Từ - Quá Khứ Phủ Định',
+            description: 'Luyện tập chuyển đổi động từ quá khứ phủ định từ thể lịch sự sang thể thường',
+            icon: 'fas fa-minus-circle',
+            color: 'gray',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi động từ quá khứ phủ định:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• きませんでした → かなかった</li>
+                                <li>• ぎませんでした → がなかった</li>
+                                <li>• しませんでした → さなかった</li>
+                                <li>• ちませんでした → たなかった</li>
+                                <li>• にませんでした → ななかった</li>
+                            </ul>
+                        `
+          },
+          'adjectives-i': {
+            title: 'Tính Từ い',
+            description: 'Luyện tập chuyển đổi tính từ đuôi い từ thể lịch sự sang thể thường',
+            icon: 'fas fa-palette',
+            color: 'purple',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi tính từ い:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• Hiện tại: おいしいです → おいしい</li>
+                                <li>• Quá khứ: おいしかったです → おいしかった</li>
+                                <li>• Phủ định: おいしくないです → おいしくない</li>
+                                <li>• Quá khứ PĐ: おいしくなかったです → おいしくなかった</li>
+                                <li>• Đặc biệt: いいです → いい (quá khứ: よかった)</li>
+                            </ul>
+                        `
+          },
+          'adjectives-na': {
+            title: 'Tính Từ な',
+            description: 'Luyện tập chuyển đổi tính từ đuôi な từ thể lịch sự sang thể thường',
+            icon: 'fas fa-star',
+            color: 'yellow',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi tính từ な:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• Hiện tại: きれいです → きれいだ</li>
+                                <li>• Quá khứ: きれいでした → きれいだった</li>
+                                <li>• Phủ định: きれいじゃありません → きれいじゃない</li>
+                                <li>• Quá khứ PĐ: きれいじゃありませんでした → きれいじゃなかった</li>
+                            </ul>
+                        `
+          },
+          'nouns': {
+            title: 'Danh Từ',
+            description: 'Luyện tập chuyển đổi danh từ từ thể lịch sự sang thể thường',
+            icon: 'fas fa-cube',
+            color: 'indigo',
+            theory: `
+                            <h4 class="font-bold mb-2">Quy tắc chuyển đổi danh từ:</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• Hiện tại: 学生です → 学生だ</li>
+                                <li>• Quá khứ: 学生でした → 学生だった</li>
+                                <li>• Phủ định: 学生じゃありません → 学生じゃない</li>
+                                <li>• Quá khứ PĐ: 学生じゃありませんでした → 学生じゃなかった</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-must': {
+            title: 'Ngữ Pháp - Phải Làm',
+            description: 'Luyện tập mẫu なければなりません → なければならない',
+            icon: 'fas fa-exclamation-triangle',
+            color: 'orange',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "phải làm":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• なければなりません → なければならない</li>
+                                <li>• VĐ: 行かなければなりません → 行かなければならない</li>
+                                <li>• Nghĩa: Phải làm gì đó</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-ing': {
+            title: 'Ngữ Pháp - Đang Làm',
+            description: 'Luyện tập mẫu ています → ている',
+            icon: 'fas fa-clock',
+            color: 'cyan',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "đang làm":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• ています → ている</li>
+                                <li>• VĐ: 読んでいます → 読んでいる</li>
+                                <li>• Nghĩa: Đang làm gì đó</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-forbidden': {
+            title: 'Ngữ Pháp - Không Được',
+            description: 'Luyện tập mẫu てはいけません → てはいけない',
+            icon: 'fas fa-ban',
+            color: 'red',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "không được":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• てはいけません → てはいけない</li>
+                                <li>• VĐ: 食べてはいけません → 食べてはいけない</li>
+                                <li>• Nghĩa: Không được làm gì đó</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-permission': {
+            title: 'Ngữ Pháp - Có Thể Làm',
+            description: 'Luyện tập mẫu てもいいです → てもいい',
+            icon: 'fas fa-check-circle',
+            color: 'green',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "có thể làm":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• てもいいです → てもいい</li>
+                                <li>• VĐ: 食べてもいいです → 食べてもいい</li>
+                                <li>• Nghĩa: Có thể làm gì đó</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-ability': {
+            title: 'Ngữ Pháp - Có Khả Năng',
+            description: 'Luyện tập mẫu ことができます → ことができる',
+            icon: 'fas fa-medal',
+            color: 'amber',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "có khả năng":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• ことができます → ことができる</li>
+                                <li>• VĐ: 話すことができます → 話すことができる</li>
+                                <li>• Nghĩa: Có thể làm gì đó</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-experience': {
+            title: 'Ngữ Pháp - Đã Từng',
+            description: 'Luyện tập mẫu ことがあります → ことがある',
+            icon: 'fas fa-history',
+            color: 'violet',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "đã từng":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• ことがあります → ことがある</li>
+                                <li>• VĐ: 行ったことがあります → 行ったことがある</li>
+                                <li>• Nghĩa: Đã từng làm gì đó</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-alternation': {
+            title: 'Ngữ Pháp - Làm Này Làm Kia',
+            description: 'Luyện tập mẫu たりします → たりする',
+            icon: 'fas fa-exchange-alt',
+            color: 'teal',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "làm này làm kia":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• たりします → たりする</li>
+                                <li>• VĐ: 読んだりします → 読んだりする</li>
+                                <li>• Nghĩa: Làm việc này việc kia</li>
+                            </ul>
+                        `
+          },
+          'grammar-patterns-become': {
+            title: 'Ngữ Pháp - Trở Nên',
+            description: 'Luyện tập mẫu なります → なる',
+            icon: 'fas fa-arrow-up',
+            color: 'sky',
+            theory: `
+                            <h4 class="font-bold mb-2">Mẫu ngữ pháp "trở nên":</h4>
+                            <ul class="space-y-1 text-xs">
+                                <li>• なります → なる</li>
+                                <li>• VĐ: 暖かくなります → 暖かくなる</li>
+                                <li>• Nghĩa: Trở thành/trở nên</li>
+                            </ul>
+                        `
+          }
         };
 
-        // Exercise Definitions
-        const EXERCISE_DEFINITIONS = {
-            'verbs-present': {
-                title: 'Động Từ - Hiện Tại',
-                description: '25 câu luyện tập chuyển đổi động từ hiện tại từ thể lịch sự sang thể thường',
-                icon: 'fas fa-play',
-                color: 'var(--primary-color)'
-            },
-            'verbs-past': {
-                title: 'Động Từ - Quá Khứ', 
-                description: '25 câu luyện tập chuyển đổi động từ quá khứ từ thể lịch sự sang thể thường',
-                icon: 'fas fa-history',
-                color: 'var(--secondary-color)'
-            },
-            'verbs-negative': {
-                title: 'Động Từ - Phủ Định',
-                description: '25 câu luyện tập chuyển đổi động từ phủ định từ thể lịch sự sang thể thường',
-                icon: 'fas fa-times-circle',
-                color: 'var(--error-color)'
-            },
-            'verbs-past-negative': {
-                title: 'Động Từ - Quá Khứ Phủ Định',
-                description: '25 câu luyện tập chuyển đổi động từ quá khứ phủ định từ thể lịch sự sang thể thường',
-                icon: 'fas fa-minus-circle',
-                color: '#9b59b6'
-            },
-            'adjectives-i': {
-                title: 'Tính Từ い',
-                description: '20 câu luyện tập chuyển đổi tính từ đuôi い từ thể lịch sự sang thể thường',
-                icon: 'fas fa-palette',
-                color: 'var(--accent-color)'
-            },
-            'adjectives-na': {
-                title: 'Tính Từ な',
-                description: '20 câu luyện tập chuyển đổi tính từ đuôi な từ thể lịch sự sang thể thường',
-                icon: 'fas fa-star',
-                color: 'var(--warning-color)'
-            },
-            'nouns': {
-                title: 'Danh Từ',
-                description: '20 câu luyện tập chuyển đổi danh từ từ thể lịch sự sang thể thường',
-                icon: 'fas fa-cube',
-                color: 'var(--success-color)'
-            },
-            'grammar-patterns-must': {
-                title: 'Ngữ Pháp - Phải Làm',
-                description: '12 câu luyện tập mẫu なければなりません → なければならない',
-                icon: 'fas fa-exclamation-triangle',
-                color: '#e67e22'
-            },
-            'grammar-patterns-ing': {
-                title: 'Ngữ Pháp - Đang Làm',
-                description: '12 câu luyện tập mẫu ています → ている',
-                icon: 'fas fa-clock',
-                color: '#3498db'
-            },
-            'grammar-patterns-forbidden': {
-                title: 'Ngữ Pháp - Không Được',
-                description: '12 câu luyện tập mẫu てはいけません → てはいけない',
-                icon: 'fas fa-ban',
-                color: '#e74c3c'
-            },
-            'grammar-patterns-permission': {
-                title: 'Ngữ Pháp - Có Thể Làm',
-                description: '12 câu luyện tập mẫu てもいいです → てもいい',
-                icon: 'fas fa-check-circle',
-                color: '#27ae60'
-            },
-            'grammar-patterns-ability': {
-                title: 'Ngữ Pháp - Có Khả Năng',
-                description: '12 câu luyện tập mẫu ことができます → ことができる',
-                icon: 'fas fa-medal',
-                color: '#f39c12'
-            },
-            'grammar-patterns-experience': {
-                title: 'Ngữ Pháp - Đã Từng',
-                description: '12 câu luyện tập mẫu ことがあります → ことがある',
-                icon: 'fas fa-history',
-                color: '#8e44ad'
-            },
-            'grammar-patterns-alternation': {
-                title: 'Ngữ Pháp - Làm Này Làm Kia',
-                description: '12 câu luyện tập mẫu たりします → たりする',
-                icon: 'fas fa-exchange-alt',
-                color: '#16a085'
-            },
-            'grammar-patterns-become': {
-                title: 'Ngữ Pháp - Trở Nên',
-                description: '12 câu luyện tập mẫu なります → なる',
-                icon: 'fas fa-arrow-up',
-                color: '#2980b9'
+        this.init();
+      }
+
+      async init() {
+        this.setupEventListeners();
+        this.loadTheme();
+
+        // Load data
+        await this.loadData();
+
+        // Initialize UI
+        this.updateStatsDisplay();
+        this.renderExerciseCards();
+        this.hideLoadingScreen();
+
+        // Setup keyboard shortcuts
+        this.setupKeyboardShortcuts();
+      }
+
+      async loadData() {
+        try {
+          const loadingText = document.querySelector('#loading-screen .text-xl');
+
+          // Load questions
+          loadingText.textContent = 'Đang tải câu hỏi...';
+          const questionsResponse = await fetch('./questions.json');
+          if (!questionsResponse.ok) {
+            throw new Error(`Không thể tải questions.json: ${questionsResponse.status}`);
+          }
+          this.questionsData = await questionsResponse.json();
+
+          // Load answers
+          loadingText.textContent = 'Đang tải đáp án...';
+          const answersResponse = await fetch('./answers.json');
+          if (!answersResponse.ok) {
+            throw new Error(`Không thể tải answers.json: ${answersResponse.status}`);
+          }
+          this.answersData = await answersResponse.json();
+
+          loadingText.textContent = 'Hoàn thành!';
+          this.isDataLoaded = true;
+
+          console.log('Đã tải thành công:', {
+            questions: Object.keys(this.questionsData).length + ' categories',
+            answers: Object.keys(this.answersData).length + ' categories'
+          });
+
+        } catch (error) {
+          console.error('Error loading data:', error);
+          this.showError(`Không thể tải dữ liệu: ${error.message}\n\nVui lòng kiểm tra:\n- File questions.json và answers.json có tồn tại?\n- Đường dẫn file có đúng?\n- Cấu trúc JSON có hợp lệ?`);
+        }
+      }
+
+      setupEventListeners() {
+        // Navigation
+        document.querySelectorAll('.nav-btn, .mobile-nav-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = btn.dataset.page;
+            this.showPage(page);
+            this.updateNavigation(btn);
+          });
+        });
+
+        // Theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+          this.toggleTheme();
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+          const menu = document.getElementById('mobile-menu');
+          menu.classList.toggle('hidden');
+        });
+
+        // Quiz controls
+        document.getElementById('check-btn').addEventListener('click', () => this.checkAnswer());
+        document.getElementById('next-btn').addEventListener('click', () => this.nextQuestion());
+        document.getElementById('close-quiz').addEventListener('click', () => this.closeQuiz());
+        document.getElementById('back-to-selection').addEventListener('click', () => this.closeQuiz());
+        document.getElementById('retry-wrong').addEventListener('click', () => this.retryWrongAnswers());
+
+        // Results modal
+        document.getElementById('retry-exercise').addEventListener('click', () => this.retryCurrentExercise());
+        document.getElementById('close-results').addEventListener('click', () => this.closeResults());
+
+        // Answer input
+        const answerInput = document.getElementById('answer-input');
+        answerInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (document.getElementById('check-btn').style.display !== 'none') {
+              this.checkAnswer();
+            } else if (document.getElementById('next-btn').style.display !== 'none') {
+              this.nextQuestion();
             }
+          }
+        });
+      }
+
+      showPage(page) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(p => {
+          p.classList.add('hidden');
+        });
+
+        // Show selected page
+        const targetPage = document.getElementById(`${page}-page`);
+        if (targetPage) {
+          targetPage.classList.remove('hidden');
+          targetPage.classList.add('animate-slide-up');
+        }
+
+        this.currentPage = page;
+
+        // Load page-specific content
+        if (page === 'review') {
+          this.loadReviewContent();
+        } else if (page === 'statistics') {
+          this.loadStatistics();
+        }
+      }
+
+      updateNavigation(activeBtn) {
+        // Update desktop navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+          btn.classList.remove('bg-blue-500', 'text-white');
+          btn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+        });
+
+        // Update mobile navigation
+        document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+          btn.classList.remove('bg-blue-500', 'text-white');
+          btn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+        });
+
+        // Set active button
+        const page = activeBtn.dataset.page;
+        document.querySelectorAll(`[data-page="${page}"]`).forEach(btn => {
+          btn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+          btn.classList.add('bg-blue-500', 'text-white');
+        });
+
+        // Hide mobile menu
+        document.getElementById('mobile-menu').classList.add('hidden');
+      }
+
+      toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        html.classList.toggle('dark');
+        localStorage.setItem('theme', newTheme);
+      }
+
+      loadTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      }
+
+      loadGlobalStats() {
+        const saved = localStorage.getItem('japaneseAppStats');
+        return saved ? JSON.parse(saved) : {
+          totalCorrect: 0,
+          totalQuestions: 0,
+          maxStreak: 0,
+          exerciseProgress: {},
+          lastAccessed: new Date().toISOString()
+        };
+      }
+
+      saveGlobalStats() {
+        this.globalStats.lastAccessed = new Date().toISOString();
+        localStorage.setItem('japaneseAppStats', JSON.stringify(this.globalStats));
+      }
+
+      updateStatsDisplay() {
+        document.getElementById('correct-count').textContent = this.globalStats.totalCorrect;
+        document.getElementById('total-count').textContent = this.globalStats.totalQuestions;
+        document.getElementById('streak-count').textContent = this.sessionStats.streak;
+
+        const accuracy = this.globalStats.totalQuestions > 0
+          ? Math.round((this.globalStats.totalCorrect / this.globalStats.totalQuestions) * 100)
+          : 0;
+        document.getElementById('accuracy-rate').textContent = accuracy + '%';
+      }
+
+      renderExerciseCards() {
+        const container = document.getElementById('exercise-grid');
+        container.innerHTML = '';
+
+        Object.entries(this.exerciseDefinitions).forEach(([key, exercise]) => {
+          const progress = this.globalStats.exerciseProgress[key] || 0;
+          const questions = this.questionsData[key] || [];
+          const total = questions.length;
+          const progressPercent = total > 0 ? (progress / total) * 100 : 0;
+
+          const colorClasses = {
+            blue: 'from-blue-50 to-blue-100 border-blue-200 text-blue-700 dark:from-blue-900/20 dark:to-blue-800/20 dark:border-blue-700 dark:text-blue-300',
+            green: 'from-green-50 to-green-100 border-green-200 text-green-700 dark:from-green-900/20 dark:to-green-800/20 dark:border-green-700 dark:text-green-300',
+            red: 'from-red-50 to-red-100 border-red-200 text-red-700 dark:from-red-900/20 dark:to-red-800/20 dark:border-red-700 dark:text-red-300',
+            purple: 'from-purple-50 to-purple-100 border-purple-200 text-purple-700 dark:from-purple-900/20 dark:to-purple-800/20 dark:border-purple-700 dark:text-purple-300',
+            yellow: 'from-yellow-50 to-yellow-100 border-yellow-200 text-yellow-700 dark:from-yellow-900/20 dark:to-yellow-800/20 dark:border-yellow-700 dark:text-yellow-300',
+            indigo: 'from-indigo-50 to-indigo-100 border-indigo-200 text-indigo-700 dark:from-indigo-900/20 dark:to-indigo-800/20 dark:border-indigo-700 dark:text-indigo-300',
+            orange: 'from-orange-50 to-orange-100 border-orange-200 text-orange-700 dark:from-orange-900/20 dark:to-orange-800/20 dark:border-orange-700 dark:text-orange-300',
+            cyan: 'from-cyan-50 to-cyan-100 border-cyan-200 text-cyan-700 dark:from-cyan-900/20 dark:to-cyan-800/20 dark:border-cyan-700 dark:text-cyan-300',
+            gray: 'from-gray-50 to-gray-100 border-gray-200 text-gray-700 dark:from-gray-700 dark:to-gray-600 dark:border-gray-600 dark:text-gray-300',
+            amber: 'from-amber-50 to-amber-100 border-amber-200 text-amber-700 dark:from-amber-900/20 dark:to-amber-800/20 dark:border-amber-700 dark:text-amber-300',
+            violet: 'from-violet-50 to-violet-100 border-violet-200 text-violet-700 dark:from-violet-900/20 dark:to-violet-800/20 dark:border-violet-700 dark:text-violet-300',
+            teal: 'from-teal-50 to-teal-100 border-teal-200 text-teal-700 dark:from-teal-900/20 dark:to-teal-800/20 dark:border-teal-700 dark:text-teal-300',
+            sky: 'from-sky-50 to-sky-100 border-sky-200 text-sky-700 dark:from-sky-900/20 dark:to-sky-800/20 dark:border-sky-700 dark:text-sky-300'
+          };
+
+          const card = document.createElement('div');
+          card.className = `bg-gradient-to-br ${colorClasses[exercise.color] || colorClasses.blue} p-6 rounded-xl border-2 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 transform group`;
+          card.onclick = () => this.startExercise(key);
+
+          card.innerHTML = `
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <i class="${exercise.icon} text-2xl group-hover:scale-110 transition-transform"></i>
+                                <h3 class="text-lg font-bold group-hover:text-current">${exercise.title}</h3>
+                            </div>
+                            ${progress >= total && total > 0 ? '<i class="fas fa-check-circle text-green-500 text-xl animate-pulse"></i>' : ''}
+                        </div>
+                        
+                        <p class="text-sm mb-4 opacity-80 group-hover:opacity-100 transition-opacity">${exercise.description}</p>
+                        
+                        <div class="mb-3">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Tiến độ</span>
+                                <span>${progress}/${total} câu</span>
+                            </div>
+                            <div class="w-full bg-white/50 dark:bg-gray-800/50 rounded-full h-2 overflow-hidden">
+                                <div class="bg-current h-2 rounded-full transition-all duration-500 relative" style="width: ${progressPercent}%">
+                                    <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white/70 dark:bg-gray-800/70 rounded-lg p-3 text-xs opacity-90 group-hover:opacity-100 transition-opacity">
+                            ${exercise.theory}
+                        </div>
+                        
+                        ${total === 0 ? '<div class="mt-2 text-xs text-red-600 dark:text-red-400"><i class="fas fa-exclamation-triangle mr-1"></i>Chưa có dữ liệu</div>' : ''}
+                    `;
+
+          container.appendChild(card);
+        });
+      }
+
+      startExercise(exerciseKey) {
+        if (!this.isDataLoaded) {
+          this.showError('Dữ liệu chưa được tải xong. Vui lòng đợi...');
+          return;
+        }
+
+        const questions = this.questionsData[exerciseKey];
+        const answers = this.answersData[exerciseKey];
+
+        if (!questions || !answers || questions.length === 0) {
+          this.showError(`Không tìm thấy dữ liệu cho bài tập "${this.exerciseDefinitions[exerciseKey]?.title}". Vui lòng kiểm tra file JSON.`);
+          return;
+        }
+
+        if (questions.length !== answers.length) {
+          this.showError(`Số lượng câu hỏi (${questions.length}) không khớp với số lượng đáp án (${answers.length}) cho bài tập "${this.exerciseDefinitions[exerciseKey]?.title}".`);
+          return;
+        }
+
+        this.currentExercise = exerciseKey;
+        this.currentQuestionIndex = 0;
+        this.sessionStats = { correct: 0, total: 0, streak: 0, wrong: 0 };
+
+        // Combine questions and answers
+        this.currentQuestions = questions.map((question, index) => ({
+          ...question,
+          answer: answers[index].answer,
+          explanation: answers[index].explanation
+        }));
+
+        document.getElementById('quiz-title').textContent = this.exerciseDefinitions[exerciseKey].title;
+        document.getElementById('quiz-container').classList.remove('hidden');
+
+        this.loadQuestion();
+      }
+
+      generateMockQuestions(exerciseKey) {
+        // Mock data for demonstration
+        const mockData = {
+          'verbs-present': [
+            { question: 'がっこうに いきます。', meaning: '(đi học)', prefix: 'がっこうに', answer: 'いく' },
+            { question: 'ほんを よみます。', meaning: '(đọc sách)', prefix: 'ほんを', answer: 'よむ' },
+            { question: 'えいがを みます。', meaning: '(xem phim)', prefix: 'えいがを', answer: 'みる' }
+          ],
+          'verbs-past': [
+            { question: 'きのう えいがを みました。', meaning: '(hôm qua đã xem phim)', prefix: 'きのう えいがを', answer: 'みた' },
+            { question: 'あさごはんを たべました।', meaning: '(đã ăn sáng)', prefix: 'あさごはんを', answer: 'たべた' }
+          ]
         };
 
-        // App State Management
-        class AppState {
-            constructor() {
-                this.currentExercise = null;
-                this.currentQuestionIndex = 0;
-                this.sessionStats = {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    skipped: 0
-                };
-                this.globalStats = this.loadGlobalStats();
-                this.questionsData = {};
-                this.answersData = {};
-                this.isDataLoaded = false;
-            }
+        return mockData[exerciseKey] || mockData['verbs-present'];
+      }
 
-            loadGlobalStats() {
-                const saved = localStorage.getItem(APP_CONFIG.STORAGE_KEY);
-                return saved ? JSON.parse(saved) : {
-                    totalCorrect: 0,
-                    totalQuestions: 0,
-                    maxStreak: 0,
-                    exerciseProgress: {},
-                    lastAccessed: new Date().toISOString()
-                };
-            }
-
-            saveGlobalStats() {
-                this.globalStats.lastAccessed = new Date().toISOString();
-                localStorage.setItem(APP_CONFIG.STORAGE_KEY, JSON.stringify(this.globalStats));
-            }
-
-            updateStats(isCorrect, isSkipped = false) {
-                this.sessionStats.total++;
-                this.globalStats.totalQuestions++;
-                
-                if (isCorrect) {
-                    this.sessionStats.correct++;
-                    this.sessionStats.streak++;
-                    this.globalStats.totalCorrect++;
-                    this.globalStats.maxStreak = Math.max(this.globalStats.maxStreak, this.sessionStats.streak);
-                } else if (isSkipped) {
-                    this.sessionStats.skipped++;
-                    this.sessionStats.streak = 0;
-                } else {
-                    this.sessionStats.streak = 0;
-                }
-                
-                this.updateStatsDisplay();
-                this.saveGlobalStats();
-            }
-
-            updateStatsDisplay() {
-                document.getElementById('correct-count').textContent = this.globalStats.totalCorrect;
-                document.getElementById('total-count').textContent = this.globalStats.totalQuestions;
-                document.getElementById('streak-count').textContent = this.sessionStats.streak;
-                
-                const accuracy = this.globalStats.totalQuestions > 0 
-                    ? Math.round((this.globalStats.totalCorrect / this.globalStats.totalQuestions) * 100)
-                    : 0;
-                document.getElementById('accuracy-rate').textContent = accuracy + '%';
-            }
+      loadQuestion() {
+        const question = this.currentQuestions[this.currentQuestionIndex];
+        if (!question) {
+          this.showResults();
+          return;
         }
 
-        // Initialize App State
-        const appState = new AppState();
+        // Update progress
+        const progress = ((this.currentQuestionIndex + 1) / this.currentQuestions.length) * 100;
+        document.getElementById('quiz-progress-bar').style.width = progress + '%';
+        document.getElementById('quiz-progress-text').textContent = `${this.currentQuestionIndex + 1}/${this.currentQuestions.length}`;
 
-        // Data Loading Functions
-        async function loadJSONData() {
-            try {
-                const loadingText = document.querySelector('.loading-text');
-                
-                loadingText.textContent = 'Đang tải câu hỏi...';
-                const questionsResponse = await fetch(APP_CONFIG.QUESTIONS_URL);
-                if (!questionsResponse.ok) {
-                    throw new Error(`HTTP error! status: ${questionsResponse.status}`);
-                }
-                appState.questionsData = await questionsResponse.json();
-                
-                loadingText.textContent = 'Đang tải đáp án...';
-                const answersResponse = await fetch(APP_CONFIG.ANSWERS_URL);
-                if (!answersResponse.ok) {
-                    throw new Error(`HTTP error! status: ${answersResponse.status}`);
-                }
-                appState.answersData = await answersResponse.json();
-                
-                loadingText.textContent = 'Hoàn thành!';
-                appState.isDataLoaded = true;
-                
-                // Hide loading screen
-                setTimeout(() => {
-                    document.getElementById('loading-screen').classList.add('hidden');
-                }, 500);
-                
-                return true;
-            } catch (error) {
-                console.error('Error loading JSON data:', error);
-                showErrorMessage(`Không thể tải dữ liệu: ${error.message}`);
-                return false;
-            }
+        // Load question content
+        document.getElementById('japanese-sentence').textContent = question.question;
+        document.getElementById('vietnamese-meaning').textContent = question.meaning;
+        document.getElementById('sentence-prefix').textContent = question.prefix;
+
+        // Reset UI
+        const answerInput = document.getElementById('answer-input');
+        answerInput.value = '';
+        answerInput.focus(); // Fix: Auto focus on input
+        document.getElementById('feedback').innerHTML = '';
+        document.getElementById('check-btn').classList.remove('hidden');
+        document.getElementById('next-btn').classList.add('hidden');
+      }
+
+      checkAnswer() {
+        const question = this.currentQuestions[this.currentQuestionIndex];
+        const userAnswer = document.getElementById('answer-input').value.trim().toLowerCase();
+        const correctAnswer = question.answer.toLowerCase();
+
+        if (!userAnswer) {
+          document.getElementById('answer-input').focus();
+          return;
         }
 
-        function showErrorMessage(message) {
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.innerHTML = `
-                <div class="error-message">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Lỗi Tải Dữ Liệu</h3>
-                    <p>${message}</p>
-                    <p>Vui lòng kiểm tra:</p>
-                    <ul style="text-align: left; margin: 15px 0;">
-                        <li>File questions.json và answers.json có tồn tại không?</li>
-                        <li>Đường dẫn file có đúng không?</li>
-                        <li>Kết nối mạng có ổn định không?</li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="location.reload()">
-                        <i class="fas fa-redo"></i> Thử Lại
-                    </button>
-                </div>
-            `;
+        const isCorrect = userAnswer === correctAnswer;
+        this.sessionStats.total++;
+        this.globalStats.totalQuestions++;
+
+        if (isCorrect) {
+          this.sessionStats.correct++;
+          this.sessionStats.streak++;
+          this.globalStats.totalCorrect++;
+          this.globalStats.maxStreak = Math.max(this.globalStats.maxStreak, this.sessionStats.streak);
+          this.updateExerciseProgress();
+
+          document.getElementById('feedback').innerHTML = `
+                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 p-4 rounded-xl animate-bounce-in">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Chính xác! Đáp án đúng là: <strong class="font-japanese">${question.answer}</strong>
+                            ${question.explanation ? `<br><small class="opacity-80">${question.explanation}</small>` : ''}
+                        </div>
+                    `;
+        } else {
+          this.sessionStats.wrong++;
+          this.sessionStats.streak = 0;
+
+          // Save wrong answer for review
+          this.wrongAnswers.push({
+            question: question.question,
+            userAnswer: userAnswer,
+            correctAnswer: question.answer,
+            meaning: question.meaning,
+            explanation: question.explanation,
+            prefix: question.prefix,
+            exerciseType: this.currentExercise,
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('wrongAnswers', JSON.stringify(this.wrongAnswers));
+
+          document.getElementById('feedback').innerHTML = `
+                        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 p-4 rounded-xl animate-bounce-in">
+                            <i class="fas fa-times-circle mr-2"></i>
+                            Chưa đúng! Đáp án đúng là: <strong class="font-japanese">${question.answer}</strong><br>
+                            <small>Bạn đã nhập: "${userAnswer}"</small>
+                            ${question.explanation ? `<br><small class="opacity-80">${question.explanation}</small>` : ''}
+                        </div>
+                    `;
         }
 
-        // DOM Elements
-        const elements = {
-            exerciseSelection: document.getElementById('exercise-selection'),
-            quizContainer: document.getElementById('quiz-container'),
-            resultsContainer: document.getElementById('results-container'),
-            quizTitle: document.getElementById('quiz-title'),
-            quizProgressFill: document.getElementById('quiz-progress-fill'),
-            quizProgressText: document.getElementById('quiz-progress-text'),
-            japaneseSentence: document.getElementById('japanese-sentence'),
-            vietnameseMeaning: document.getElementById('vietnamese-meaning'),
-            sentencePrefix: document.getElementById('sentence-prefix'),
-            answerInput: document.getElementById('answer-input'),
-            feedback: document.getElementById('feedback'),
-            hintBtn: document.getElementById('hint-btn'),
-            checkBtn: document.getElementById('check-btn'),
-            nextBtn: document.getElementById('next-btn'),
-            skipBtn: document.getElementById('skip-btn')
-        };
+        document.getElementById('check-btn').classList.add('hidden');
+        document.getElementById('next-btn').classList.remove('hidden');
 
-        // Initialize the application
-        async function initializeApp() {
-            setupNavigation();
-            loadTheme();
-            
-            // Load data first
-            const dataLoaded = await loadJSONData();
-            if (!dataLoaded) return;
-            
-            createExerciseCards();
-            appState.updateStatsDisplay();
-            setupKeyboardShortcuts();
+        this.updateStatsDisplay();
+        this.saveGlobalStats();
+      }
+
+      nextQuestion() {
+        this.currentQuestionIndex++;
+
+        if (this.currentQuestionIndex >= this.currentQuestions.length) {
+          this.showResults();
+        } else {
+          this.loadQuestion();
+        }
+      }
+
+      updateExerciseProgress() {
+        const key = this.currentExercise;
+        if (!this.globalStats.exerciseProgress[key]) {
+          this.globalStats.exerciseProgress[key] = 0;
+        }
+        this.globalStats.exerciseProgress[key]++;
+      }
+
+      showResults() {
+        document.getElementById('quiz-container').classList.add('hidden');
+
+        const { correct, total, wrong } = this.sessionStats;
+        const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+        document.getElementById('final-score').textContent = `${correct}/${total}`;
+        document.getElementById('final-correct').textContent = correct;
+        document.getElementById('final-wrong').textContent = wrong;
+        document.getElementById('final-skipped').textContent = 0;
+
+        let message = '';
+        if (percentage >= 90) {
+          message = '🎉 Xuất sắc! Bạn đã làm rất tốt!';
+        } else if (percentage >= 70) {
+          message = '👍 Tốt lắm! Tiếp tục cố gắng!';
+        } else if (percentage >= 50) {
+          message = '😊 Không tệ! Hãy ôn lại và thử lần nữa!';
+        } else {
+          message = '💪 Đừng nản lòng! Hãy ôn lại lý thuyết và thử lại!';
         }
 
-        // Navigation Setup
-        function setupNavigation() {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const page = link.dataset.page;
-                    showPage(page);
-                    updateActiveNav(link);
-                });
-            });
+        document.getElementById('final-message').textContent = message;
+        document.getElementById('results-modal').classList.remove('hidden');
+
+        // Update exercise cards
+        this.renderExerciseCards();
+      }
+
+      retryCurrentExercise() {
+        document.getElementById('results-modal').classList.add('hidden');
+        this.startExercise(this.currentExercise);
+      }
+
+      closeResults() {
+        document.getElementById('results-modal').classList.add('hidden');
+        this.showPage('practice');
+      }
+
+      closeQuiz() {
+        document.getElementById('quiz-container').classList.add('hidden');
+        this.showPage('practice');
+      }
+
+      retryWrongAnswers() {
+        if (this.wrongAnswers.length === 0) {
+          alert('Không có câu sai để ôn tập!');
+          return;
         }
 
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(`${page}-page`).classList.add('active');
+        // Convert wrong answers to quiz format
+        this.currentQuestions = this.wrongAnswers.map(item => ({
+          question: item.question,
+          answer: item.correctAnswer,
+          meaning: item.meaning,
+          prefix: item.question.split(' ').slice(0, -1).join(' ')
+        }));
+
+        this.currentExercise = 'review';
+        this.currentQuestionIndex = 0;
+        this.sessionStats = { correct: 0, total: 0, streak: 0, wrong: 0 };
+
+        document.getElementById('quiz-title').textContent = 'Ôn Tập Câu Sai';
+        document.getElementById('quiz-container').classList.remove('hidden');
+
+        this.loadQuestion();
+      }
+
+      loadReviewContent() {
+        const container = document.getElementById('review-content');
+
+        if (this.wrongAnswers.length === 0) {
+          container.innerHTML = `
+                        <div class="text-center py-12">
+                            <i class="fas fa-check-circle text-6xl text-green-500 mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Tuyệt vời!</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6">Bạn chưa có câu nào sai để ôn tập.</p>
+                            <button onclick="app.showPage('practice')" class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-colors">
+                                Làm Bài Tập Mới
+                            </button>
+                        </div>
+                    `;
+          return;
         }
 
-        function updateActiveNav(activeLink) {
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            activeLink.classList.add('active');
-        }
-
-        // Theme Management
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('theme-icon');
-            
-            if (body.dataset.theme === 'light') {
-                body.dataset.theme = 'dark';
-                themeIcon.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.dataset.theme = 'light';
-                themeIcon.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.body.dataset.theme = savedTheme;
-            document.getElementById('theme-icon').className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-        }
-
-        // Exercise Management
-        function createExerciseCards() {
-            if (!appState.isDataLoaded) return;
-            
-            const container = elements.exerciseSelection;
-            container.innerHTML = '';
-
-            Object.entries(EXERCISE_DEFINITIONS).forEach(([key, exercise]) => {
-                const progress = appState.globalStats.exerciseProgress[key] || 0;
-                const questions = appState.questionsData[key] || [];
-                const progressPercent = questions.length > 0 ? (progress / questions.length) * 100 : 0;
-                
-                const card = document.createElement('div');
-                card.className = 'exercise-card';
-                card.onclick = () => startExercise(key);
-                
-                if (progress >= questions.length && questions.length > 0) {
-                    card.classList.add('completed');
-                }
-
-                card.innerHTML = `
-                    <div class="exercise-title" style="color: ${exercise.color};">
-                        <i class="${exercise.icon}"></i> ${exercise.title}
+        container.innerHTML = `
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold">Câu Sai Cần Ôn Tập (${this.wrongAnswers.length})</h3>
+                        <div class="space-x-3">
+                            <button onclick="app.retryWrongAnswers()" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                                <i class="fas fa-play mr-2"></i>Ôn Tập Ngay
+                            </button>
+                            <button onclick="app.clearWrongAnswers()" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors">
+                                <i class="fas fa-trash mr-2"></i>Xóa Tất Cả
+                            </button>
+                        </div>
                     </div>
-                    <div class="exercise-description">${exercise.description}</div>
-                    <div style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary);">
-                        Tiến độ: ${progress}/${questions.length} câu
-                    </div>
-                    <div class="exercise-progress">
-                        <div class="exercise-progress-bar" style="width: ${progressPercent}%"></div>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-
-        // Quiz Functions
-        function startExercise(exerciseType) {
-            if (!appState.isDataLoaded) {
-                alert('Dữ liệu chưa được tải xong. Vui lòng đợi...');
-                return;
-            }
-
-            appState.currentExercise = exerciseType;
-            appState.currentQuestionIndex = 0;
-            appState.sessionStats = { correct: 0, total: 0, streak: 0, skipped: 0 };
-            
-            const questions = appState.questionsData[exerciseType];
-            if (!questions || questions.length === 0) {
-                alert('Bài tập này chưa có sẵn. Vui lòng thử bài tập khác!');
-                return;
-            }
-
-            elements.exerciseSelection.style.display = 'none';
-            elements.quizContainer.classList.add('active');
-            elements.resultsContainer.style.display = 'none';
-            
-            elements.quizTitle.textContent = EXERCISE_DEFINITIONS[exerciseType].title;
-            elements.quizProgressText.textContent = `1/${questions.length}`;
-            
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            const questions = appState.questionsData[appState.currentExercise];
-            const question = questions[appState.currentQuestionIndex];
-            
-            if (!question) {
-                showResults();
-                return;
-            }
-
-            // Update progress
-            const progress = ((appState.currentQuestionIndex + 1) / questions.length) * 100;
-            elements.quizProgressFill.style.width = progress + '%';
-            elements.quizProgressText.textContent = `${appState.currentQuestionIndex + 1}/${questions.length}`;
-            
-            // Load question content
-            elements.japaneseSentence.textContent = question.question;
-            elements.vietnameseMeaning.textContent = question.meaning;
-            elements.sentencePrefix.textContent = question.prefix;
-            
-            // Reset input and buttons
-            elements.answerInput.value = '';
-            elements.answerInput.focus();
-            elements.feedback.innerHTML = '';
-            elements.hintBtn.style.display = 'inline-flex';
-            elements.checkBtn.style.display = 'inline-flex';
-            elements.nextBtn.style.display = 'none';
-            elements.skipBtn.style.display = 'inline-flex';
-
-            // Update answer input placeholder
-            elements.answerInput.placeholder = 'Nhập đáp án bằng hiragana...';
-        }
-
-        function showHint() {
-            const questions = appState.questionsData[appState.currentExercise];
-            const question = questions[appState.currentQuestionIndex];
-            
-            elements.feedback.innerHTML = `
-                <div class="feedback" style="background: linear-gradient(135deg, rgba(247, 206, 84, 0.1), rgba(248, 181, 0, 0.1)); color: var(--warning-color); border: 2px solid var(--warning-color);">
-                    <i class="fas fa-lightbulb"></i> ${question.hint}
-                </div>
-            `;
-        }
-
-        function checkAnswer() {
-            const questions = appState.questionsData[appState.currentExercise];
-            const answers = appState.answersData[appState.currentExercise];
-            const question = questions[appState.currentQuestionIndex];
-            const answer = answers[appState.currentQuestionIndex];
-            
-            const userAnswer = elements.answerInput.value.trim().toLowerCase();
-            const correctAnswer = answer.answer.toLowerCase();
-            
-            if (!userAnswer) {
-                elements.answerInput.focus();
-                return;
-            }
-
-            const isCorrect = userAnswer === correctAnswer;
-            
-            appState.updateStats(isCorrect);
-            
-            if (isCorrect) {
-                elements.feedback.innerHTML = `
-                    <div class="feedback correct">
-                        <i class="fas fa-check-circle"></i> Chính xác! Đáp án đúng là: <strong>${answer.answer}</strong>
-                        <br><small>${answer.explanation}</small>
+                    
+                    <div class="grid gap-4">
+                        ${this.wrongAnswers.map((item, index) => `
+                            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div class="flex-1">
+                                        <div class="font-japanese text-lg mb-1">${item.question}</div>
+                                        <div class="text-gray-600 dark:text-gray-400 text-sm mb-2">${item.meaning}</div>
+                                        <div class="flex items-center space-x-4 text-sm">
+                                            <span class="text-red-600 dark:text-red-400">
+                                                <i class="fas fa-times mr-1"></i>Bạn trả lời: ${item.userAnswer}
+                                            </span>
+                                            <span class="text-green-600 dark:text-green-400">
+                                                <i class="fas fa-check mr-1"></i>Đáp án đúng: ${item.correctAnswer}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button onclick="app.removeWrongAnswer(${index})" class="text-gray-400 hover:text-red-500 transition-colors">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
                 `;
-                updateExerciseProgress();
-            } else {
-                elements.feedback.innerHTML = `
-                    <div class="feedback incorrect">
-                        <i class="fas fa-times-circle"></i> Chưa đúng! Đáp án đúng là: <strong>${answer.answer}</strong><br>
-                        <small>Bạn đã nhập: "${userAnswer}"</small><br>
-                        <small>${answer.explanation}</small>
+      }
+
+      clearWrongAnswers() {
+        if (confirm('Bạn có chắc muốn xóa tất cả câu sai?')) {
+          this.wrongAnswers = [];
+          localStorage.removeItem('wrongAnswers');
+          this.loadReviewContent();
+        }
+      }
+
+      removeWrongAnswer(index) {
+        this.wrongAnswers.splice(index, 1);
+        localStorage.setItem('wrongAnswers', JSON.stringify(this.wrongAnswers));
+        this.loadReviewContent();
+      }
+
+      loadStatistics() {
+        const container = document.getElementById('exercise-progress');
+        container.innerHTML = '';
+
+        Object.entries(this.exerciseDefinitions).forEach(([key, exercise]) => {
+          const progress = this.globalStats.exerciseProgress[key] || 0;
+          const questions = this.questionsData[key] || [];
+          const total = questions.length;
+          const percentage = total > 0 ? (progress / total) * 100 : 0;
+
+          const progressItem = document.createElement('div');
+          progressItem.className = 'flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors';
+          progressItem.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <i class="${exercise.icon} text-${exercise.color}-500"></i>
+                            <div>
+                                <div class="font-medium">${exercise.title}</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">${total} câu hỏi</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-24 bg-gray-200 dark:bg-gray-600 rounded-full h-2 overflow-hidden">
+                                <div class="bg-${exercise.color}-500 h-2 rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+                            </div>
+                            <span class="text-sm text-gray-600 dark:text-gray-400 min-w-[50px] text-right">${progress}/${total}</span>
+                            ${percentage >= 100 ? '<i class="fas fa-check-circle text-green-500"></i>' : ''}
+                        </div>
+                    `;
+          container.appendChild(progressItem);
+        });
+
+        // Add summary stats
+        const totalQuestions = Object.keys(this.questionsData).reduce((sum, key) => {
+          return sum + (this.questionsData[key]?.length || 0);
+        }, 0);
+
+        const completedQuestions = Object.keys(this.exerciseDefinitions).reduce((sum, key) => {
+          return sum + (this.globalStats.exerciseProgress[key] || 0);
+        }, 0);
+
+        const summaryItem = document.createElement('div');
+        summaryItem.className = 'mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-xl border border-blue-200 dark:border-gray-600';
+        summaryItem.innerHTML = `
+                    <h4 class="font-bold text-lg mb-3 text-gray-800 dark:text-gray-200">📊 Tổng Quan</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div>
+                            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">${totalQuestions}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Tổng câu hỏi</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-green-600 dark:text-green-400">${completedQuestions}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Đã hoàn thành</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">${this.globalStats.maxStreak}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Streak cao nhất</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">${this.wrongAnswers.length}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Câu cần ôn</div>
+                        </div>
                     </div>
                 `;
-            }
+        container.appendChild(summaryItem);
+      }
 
-            elements.hintBtn.style.display = 'none';
-            elements.checkBtn.style.display = 'none';
-            elements.nextBtn.style.display = 'inline-flex';
-            elements.skipBtn.style.display = 'none';
-            elements.answerInput.disabled = true;
-            
-            setTimeout(() => {
-                elements.answerInput.disabled = false;
-            }, 1000);
-        }
+      setupKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+          if (e.target.tagName === 'INPUT') return;
 
-        function skipQuestion() {
-            appState.updateStats(false, true);
-            elements.feedback.innerHTML = `
-                <div class="feedback" style="background: linear-gradient(135deg, rgba(156, 163, 175, 0.1), rgba(107, 114, 128, 0.1)); color: var(--text-secondary); border: 2px solid var(--text-secondary);">
-                    <i class="fas fa-forward"></i> Đã bỏ qua câu hỏi này
-                </div>
-            `;
-            
-            elements.hintBtn.style.display = 'none';
-            elements.checkBtn.style.display = 'none';
-            elements.nextBtn.style.display = 'inline-flex';
-            elements.skipBtn.style.display = 'none';
-        }
-
-        function nextQuestion() {
-            appState.currentQuestionIndex++;
-            const questions = appState.questionsData[appState.currentExercise];
-            
-            if (appState.currentQuestionIndex >= questions.length) {
-                showResults();
-            } else {
-                loadQuestion();
-            }
-        }
-
-        function updateExerciseProgress() {
-            const key = appState.currentExercise;
-            if (!appState.globalStats.exerciseProgress[key]) {
-                appState.globalStats.exerciseProgress[key] = 0;
-            }
-            appState.globalStats.exerciseProgress[key]++;
-            appState.saveGlobalStats();
-        }
-
-        function showResults() {
-            elements.quizContainer.classList.remove('active');
-            elements.resultsContainer.style.display = 'block';
-            
-            const { correct, total, skipped } = appState.sessionStats;
-            const wrong = total - correct - skipped;
-            const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-            
-            document.getElementById('results-score').textContent = `${correct}/${total}`;
-            document.getElementById('final-correct').textContent = correct;
-            document.getElementById('final-wrong').textContent = wrong;
-            document.getElementById('final-skipped').textContent = skipped;
-            
-            let message = '';
-            if (percentage >= 90) {
-                message = '🎉 Xuất sắc! Bạn đã làm rất tốt!';
-            } else if (percentage >= 70) {
-                message = '👍 Tốt lắm! Tiếp tục cố gắng!';
-            } else if (percentage >= 50) {
-                message = '😊 Không tệ! Hãy ôn lại và thử lần nữa!';
-            } else {
-                message = '💪 Đừng nản lòng! Hãy ôn lại lý thuyết và thử lại!';
-            }
-            
-            document.getElementById('results-message').textContent = message;
-            
-            // Update exercise cards
-            createExerciseCards();
-        }
-
-        function retryExercise() {
-            startExercise(appState.currentExercise);
-        }
-
-        function backToSelection() {
-            elements.exerciseSelection.style.display = 'grid';
-            elements.quizContainer.classList.remove('active');
-            elements.resultsContainer.style.display = 'none';
-            createExerciseCards();
-        }
-
-        // Keyboard Shortcuts
-        function setupKeyboardShortcuts() {
-            document.addEventListener('keydown', (e) => {
-                if (elements.quizContainer.classList.contains('active')) {
-                    switch(e.key) {
-                        case 'Enter':
-                            if (elements.checkBtn.style.display !== 'none') {
-                                e.preventDefault();
-                                checkAnswer();
-                            } else if (elements.nextBtn.style.display !== 'none') {
-                                e.preventDefault();
-                                nextQuestion();
-                            }
-                            break;
-                        case 'h':
-                        case 'H':
-                            if (e.ctrlKey && elements.hintBtn.style.display !== 'none') {
-                                e.preventDefault();
-                                showHint();
-                            }
-                            break;
-                        case 's':
-                        case 'S':
-                            if (e.ctrlKey && elements.skipBtn.style.display !== 'none') {
-                                e.preventDefault();
-                                skipQuestion();
-                            }
-                            break;
-                        case 'Escape':
-                            backToSelection();
-                            break;
-                    }
-                }
-            });
-        }
-
-        // Auto-save functionality
-        setInterval(() => {
-            appState.saveGlobalStats();
-        }, APP_CONFIG.AUTO_SAVE_INTERVAL);
-
-        // Initialize app when DOM is ready
-        document.addEventListener('DOMContentLoaded', initializeApp);
-
-        // Prevent form submission on Enter
-        document.getElementById('answer-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-            }
+          switch (e.key) {
+            case '1':
+              this.showPage('theory');
+              break;
+            case '2':
+              this.showPage('practice');
+              break;
+            case '3':
+              this.showPage('review');
+              break;
+            case '4':
+              this.showPage('statistics');
+              break;
+            case 'Escape':
+              this.closeQuiz();
+              break;
+          }
         });
+      }
 
-        // Add focus management
-        elements.answerInput.addEventListener('input', () => {
-            // Auto-check if user presses space twice
-            if (elements.answerInput.value.endsWith('  ')) {
-                elements.answerInput.value = elements.answerInput.value.trim();
-                if (elements.checkBtn.style.display !== 'none') {
-                    checkAnswer();
-                }
-            }
-        });
+      hideLoadingScreen() {
+        setTimeout(() => {
+          document.getElementById('loading-screen').classList.add('hidden');
+        }, 1000);
+      }
 
-        // Performance optimization - debounced input
-        let inputTimeout;
-        elements.answerInput.addEventListener('input', () => {
-            clearTimeout(inputTimeout);
-            inputTimeout = setTimeout(() => {
-                // Validate input here if needed
-            }, 300);
-        });
-    </script>
+      showError(message) {
+        // Create error modal
+        const errorModal = document.createElement('div');
+        errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+        errorModal.innerHTML = `
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle text-4xl text-red-500 mb-4"></i>
+                            <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Lỗi</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 whitespace-pre-line">${message}</p>
+                            <button onclick="this.closest('.fixed').remove()" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors">
+                                <i class="fas fa-times mr-2"></i>Đóng
+                            </button>
+                        </div>
+                    </div>
+                `;
+        document.body.appendChild(errorModal);
+
+        // Auto remove after 10 seconds
+        setTimeout(() => {
+          if (errorModal.parentNode) {
+            errorModal.remove();
+          }
+        }, 10000);
+      }
+    }
+
+    // Initialize app
+    let app;
+    document.addEventListener('DOMContentLoaded', () => {
+      app = new JapaneseApp();
+    });
+  </script>
 </body>
+
 </html>

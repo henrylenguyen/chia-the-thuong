@@ -1,0 +1,543 @@
+/* ===== CARD COMPONENTS ===== */
+
+/* Base Card */
+.card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+/* Exercise Cards */
+.exercise-card {
+  background: linear-gradient(135deg, var(--bg-primary), #f8fafc);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.exercise-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.exercise-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-color);
+}
+
+.exercise-card:hover::before {
+  transform: scaleX(1);
+}
+
+[data-theme="dark"] .exercise-card {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+}
+
+/* Exercise Card Header */
+.exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+}
+
+.exercise-title-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.exercise-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  transition: all var(--transition-normal);
+}
+
+.exercise-card:hover .exercise-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.exercise-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: color var(--transition-normal);
+}
+
+.exercise-completed-badge {
+  color: var(--success-color);
+  font-size: 1.25rem;
+  animation: pulse 2s infinite;
+}
+
+/* Exercise Card Content */
+.exercise-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-lg);
+  transition: color var(--transition-normal);
+}
+
+.exercise-card:hover .exercise-description {
+  color: var(--text-primary);
+}
+
+/* Exercise Progress */
+.exercise-progress-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.exercise-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.exercise-progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--border-color);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.exercise-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: var(--radius-sm);
+  transition: width var(--transition-slow);
+  position: relative;
+}
+
+.exercise-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Exercise Theory Box */
+.exercise-theory {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(126, 87, 194, 0.05));
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  font-size: 0.875rem;
+  transition: all var(--transition-normal);
+}
+
+.exercise-theory h4 {
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary-color);
+}
+
+.exercise-theory ul {
+  list-style: none;
+  padding: 0;
+}
+
+.exercise-theory li {
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+  font-family: var(--font-family-japanese);
+}
+
+.exercise-card:hover .exercise-theory {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(126, 87, 194, 0.1));
+  border-color: var(--primary-color);
+}
+
+/* Exercise Data Warning */
+.exercise-warning {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.05));
+  border: 1px solid #f87171;
+  border-radius: var(--radius-md);
+  color: #dc2626;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+[data-theme="dark"] .exercise-warning {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+  color: #fca5a5;
+}
+
+/* Theory Cards */
+.theory-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.theory-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.02), rgba(245, 101, 101, 0.02));
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.theory-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-color);
+}
+
+.theory-card:hover::before {
+  opacity: 1;
+}
+
+.theory-card-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.theory-card-content {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.theory-card-content h4 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: var(--spacing-lg) 0 var(--spacing-md);
+}
+
+.theory-card-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.theory-card-content li {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.theory-card-content li::before {
+  content: '•';
+  color: var(--primary-color);
+  font-weight: bold;
+  min-width: 1rem;
+}
+
+/* Stats Cards */
+.stats-card {
+  background: linear-gradient(135deg, var(--bg-primary), #f8fafc);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--success-color), var(--accent-color));
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stats-card:hover::before {
+  transform: scaleX(1);
+}
+
+[data-theme="dark"] .stats-card {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-accent));
+}
+
+.stats-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+  background: linear-gradient(135deg, var(--success-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stats-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.stats-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+/* Mind Map Card */
+.mindmap-container {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.mindmap-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.03), transparent);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.mindmap-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.mindmap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.central-node {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  border-radius: var(--radius-2xl);
+  font-family: var(--font-family-japanese);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-normal);
+}
+
+.central-node:hover {
+  transform: scale(1.05);
+}
+
+.branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+  width: 100%;
+}
+
+.branch {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  text-align: center;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.branch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.branch:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+.branch:hover::before {
+  transform: scaleX(1);
+}
+
+.branch-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.branch-examples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.example {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(245, 87, 108, 0.1));
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-japanese);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  color: var(--text-primary);
+}
+
+.example:hover {
+  transform: scale(1.02);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(245, 87, 108, 0.15));
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .exercise-card,
+  .theory-card,
+  .stats-card {
+      padding: var(--spacing-lg);
+  }
+  
+  .mindmap-container {
+      padding: var(--spacing-lg);
+  }
+  
+  .branches {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+  }
+  
+  .exercise-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-sm);
+  }
+  
+  .central-node {
+      font-size: 1.25rem;
+      padding: var(--spacing-lg) var(--spacing-xl);
+  }
+}
+
+/* Loading state for cards */
+.card-loading {
+  opacity: 0.6;
+  pointer-events: none;
+  position: relative;
+}
+
+.card-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: cardShimmer 1.5s infinite;
+}
+
+@keyframes cardShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Color variants for exercise cards */
+.exercise-card.color-blue { border-left: 4px solid #3b82f6; }
+.exercise-card.color-green { border-left: 4px solid #10b981; }
+.exercise-card.color-red { border-left: 4px solid #ef4444; }
+.exercise-card.color-purple { border-left: 4px solid #8b5cf6; }
+.exercise-card.color-yellow { border-left: 4px solid #f59e0b; }
+.exercise-card.color-indigo { border-left: 4px solid #6366f1; }
+.exercise-card.color-orange { border-left: 4px solid #f97316; }
+.exercise-card.color-cyan { border-left: 4px solid #06b6d4; }
+.exercise-card.color-gray { border-left: 4px solid #6b7280; }
+.exercise-card.color-amber { border-left: 4px solid #d97706; }
+.exercise-card.color-violet { border-left: 4px solid #7c3aed; }
+.exercise-card.color-teal { border-left: 4px solid #14b8a6; }
+.exercise-card.color-sky { border-left: 4px solid #0ea5e9; }
