@@ -61,12 +61,11 @@ export class QuizManager {
    */
   cacheElements() {
     this.elements = {
-      modal: document.getElementById('quiz-modal'),
-      container: document.querySelector('.quiz-container'),
-      title: document.querySelector('.quiz-title'),
-      progressBar: document.querySelector('.quiz-progress-fill'),
-      progressText: document.querySelector('.quiz-progress-text'),
-      closeBtn: document.querySelector('.quiz-close'),
+      container: document.getElementById('quiz-container'),
+      title: document.getElementById('quiz-title'),
+      progressBar: document.getElementById('quiz-progress-bar'),
+      progressText: document.getElementById('quiz-progress-text'),
+      closeBtn: document.getElementById('back-to-selection'),
       card: document.querySelector('.quiz-card')
     };
   }
@@ -78,15 +77,6 @@ export class QuizManager {
     // Close quiz events
     if (this.elements.closeBtn) {
       this.elements.closeBtn.addEventListener('click', () => this.closeQuiz());
-    }
-
-    // Modal overlay click
-    if (this.elements.modal) {
-      this.elements.modal.addEventListener('click', (e) => {
-        if (e.target === this.elements.modal) {
-          this.closeQuiz();
-        }
-      });
     }
 
     // Keyboard shortcuts
@@ -244,25 +234,37 @@ export class QuizManager {
   }
 
   /**
-   * Show quiz modal
+   * Show quiz as full page
    */
   showQuiz() {
-    if (!this.elements.modal) return;
+    // Hide all pages first
+    document.querySelectorAll('.page').forEach(page => {
+      page.classList.add('hidden');
+    });
 
-    this.elements.modal.classList.remove('hidden');
-
-    // Update title
-    if (this.elements.title) {
-      this.elements.title.textContent = this.currentQuiz.title;
+    // Hide navigation
+    const header = document.querySelector('header');
+    if (header) {
+      header.classList.add('hidden');
     }
 
-    // Focus management
-    this.elements.modal.focus();
+    // Show quiz container as full page
+    const quizContainer = document.getElementById('quiz-container');
+    if (quizContainer) {
+      quizContainer.classList.remove('hidden');
+      quizContainer.classList.add('quiz-active');
+    }
+
+    // Update title
+    const quizTitle = document.getElementById('quiz-title');
+    if (quizTitle) {
+      quizTitle.textContent = this.currentQuiz.title;
+    }
 
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
 
-    console.log('📱 Quiz modal shown');
+    console.log('📱 Quiz shown as full page');
   }
 
   /**
@@ -289,7 +291,7 @@ export class QuizManager {
 
     // Focus on input
     setTimeout(() => {
-      const input = document.querySelector('.answer-input');
+      const input = document.getElementById('answer-input');
       if (input) {
         input.focus();
       }
@@ -315,17 +317,55 @@ export class QuizManager {
    * Render question card
    */
   renderQuestionCard(question) {
-    if (!this.elements.card) return;
+    // Update question text
+    const questionTextEl = document.getElementById('question-text');
+    if (questionTextEl) {
+      questionTextEl.textContent = 'Chuyển câu sau sang thể thường:';
+    }
 
-    const cardHTML = this.quizCard.render({
-      question: question.question,
-      meaning: question.meaning,
-      prefix: question.prefix,
-      questionNumber: this.currentQuestionIndex + 1,
-      totalQuestions: this.questions.length
-    });
+    // Update Japanese sentence
+    const japaneseSentenceEl = document.getElementById('japanese-sentence');
+    if (japaneseSentenceEl) {
+      japaneseSentenceEl.textContent = question.question;
+    }
 
-    this.elements.card.innerHTML = cardHTML;
+    // Update Vietnamese meaning
+    const vietnameseMeaningEl = document.getElementById('vietnamese-meaning');
+    if (vietnameseMeaningEl) {
+      vietnameseMeaningEl.textContent = question.meaning;
+    }
+
+    // Update sentence prefix
+    const sentencePrefixEl = document.getElementById('sentence-prefix');
+    if (sentencePrefixEl) {
+      sentencePrefixEl.textContent = question.prefix || this.extractPrefix(question.question);
+    }
+
+    // Reset answer input
+    const answerInput = document.getElementById('answer-input');
+    if (answerInput) {
+      answerInput.value = '';
+      answerInput.disabled = false;
+      answerInput.classList.remove('correct', 'incorrect');
+    }
+
+    // Reset buttons
+    const checkBtn = document.getElementById('check-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    if (checkBtn) {
+      checkBtn.style.display = 'inline-flex';
+    }
+
+    if (nextBtn) {
+      nextBtn.style.display = 'none';
+    }
+
+    // Clear feedback
+    const feedbackEl = document.getElementById('feedback');
+    if (feedbackEl) {
+      feedbackEl.innerHTML = '';
+    }
 
     // Setup card event listeners
     this.setupQuestionCardListeners();
@@ -335,20 +375,29 @@ export class QuizManager {
    * Setup question card event listeners
    */
   setupQuestionCardListeners() {
-    const submitBtn = document.querySelector('.quiz-submit-btn');
-    const nextBtn = document.querySelector('.quiz-next-btn');
-    const input = document.querySelector('.answer-input');
+    const submitBtn = document.getElementById('check-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const input = document.getElementById('answer-input');
 
     if (submitBtn) {
-      submitBtn.addEventListener('click', () => this.handleSubmitAnswer());
+      // Remove existing listeners
+      submitBtn.replaceWith(submitBtn.cloneNode(true));
+      const newSubmitBtn = document.getElementById('check-btn');
+      newSubmitBtn.addEventListener('click', () => this.handleSubmitAnswer());
     }
 
     if (nextBtn) {
-      nextBtn.addEventListener('click', () => this.nextQuestion());
+      // Remove existing listeners
+      nextBtn.replaceWith(nextBtn.cloneNode(true));
+      const newNextBtn = document.getElementById('next-btn');
+      newNextBtn.addEventListener('click', () => this.nextQuestion());
     }
 
     if (input) {
-      input.addEventListener('keydown', (e) => {
+      // Remove existing listeners
+      input.replaceWith(input.cloneNode(true));
+      const newInput = document.getElementById('answer-input');
+      newInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
           if (!this.isAnswered) {
@@ -367,7 +416,7 @@ export class QuizManager {
   handleSubmitAnswer(userAnswer = null) {
     if (this.isAnswered) return;
 
-    const input = document.querySelector('.answer-input');
+    const input = document.getElementById('answer-input');
     const answer = userAnswer || (input ? input.value.trim() : '');
 
     if (!answer) {
@@ -446,7 +495,7 @@ export class QuizManager {
    * Show feedback
    */
   showFeedback(isCorrect, question, userAnswer) {
-    const feedbackContainer = document.querySelector('.quiz-feedback');
+    const feedbackContainer = document.getElementById('feedback');
     if (!feedbackContainer) return;
 
     const feedbackHTML = this.feedback.render({
@@ -464,9 +513,9 @@ export class QuizManager {
    * Update question UI after answer
    */
   updateQuestionUI(isCorrect) {
-    const submitBtn = document.querySelector('.quiz-submit-btn');
-    const nextBtn = document.querySelector('.quiz-next-btn');
-    const input = document.querySelector('.answer-input');
+    const submitBtn = document.getElementById('check-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const input = document.getElementById('answer-input');
 
     if (submitBtn) {
       submitBtn.style.display = 'none';
@@ -582,8 +631,14 @@ export class QuizManager {
       modalContent.innerHTML = resultHTML;
     }
 
-    // Hide quiz modal and show results
-    this.closeQuiz();
+    // Hide quiz container but keep navigation hidden
+    const quizContainer = document.getElementById('quiz-container');
+    if (quizContainer) {
+      quizContainer.classList.add('hidden');
+      quizContainer.classList.remove('quiz-active');
+    }
+
+    // Show results modal
     resultsModal.classList.remove('hidden');
   }
 
@@ -635,6 +690,24 @@ export class QuizManager {
     if (resultsModal) {
       resultsModal.classList.add('hidden');
     }
+
+    // Show navigation again
+    const header = document.querySelector('header');
+    if (header) {
+      header.classList.remove('hidden');
+    }
+
+    // Show practice page again
+    const practicePage = document.getElementById('practice-page');
+    if (practicePage) {
+      practicePage.classList.remove('hidden');
+    }
+
+    // Restore body scroll
+    document.body.style.overflow = '';
+
+    // Dispatch event to notify app
+    document.dispatchEvent(new CustomEvent('quiz:closed'));
   }
 
   /**
@@ -643,8 +716,23 @@ export class QuizManager {
   closeQuiz() {
     console.log('❌ Closing quiz');
 
-    if (this.elements.modal) {
-      this.elements.modal.classList.add('hidden');
+    // Hide quiz container
+    const quizContainer = document.getElementById('quiz-container');
+    if (quizContainer) {
+      quizContainer.classList.add('hidden');
+      quizContainer.classList.remove('quiz-active');
+    }
+
+    // Show navigation again
+    const header = document.querySelector('header');
+    if (header) {
+      header.classList.remove('hidden');
+    }
+
+    // Show practice page again
+    const practicePage = document.getElementById('practice-page');
+    if (practicePage) {
+      practicePage.classList.remove('hidden');
     }
 
     // Restore body scroll
@@ -657,6 +745,9 @@ export class QuizManager {
     this.currentQuiz = null;
     this.questions = [];
     this.currentQuestionIndex = 0;
+
+    // Dispatch event to notify app
+    document.dispatchEvent(new CustomEvent('quiz:closed'));
   }
 
   /**

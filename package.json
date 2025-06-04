@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "live-server --port=8080 --open=/index.html --watch=. --wait=200",
     "start": "npm run dev",
-    "preview": "serve . -l 3000",
+    "preview": "serve . -l 8080",
     "build": "npm run validate && npm run minify",
     "validate": "npm run validate:html && npm run validate:js && npm run validate:json",
     "validate:html": "html-validate index.html",

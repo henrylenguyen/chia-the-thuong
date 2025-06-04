@@ -26,6 +26,20 @@ export class DataLoader {
   }
 
   /**
+   * Load theory data
+   */
+  async loadTheory() {
+    return this.loadJSON('./theory.json', 'theory');
+  }
+
+  /**
+   * Load exercise definitions
+   */
+  async loadExerciseDefinitions() {
+    return this.loadJSON('./exercise-definitions.json', 'exercise-definitions');
+  }
+
+  /**
    * Generic JSON loader with caching
    */
   async loadJSON(url, cacheKey) {
@@ -237,17 +251,27 @@ export class DataLoader {
     try {
       console.log('🚀 Preloading all data...');
 
-      const [questionsData, answersData] = await Promise.all([
+      const [questionsData, answersData, theoryData, exerciseDefinitions] = await Promise.all([
         this.loadQuestions(),
-        this.loadAnswers()
+        this.loadAnswers(),
+        this.loadTheory(),
+        this.loadExerciseDefinitions()
       ]);
+
+      // Validate that all data was loaded
+      console.log('📊 Data loaded:', {
+        questionsData: questionsData ? Object.keys(questionsData).length : 0,
+        answersData: answersData ? Object.keys(answersData).length : 0,
+        theoryData: theoryData ? Object.keys(theoryData).length : 0,
+        exerciseDefinitions: exerciseDefinitions ? Object.keys(exerciseDefinitions).length : 0
+      });
 
       // Validate consistency
       this.validateDataConsistency(questionsData, answersData);
 
       console.log('✅ All data preloaded successfully');
 
-      return { questionsData, answersData };
+      return { questionsData, answersData, theoryData, exerciseDefinitions };
 
     } catch (error) {
       console.error('❌ Failed to preload data:', error);
@@ -290,7 +314,9 @@ export class DataLoader {
     // Determine URL based on cache key
     const urlMap = {
       'questions': './questions.json',
-      'answers': './answers.json'
+      'answers': './answers.json',
+      'theory': './theory.json',
+      'exercise-definitions': './exercise-definitions.json'
     };
 
     const url = urlMap[cacheKey];

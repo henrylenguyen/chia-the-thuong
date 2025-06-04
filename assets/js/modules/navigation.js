@@ -241,11 +241,16 @@ export class Navigation {
     // Update desktop navigation
     this.navButtons.forEach(btn => {
       const isActive = btn.dataset.page === this.currentPage;
-      btn.classList.toggle('active', isActive);
 
       if (isActive) {
+        // Active state
+        btn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+        btn.classList.add('bg-blue-500', 'text-white');
         btn.setAttribute('aria-current', 'page');
       } else {
+        // Inactive state
+        btn.classList.remove('bg-blue-500', 'text-white');
+        btn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
         btn.removeAttribute('aria-current');
       }
     });
@@ -253,11 +258,16 @@ export class Navigation {
     // Update mobile navigation
     this.mobileNavButtons.forEach(btn => {
       const isActive = btn.dataset.page === this.currentPage;
-      btn.classList.toggle('active', isActive);
 
       if (isActive) {
+        // Active state
+        btn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+        btn.classList.add('bg-blue-500', 'text-white');
         btn.setAttribute('aria-current', 'page');
       } else {
+        // Inactive state
+        btn.classList.remove('bg-blue-500', 'text-white');
+        btn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
         btn.removeAttribute('aria-current');
       }
     });
@@ -464,7 +474,7 @@ export class Navigation {
   /**
    * Show page programmatically (external API)
    */
-  showPage(page) {
+  showPageExternal(page) {
     return this.navigateTo(page);
   }
 

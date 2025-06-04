@@ -297,6 +297,216 @@ export const EXERCISE_DEFINITIONS = {
               <li>• Nghĩa: Trở thành/trở nên</li>
           </ul>
       `
+  },
+  'verbs-advanced-1': {
+    title: 'Động Từ Nâng Cao 1',
+    description: 'Luyện tập động từ nâng cao: kết hôn, tốt nghiệp, giải thích...',
+    icon: 'fas fa-graduation-cap',
+    color: 'emerald',
+    category: 'verbs',
+    difficulty: 'advanced',
+    estimatedTime: '20-25 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-emerald-600">Động từ nâng cao:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 結婚します → 結婚する (kết hôn)</li>
+              <li>• 卒業します → 卒業する (tốt nghiệp)</li>
+              <li>• 説明します → 説明する (giải thích)</li>
+              <li>• 研究します → 研究する (nghiên cứu)</li>
+          </ul>
+      `
+  },
+  'verbs-advanced-2': {
+    title: 'Động Từ Nâng Cao 2',
+    description: 'Luyện tập động từ về thiên nhiên và hoạt động hàng ngày',
+    icon: 'fas fa-leaf',
+    color: 'lime',
+    category: 'verbs',
+    difficulty: 'advanced',
+    estimatedTime: '20-25 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-lime-600">Động từ thiên nhiên:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 降ります → 降る (mưa/tuyết rơi)</li>
+              <li>• 吹きます → 吹く (gió thổi)</li>
+              <li>• 咲きます → 咲く (hoa nở)</li>
+              <li>• 飛びます → 飛ぶ (bay)</li>
+          </ul>
+      `
+  },
+  'adjectives-advanced': {
+    title: 'Tính Từ Nâng Cao',
+    description: 'Luyện tập tính từ về vị giác, cảm giác và tính chất',
+    icon: 'fas fa-heart',
+    color: 'rose',
+    category: 'adjectives',
+    difficulty: 'advanced',
+    estimatedTime: '20-25 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-rose-600">Tính từ nâng cao:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 甘いです → 甘い (ngọt)</li>
+              <li>• 苦いです → 苦い (đắng)</li>
+              <li>• 狭いです → 狭い (chật/hẹp)</li>
+              <li>• 軽いです → 軽い (nhẹ)</li>
+          </ul>
+      `
+  },
+  'nouns-advanced': {
+    title: 'Danh Từ Nâng Cao',
+    description: 'Luyện tập danh từ về thời gian, nghề nghiệp và gia đình',
+    icon: 'fas fa-users',
+    color: 'pink',
+    category: 'nouns',
+    difficulty: 'advanced',
+    estimatedTime: '20-25 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-pink-600">Danh từ nâng cao:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 月曜日です → 月曜日だ (thứ Hai)</li>
+              <li>• 春です → 春だ (mùa xuân)</li>
+              <li>• 会社員です → 会社員だ (nhân viên)</li>
+              <li>• 看護師です → 看護師だ (y tá)</li>
+          </ul>
+      `
+  },
+  'complex-grammar-1': {
+    title: 'Ngữ Pháp Phức Tạp 1',
+    description: 'Luyện tập でしょう, と思います, そうです',
+    icon: 'fas fa-brain',
+    color: 'slate',
+    category: 'grammar',
+    difficulty: 'advanced',
+    estimatedTime: '25-30 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-slate-600">Ngữ pháp phức tạp:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• でしょう → だろう (có lẽ)</li>
+              <li>• と思います → と思う (tôi nghĩ)</li>
+              <li>• そうです → そうだ (có vẻ như)</li>
+          </ul>
+      `
+  },
+  'complex-grammar-2': {
+    title: 'Ngữ Pháp Phức Tạp 2',
+    description: 'Luyện tập てくれる, てあげる, てもらう',
+    icon: 'fas fa-handshake',
+    color: 'zinc',
+    category: 'grammar',
+    difficulty: 'advanced',
+    estimatedTime: '25-30 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-zinc-600">Ngữ pháp cho/nhận:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• てくれました → てくれた (làm cho tôi)</li>
+              <li>• てあげました → てあげた (tôi làm cho)</li>
+              <li>• てもらいました → てもらった (nhờ làm)</li>
+          </ul>
+      `
+  },
+  'complex-grammar-3': {
+    title: 'Ngữ Pháp Phức Tạp 3',
+    description: 'Luyện tập các mẫu ngữ pháp hỗn hợp khác',
+    icon: 'fas fa-puzzle-piece',
+    color: 'neutral',
+    category: 'grammar',
+    difficulty: 'advanced',
+    estimatedTime: '25-30 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-neutral-600">Ngữ pháp hỗn hợp:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• Các mẫu ngữ pháp khác nhau</li>
+              <li>• Luyện tập tổng hợp</li>
+              <li>• Ôn tập kiến thức</li>
+          </ul>
+      `
+  },
+  'situational-expressions': {
+    title: 'Biểu Hiện Tình Huống',
+    description: 'Luyện tập các câu thường dùng trong giao tiếp',
+    icon: 'fas fa-comments',
+    color: 'stone',
+    category: 'expressions',
+    difficulty: 'intermediate',
+    estimatedTime: '15-20 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-stone-600">Biểu hiện tình huống:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• ですね → だね (nhỉ/nhé)</li>
+              <li>• ですか → か (à?/hả?)</li>
+              <li>• Các câu giao tiếp thường dùng</li>
+          </ul>
+      `
+  },
+  'weather-time-expressions': {
+    title: 'Biểu Hiện Thời Tiết & Thời Gian',
+    description: 'Luyện tập từ vựng về thời tiết và thời gian',
+    icon: 'fas fa-cloud-sun',
+    color: 'blue',
+    category: 'expressions',
+    difficulty: 'beginner',
+    estimatedTime: '10-15 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-blue-600">Thời tiết & thời gian:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 晴れるでしょう → 晴れるだろう (có lẽ nắng)</li>
+              <li>• 十時です → 十時だ (10 giờ)</li>
+              <li>• Các từ về thời tiết và thời gian</li>
+          </ul>
+      `
+  },
+  'family-relationships': {
+    title: 'Gia Đình & Mối Quan Hệ',
+    description: 'Luyện tập từ vựng về gia đình và các mối quan hệ',
+    icon: 'fas fa-home',
+    color: 'amber',
+    category: 'vocabulary',
+    difficulty: 'beginner',
+    estimatedTime: '10-15 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-amber-600">Gia đình & quan hệ:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 四人です → 四人だ (4 người)</li>
+              <li>• 結婚しています → 結婚している (đã kết hôn)</li>
+              <li>• Các từ về gia đình</li>
+          </ul>
+      `
+  },
+  'food-cooking': {
+    title: 'Đồ Ăn & Nấu Nướng',
+    description: 'Luyện tập từ vựng về đồ ăn và hoạt động nấu nướng',
+    icon: 'fas fa-utensils',
+    color: 'orange',
+    category: 'vocabulary',
+    difficulty: 'intermediate',
+    estimatedTime: '15-20 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-orange-600">Đồ ăn & nấu nướng:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 作ります → 作る (làm/nấu)</li>
+              <li>• 切ります → 切る (cắt)</li>
+              <li>• 焼きます → 焼く (nướng)</li>
+              <li>• 茹でます → 茹でる (luộc)</li>
+          </ul>
+      `
+  },
+  'transportation': {
+    title: 'Giao Thông & Di Chuyển',
+    description: 'Luyện tập từ vựng về phương tiện giao thông',
+    icon: 'fas fa-car',
+    color: 'red',
+    category: 'vocabulary',
+    difficulty: 'beginner',
+    estimatedTime: '10-15 phút',
+    theory: `
+          <h4 class="font-bold mb-2 text-red-600">Giao thông & di chuyển:</h4>
+          <ul class="space-y-1 text-xs">
+              <li>• 行きます → 行く (đi)</li>
+              <li>• 帰ります → 帰る (về)</li>
+              <li>• 旅行します → 旅行する (du lịch)</li>
+              <li>• 走ります → 走る (chạy)</li>
+          </ul>
+      `
   }
 };
 
@@ -587,6 +797,8 @@ export const API_ENDPOINTS = {
   PROGRESS: '/progress',
   LEADERBOARD: '/leaderboard'
 };
+
+
 
 // Feature Flags
 export const FEATURE_FLAGS = {
