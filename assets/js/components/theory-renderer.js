@@ -173,50 +173,46 @@ export class TheoryRenderer {
     const { colorScheme, icon, estimatedTime } = style;
 
     return `
-      <div class="bg-white border ${colorScheme.border} rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <div class="text-2xl ${colorScheme.icon} group-hover:scale-110 transition-transform duration-300">
+      <div class="bg-white border ${colorScheme.border} rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <div class="text-xl ${colorScheme.icon}">
               ${icon}
             </div>
-            <h3 class="text-lg font-bold ${colorScheme.text}">${exercise.title}</h3>
+            <h3 class="text-base font-bold ${colorScheme.text}">${exercise.title}</h3>
           </div>
-          <span class="bg-gradient-to-r ${colorScheme.bg} ${colorScheme.text} px-3 py-1 rounded-full text-sm font-medium">
+          <span class="bg-gradient-to-r ${colorScheme.bg} ${colorScheme.text} px-2 py-1 rounded text-xs font-medium">
             ${this.getQuestionCount(exercise.key)} câu
           </span>
         </div>
 
-        <div class="mb-4">
-          <h4 class="font-semibold mb-2 ${colorScheme.text}">${theory.title}</h4>
-          <p class="text-sm text-gray-600 mb-3 leading-relaxed">${exercise.instruction || 'Luyện tập chuyển đổi thể thường'}</p>
+        <div class="mb-3">
+          <p class="text-sm text-gray-600 mb-2">${theory.title}</p>
         </div>
 
-        <div class="mb-4">
-          <h5 class="font-medium mb-2 text-sm ${colorScheme.text}">📋 Quy tắc chuyển đổi:</h5>
+        <div class="mb-3">
+          <h5 class="font-medium mb-1 text-sm ${colorScheme.text}">📋 Quy tắc chuyển đổi:</h5>
           <ul class="text-xs space-y-1 text-gray-600">
-            ${theory.rules.slice(0, 3).map(rule => `<li class="flex items-start"><span class="${colorScheme.text} mr-2">•</span><span>${rule}</span></li>`).join('')}
-            ${theory.rules.length > 3 ? '<li class="text-gray-400 ml-3">...</li>' : ''}
+            ${theory.rules.slice(0, 2).map(rule => `<li class="flex items-start"><span class="${colorScheme.text} mr-1">•</span><span>${rule}</span></li>`).join('')}
           </ul>
         </div>
 
-        <div class="mb-4">
-          <h5 class="font-medium mb-2 text-sm ${colorScheme.text}">💡 Ví dụ:</h5>
+        <div class="mb-3">
+          <h5 class="font-medium mb-1 text-sm ${colorScheme.text}">💡 Ví dụ:</h5>
           <ul class="text-xs space-y-1 text-gray-600">
-            ${theory.examples.slice(0, 2).map(example => `<li class="flex items-start"><span class="${colorScheme.text} mr-2">•</span><span class="font-mono">${example}</span></li>`).join('')}
-            ${theory.examples.length > 2 ? '<li class="text-gray-400 ml-3">...</li>' : ''}
+            ${theory.examples.slice(0, 2).map(example => `<li class="flex items-start"><span class="${colorScheme.text} mr-1">•</span><span class="font-mono">${example}</span></li>`).join('')}
           </ul>
         </div>
 
-        <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-          <div class="flex items-center space-x-2 text-xs text-gray-500">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+          <div class="flex items-center space-x-1 text-xs text-gray-500">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
             </svg>
             <span>Ước tính: ${Math.ceil(this.getQuestionCount(exercise.key) * 0.5)} phút</span>
           </div>
-          <div class="text-right">
-            <div class="text-xs text-gray-400 mb-1">Độ khó</div>
-            <div class="text-xs ${colorScheme.text} font-medium">${exercise.difficulty === 'beginner' ? 'Cơ bản' : exercise.difficulty === 'intermediate' ? 'Trung bình' : 'Nâng cao'}</div>
+          <div class="text-xs ${colorScheme.text} font-medium">
+            ${exercise.difficulty === 'beginner' ? 'Cơ bản' : exercise.difficulty === 'intermediate' ? 'Trung bình' : 'Nâng cao'}
           </div>
         </div>
       </div>
