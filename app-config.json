@@ -1,0 +1,102 @@
+{
+  "app": {
+    "name": "Japanese Learning App",
+    "version": "1.0.0",
+    "description": "Học chuyển đổi thể thường tiếng Nhật",
+    "author": "Henry Le Nguyen",
+    "supportedLanguages": ["vi", "en"],
+    "defaultLanguage": "vi"
+  },
+  "data": {
+    "questionsFile": "./questions.json",
+    "answersFile": "./answers.json",
+    "exerciseDefinitionsFile": "./exercise-definitions.json",
+    "theoryFile": "./theory.json"
+  },
+  "ui": {
+    "themes": ["light", "dark"],
+    "defaultTheme": "light",
+    "animations": {
+      "enabled": true,
+      "duration": 300
+    },
+    "layout": {
+      "cardsPerRow": {
+        "mobile": 1,
+        "tablet": 2,
+        "desktop": 3
+      }
+    }
+  },
+  "features": {
+    "achievements": true,
+    "statistics": true,
+    "darkMode": true,
+    "soundEffects": false,
+    "hints": true,
+    "reviewMode": true,
+    "progressTracking": true
+  },
+  "quiz": {
+    "defaultQuestionTime": 30000,
+    "autoAdvanceDelay": 2000,
+    "shuffleQuestions": true,
+    "showExplanations": true,
+    "allowSkip": false
+  },
+  "categories": {
+    "verbs": {
+      "name": "Động Từ",
+      "icon": "fas fa-running",
+      "color": "blue",
+      "description": "Luyện tập chuyển đổi động từ"
+    },
+    "adjectives": {
+      "name": "Tính Từ", 
+      "icon": "fas fa-palette",
+      "color": "purple",
+      "description": "Luyện tập chuyển đổi tính từ"
+    },
+    "nouns": {
+      "name": "Danh Từ",
+      "icon": "fas fa-cube", 
+      "color": "indigo",
+      "description": "Luyện tập chuyển đổi danh từ"
+    },
+    "grammar": {
+      "name": "Ngữ Pháp",
+      "icon": "fas fa-book",
+      "color": "orange", 
+      "description": "Luyện tập mẫu ngữ pháp"
+    },
+    "expressions": {
+      "name": "Biểu Hiện",
+      "icon": "fas fa-comments",
+      "color": "green",
+      "description": "Luyện tập biểu hiện giao tiếp"
+    },
+    "vocabulary": {
+      "name": "Từ Vựng",
+      "icon": "fas fa-language",
+      "color": "red",
+      "description": "Luyện tập từ vựng chuyên đề"
+    }
+  },
+  "difficulty": {
+    "beginner": {
+      "name": "Cơ Bản",
+      "color": "green",
+      "icon": "fas fa-seedling"
+    },
+    "intermediate": {
+      "name": "Trung Bình", 
+      "color": "yellow",
+      "icon": "fas fa-tree"
+    },
+    "advanced": {
+      "name": "Nâng Cao",
+      "color": "red", 
+      "icon": "fas fa-mountain"
+    }
+  }
+}

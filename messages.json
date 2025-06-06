@@ -1,0 +1,146 @@
+{
+  "ui": {
+    "navigation": {
+      "theory": "Lý Thuyết",
+      "practice": "Thực Hành", 
+      "review": "Ôn Tập",
+      "statistics": "Thống Kê"
+    },
+    "buttons": {
+      "start": "Bắt đầu luyện tập",
+      "check": "Kiểm Tra",
+      "next": "Tiếp Theo",
+      "back": "Quay Lại",
+      "retry": "Làm Lại",
+      "home": "Trang Chủ",
+      "close": "Đóng",
+      "continue": "Tiếp Tục",
+      "skip": "Bỏ Qua"
+    },
+    "labels": {
+      "correct": "Câu Đúng",
+      "total": "Tổng Câu", 
+      "streak": "Streak",
+      "accuracy": "Độ Chính Xác",
+      "progress": "Tiến độ",
+      "difficulty": "Độ khó",
+      "category": "Danh mục",
+      "time": "Thời gian",
+      "score": "Điểm số"
+    },
+    "placeholders": {
+      "answer": "Nhập đáp án...",
+      "search": "Tìm kiếm...",
+      "email": "Nhập email...",
+      "password": "Nhập mật khẩu..."
+    },
+    "titles": {
+      "app": "Japanese Learning App",
+      "theory": "普通形 (Thể Thường)",
+      "practice": "Thực Hành Bài Tập",
+      "review": "Ôn Tập Câu Sai", 
+      "statistics": "Thống Kê Học Tập",
+      "results": "Kết Quả",
+      "settings": "Cài Đặt"
+    },
+    "descriptions": {
+      "theory": "Nắm vững kiến thức cơ bản về thể thường trong tiếng Nhật một cách dễ dàng và trực quan",
+      "practice": "Luyện tập và kiểm tra kiến thức thể thường",
+      "review": "Ôn lại những câu bạn đã làm sai để học tập hiệu quả hơn",
+      "statistics": "Theo dõi tiến độ học tập của bạn"
+    }
+  },
+  "feedback": {
+    "correct": {
+      "messages": [
+        "Chính xác! 🎉",
+        "Tuyệt vời! ✨", 
+        "Hoàn hảo! 👏",
+        "Xuất sắc! 🌟",
+        "Rất tốt! 💯"
+      ],
+      "encouragement": [
+        "Bạn đang làm rất tốt!",
+        "Tiếp tục phát huy!",
+        "Kiến thức của bạn ngày càng vững chắc!",
+        "Bạn đã nắm vững quy tắc này!"
+      ]
+    },
+    "incorrect": {
+      "messages": [
+        "Chưa chính xác 😅",
+        "Hãy thử lại! 🤔",
+        "Gần đúng rồi! 💪",
+        "Đừng nản lòng! 😊"
+      ],
+      "hints": [
+        "Hãy xem lại quy tắc chuyển đổi",
+        "Chú ý đến nhóm động từ",
+        "Kiểm tra lại cách chia động từ",
+        "Xem lại phần lý thuyết"
+      ]
+    }
+  },
+  "errors": {
+    "dataLoad": "Không thể tải dữ liệu: {error}",
+    "exerciseNotFound": "Không tìm thấy dữ liệu cho bài tập: {exercise}",
+    "networkError": "Lỗi kết nối mạng. Vui lòng thử lại.",
+    "invalidAnswer": "Đáp án không hợp lệ",
+    "sessionExpired": "Phiên làm việc đã hết hạn",
+    "storageError": "Lỗi lưu trữ dữ liệu",
+    "configError": "Lỗi cấu hình ứng dụng"
+  },
+  "success": {
+    "dataLoaded": "Dữ liệu đã được tải thành công!",
+    "progressSaved": "Tiến độ đã được lưu!",
+    "settingsUpdated": "Cài đặt đã được cập nhật!",
+    "quizCompleted": "Bài tập hoàn thành xuất sắc!",
+    "achievementUnlocked": "Bạn đã mở khóa thành tựu mới!"
+  },
+  "loading": {
+    "app": "Đang khởi tạo ứng dụng...",
+    "data": "Đang tải dữ liệu...",
+    "exercise": "Đang chuẩn bị bài tập...",
+    "saving": "Đang lưu...",
+    "processing": "Đang xử lý..."
+  },
+  "quiz": {
+    "instructions": {
+      "general": "Chuyển câu sau sang thể thường:",
+      "verbs": "Chuyển động từ từ thể lịch sự sang thể thường:",
+      "adjectives": "Chuyển tính từ từ thể lịch sự sang thể thường:",
+      "nouns": "Chuyển danh từ từ thể lịch sự sang thể thường:"
+    },
+    "progress": {
+      "current": "Câu {current} / {total}",
+      "completed": "Hoàn thành: {percent}%",
+      "remaining": "Còn lại: {count} câu"
+    },
+    "results": {
+      "excellent": "Xuất sắc! Bạn đã làm rất tốt!",
+      "good": "Tốt! Bạn đã nắm vững phần lớn kiến thức!",
+      "average": "Khá tốt! Hãy ôn tập thêm một chút!",
+      "needImprovement": "Cần cải thiện! Hãy xem lại lý thuyết!"
+    }
+  },
+  "achievements": {
+    "firstCorrect": "Câu trả lời đầu tiên!",
+    "streak5": "Streak 5 câu!",
+    "streak10": "Streak 10 câu!",
+    "perfectScore": "Điểm số hoàn hảo!",
+    "fastLearner": "Học nhanh như chớp!",
+    "persistent": "Kiên trì bền bỉ!"
+  },
+  "statistics": {
+    "labels": {
+      "totalQuestions": "Tổng số câu hỏi",
+      "correctAnswers": "Câu trả lời đúng",
+      "accuracy": "Độ chính xác",
+      "averageTime": "Thời gian trung bình",
+      "bestStreak": "Streak tốt nhất",
+      "exercisesCompleted": "Bài tập hoàn thành",
+      "timeSpent": "Thời gian học",
+      "lastSession": "Lần học cuối"
+    }
+  }
+}

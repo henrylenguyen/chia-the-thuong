@@ -3,12 +3,95 @@
  * Handles loading and caching of JSON data files
  */
 
-import { showError } from '../utils/helpers.js';
 
 export class DataLoader {
   constructor() {
     this.cache = new Map();
     this.loadingPromises = new Map();
+    this.appConfig = null;
+    this.exerciseDefinitions = null;
+  }
+
+  /**
+   * Load app configuration
+   */
+  async loadAppConfig() {
+    if (this.appConfig) {
+      return this.appConfig;
+    }
+
+    try {
+      this.appConfig = await this.loadJSON('./app-config.json', 'app-config');
+      console.log('📋 App config loaded:', this.appConfig);
+      return this.appConfig;
+    } catch (error) {
+      console.warn('⚠️ Could not load app config, using defaults');
+      // Return default config if file doesn't exist
+      this.appConfig = this.getDefaultConfig();
+      return this.appConfig;
+    }
+  }
+
+  /**
+   * Load exercise definitions
+   */
+  async loadExerciseDefinitions() {
+    if (this.exerciseDefinitions) {
+      return this.exerciseDefinitions;
+    }
+
+    try {
+      this.exerciseDefinitions = await this.loadJSON('./exercise-definitions.json', 'exercise-definitions');
+      console.log('📚 Exercise definitions loaded:', Object.keys(this.exerciseDefinitions).length, 'exercises');
+      return this.exerciseDefinitions;
+    } catch (error) {
+      console.error('❌ Could not load exercise definitions:', error);
+      throw new Error('Không thể tải định nghĩa bài tập');
+    }
+  }
+
+  /**
+   * Get available exercises dynamically from definitions
+   */
+  async getAvailableExercises() {
+    const definitions = await this.loadExerciseDefinitions();
+    const config = await this.loadAppConfig();
+
+    return Object.entries(definitions)
+      .filter(([, exercise]) => exercise.enabled !== false)
+      .map(([key, exercise]) => ({
+        id: key,
+        ...exercise,
+        category: config.categories?.[exercise.category] || { name: exercise.category }
+      }))
+      .sort((a, b) => (a.order || 999) - (b.order || 999));
+  }
+
+  /**
+   * Get default configuration if config file doesn't exist
+   */
+  getDefaultConfig() {
+    return {
+      app: {
+        name: "Japanese Learning App",
+        version: "1.0.0",
+        defaultLanguage: "vi"
+      },
+      categories: {
+        verbs: { name: "Động Từ", icon: "fas fa-running", color: "blue" },
+        adjectives: { name: "Tính Từ", icon: "fas fa-palette", color: "purple" },
+        nouns: { name: "Danh Từ", icon: "fas fa-cube", color: "indigo" },
+        grammar: { name: "Ngữ Pháp", icon: "fas fa-book", color: "orange" }
+      },
+      features: {
+        achievements: true,
+        statistics: true,
+        darkMode: true,
+        hints: true,
+        reviewMode: true,
+        progressTracking: true
+      }
+    };
   }
 
   /**
@@ -32,12 +115,7 @@ export class DataLoader {
     return this.loadJSON('./theory.json', 'theory');
   }
 
-  /**
-   * Load exercise definitions
-   */
-  async loadExerciseDefinitions() {
-    return this.loadJSON('./exercise-definitions.json', 'exercise-definitions');
-  }
+
 
   /**
    * Generic JSON loader with caching

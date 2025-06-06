@@ -13,8 +13,12 @@ export class Navigation {
     // DOM elements
     this.navButtons = null;
     this.mobileNavButtons = null;
+    this.bottomNavButtons = null;
     this.mobileMenu = null;
     this.mobileMenuBtn = null;
+    this.mobileMenuCloseBtn = null;
+    this.mobileMenuBackdrop = null;
+    this.mobileMenuPanel = null;
     this.pageElements = null;
   }
 
@@ -45,8 +49,12 @@ export class Navigation {
   cacheElements() {
     this.navButtons = document.querySelectorAll('.nav-btn');
     this.mobileNavButtons = document.querySelectorAll('.mobile-nav-btn');
+    this.bottomNavButtons = document.querySelectorAll('.bottom-nav-item');
     this.mobileMenu = document.getElementById('mobile-menu');
     this.mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    this.mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+    this.mobileMenuBackdrop = document.querySelector('.mobile-menu-backdrop');
+    this.mobileMenuPanel = document.querySelector('.mobile-menu-panel');
     this.pageElements = {};
 
     // Cache page elements
@@ -68,7 +76,7 @@ export class Navigation {
       });
     });
 
-    // Mobile navigation
+    // Mobile navigation (old dropdown)
     this.mobileNavButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -78,21 +86,52 @@ export class Navigation {
       });
     });
 
+    // Bottom navigation (new mobile nav)
+    this.bottomNavButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = btn.dataset.page;
+        this.navigateTo(page);
+      });
+    });
+
     // Mobile menu toggle
     if (this.mobileMenuBtn) {
-      this.mobileMenuBtn.addEventListener('click', () => {
+      this.mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         this.toggleMobileMenu();
       });
     }
 
+    // Mobile menu close button
+    if (this.mobileMenuCloseBtn) {
+      this.mobileMenuCloseBtn.addEventListener('click', () => {
+        this.closeMobileMenu();
+      });
+    }
+
+    // Close mobile menu when clicking backdrop
+    if (this.mobileMenuBackdrop) {
+      this.mobileMenuBackdrop.addEventListener('click', () => {
+        this.closeMobileMenu();
+      });
+    }
+
+    // Prevent menu panel clicks from closing menu
+    if (this.mobileMenuPanel) {
+      this.mobileMenuPanel.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
     // Close mobile menu when clicking outside
-    if (this.mobileMenu) {
-      document.addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
+      if (this.mobileMenu && !this.mobileMenu.classList.contains('hidden')) {
         if (!e.target.closest('#mobile-menu') && !e.target.closest('#mobile-menu-btn')) {
           this.closeMobileMenu();
         }
-      });
-    }
+      }
+    });
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -243,19 +282,19 @@ export class Navigation {
       const isActive = btn.dataset.page === this.currentPage;
 
       if (isActive) {
-        // Active state
-        btn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
-        btn.classList.add('bg-blue-500', 'text-white');
+        // Active state - modern gradient style
+        btn.classList.add('active');
+        btn.classList.remove('text-gray-600', 'dark:text-gray-300');
         btn.setAttribute('aria-current', 'page');
       } else {
         // Inactive state
-        btn.classList.remove('bg-blue-500', 'text-white');
-        btn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+        btn.classList.remove('active');
+        btn.classList.add('text-gray-600', 'dark:text-gray-300');
         btn.removeAttribute('aria-current');
       }
     });
 
-    // Update mobile navigation
+    // Update mobile navigation (old dropdown)
     this.mobileNavButtons.forEach(btn => {
       const isActive = btn.dataset.page === this.currentPage;
 
@@ -268,6 +307,21 @@ export class Navigation {
         // Inactive state
         btn.classList.remove('bg-blue-500', 'text-white');
         btn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+        btn.removeAttribute('aria-current');
+      }
+    });
+
+    // Update bottom navigation (new mobile nav)
+    this.bottomNavButtons.forEach(btn => {
+      const isActive = btn.dataset.page === this.currentPage;
+
+      if (isActive) {
+        // Active state
+        btn.classList.add('active');
+        btn.setAttribute('aria-current', 'page');
+      } else {
+        // Inactive state
+        btn.classList.remove('active');
         btn.removeAttribute('aria-current');
       }
     });
@@ -396,45 +450,76 @@ export class Navigation {
   }
 
   /**
-   * Open mobile menu
+   * Open mobile menu with enhanced animations
    */
   openMobileMenu() {
     if (!this.mobileMenu) return;
 
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+
+    // Show menu
     this.mobileMenu.classList.remove('hidden');
+
+    // Trigger reflow to ensure initial state is applied
+    this.mobileMenu.offsetHeight;
+
+    // Add show class for animations
     this.mobileMenu.classList.add('show');
 
-    // Update button state
+    // Update hamburger button state
     if (this.mobileMenuBtn) {
       this.mobileMenuBtn.classList.add('active');
       this.mobileMenuBtn.setAttribute('aria-expanded', 'true');
     }
 
-    // Focus first menu item for accessibility
-    const firstMenuItem = this.mobileMenu.querySelector('.mobile-nav-btn');
-    if (firstMenuItem) {
-      firstMenuItem.focus();
-    }
+    // Animate menu items with stagger
+    const menuItems = this.mobileMenu.querySelectorAll('.mobile-nav-btn');
+    menuItems.forEach((item, index) => {
+      item.style.animationDelay = `${0.1 + (index * 0.05)}s`;
+    });
 
-    console.log('📱 Mobile menu opened');
+    // Focus first menu item for accessibility (with delay)
+    setTimeout(() => {
+      const firstMenuItem = this.mobileMenu.querySelector('.mobile-nav-btn');
+      if (firstMenuItem) {
+        firstMenuItem.focus();
+      }
+    }, 300);
+
+    console.log('📱 Enhanced mobile menu opened');
   }
 
   /**
-   * Close mobile menu
+   * Close mobile menu with enhanced animations
    */
   closeMobileMenu() {
     if (!this.mobileMenu) return;
 
-    this.mobileMenu.classList.add('hidden');
+    // Remove show class to trigger close animation
     this.mobileMenu.classList.remove('show');
 
-    // Update button state
+    // Update hamburger button state
     if (this.mobileMenuBtn) {
       this.mobileMenuBtn.classList.remove('active');
       this.mobileMenuBtn.setAttribute('aria-expanded', 'false');
     }
 
-    console.log('📱 Mobile menu closed');
+    // Hide menu after animation completes
+    setTimeout(() => {
+      this.mobileMenu.classList.add('hidden');
+
+      // Restore body scroll
+      document.body.style.overflow = '';
+
+      // Reset menu item animations
+      const menuItems = this.mobileMenu.querySelectorAll('.mobile-nav-btn');
+      menuItems.forEach(item => {
+        item.style.animationDelay = '';
+      });
+    }, 300);
+
+    console.log('📱 Enhanced mobile menu closed');
   }
 
   /**

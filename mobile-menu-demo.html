@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Menu Mobile - Japanese Learning App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <style>
+    /* Bottom Navigation Style */
+    .bottom-nav {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .bottom-nav-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      border-radius: 12px;
+      margin: 0 2px;
+    }
+
+    .bottom-nav-item:hover {
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .bottom-nav-item.active {
+      transform: translateY(-2px);
+      background: rgba(102, 126, 234, 0.15);
+    }
+
+    .bottom-nav-item.active::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0 0 3px 3px;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .bottom-nav-icon {
+      transition: all 0.3s ease;
+    }
+
+    .bottom-nav-item.active .bottom-nav-icon {
+      transform: scale(1.1);
+      color: #667eea;
+      animation: bounce 0.5s ease-out;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 60%, 100% { transform: scale(1.1); }
+      40% { transform: scale(1.2); }
+      80% { transform: scale(1.05); }
+    }
+
+    .bottom-nav-text {
+      font-size: 0.75rem;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .bottom-nav-item.active .bottom-nav-text {
+      opacity: 1;
+      font-weight: 600;
+      color: #667eea;
+      transform: scale(1.05);
+    }
+
+    /* Tab Menu Style */
+    .tab-menu {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .tab-item {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tab-item.active {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+    }
+
+    /* Slide Menu Style */
+    .slide-menu {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .slide-menu.open {
+      transform: translateX(0);
+    }
+
+    .menu-overlay {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Floating Menu Style */
+    .floating-menu {
+      bottom: 20px;
+      right: 20px;
+      transform: scale(0);
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .floating-menu.open {
+      transform: scale(1);
+    }
+
+    .floating-menu-item {
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .floating-menu.open .floating-menu-item {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .floating-menu.open .floating-menu-item:nth-child(1) { transition-delay: 0.1s; }
+    .floating-menu.open .floating-menu-item:nth-child(2) { transition-delay: 0.2s; }
+    .floating-menu.open .floating-menu-item:nth-child(3) { transition-delay: 0.3s; }
+    .floating-menu.open .floating-menu-item:nth-child(4) { transition-delay: 0.4s; }
+
+    body {
+      padding-bottom: 100px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-md mx-auto bg-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4">
+      <h1 class="text-xl font-bold text-center">🎨 Demo Menu Mobile</h1>
+      <p class="text-center text-blue-100 text-sm mt-1">Các kiểu menu đẹp cho Japanese Learning App</p>
+    </header>
+
+    <!-- Content -->
+    <main class="p-4 space-y-6">
+      <!-- Current Implementation -->
+      <section class="bg-white rounded-lg shadow-lg p-4">
+        <h2 class="text-lg font-bold text-gray-800 mb-3">✅ Bottom Navigation (Hiện tại)</h2>
+        <p class="text-gray-600 text-sm mb-3">Menu dưới cùng với hiệu ứng đẹp, dễ tiếp cận bằng ngón tay cái</p>
+        <div class="bg-gray-100 rounded-lg p-3">
+          <div class="text-xs text-gray-500 mb-2">Preview:</div>
+          <div class="bg-white rounded-lg p-2 shadow-sm">
+            <div class="flex justify-around">
+              <div class="flex flex-col items-center p-2 text-blue-500">
+                <i class="fas fa-book text-lg mb-1"></i>
+                <span class="text-xs font-medium">Lý Thuyết</span>
+              </div>
+              <div class="flex flex-col items-center p-2 text-gray-400">
+                <i class="fas fa-pencil-alt text-lg mb-1"></i>
+                <span class="text-xs">Thực Hành</span>
+              </div>
+              <div class="flex flex-col items-center p-2 text-gray-400">
+                <i class="fas fa-redo text-lg mb-1"></i>
+                <span class="text-xs">Ôn Tập</span>
+              </div>
+              <div class="flex flex-col items-center p-2 text-gray-400">
+                <i class="fas fa-chart-bar text-lg mb-1"></i>
+                <span class="text-xs">Thống Kê</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-green-600">
+          ✅ Ưu điểm: Dễ sử dụng, luôn hiển thị, Material Design chuẩn
+        </div>
+      </section>
+
+      <!-- Alternative 1: Tab Menu -->
+      <section class="bg-white rounded-lg shadow-lg p-4">
+        <h2 class="text-lg font-bold text-gray-800 mb-3">🎯 Tab Menu</h2>
+        <p class="text-gray-600 text-sm mb-3">Menu tab ngang với gradient đẹp</p>
+        <div class="bg-gray-100 rounded-lg p-3">
+          <div class="text-xs text-gray-500 mb-2">Preview:</div>
+          <div class="tab-menu rounded-lg p-1">
+            <div class="flex">
+              <div class="flex-1 text-center py-2 px-3 text-white text-sm font-medium bg-white bg-opacity-20 rounded">
+                Lý Thuyết
+              </div>
+              <div class="flex-1 text-center py-2 px-3 text-white text-sm">
+                Thực Hành
+              </div>
+              <div class="flex-1 text-center py-2 px-3 text-white text-sm">
+                Ôn Tập
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-blue-600">
+          💡 Ưu điểm: Đẹp, rõ ràng, phù hợp với 3-4 mục
+        </div>
+      </section>
+
+      <!-- Alternative 2: Slide Menu -->
+      <section class="bg-white rounded-lg shadow-lg p-4">
+        <h2 class="text-lg font-bold text-gray-800 mb-3">📱 Slide-out Menu</h2>
+        <p class="text-gray-600 text-sm mb-3">Menu trượt từ bên trái, tiết kiệm không gian</p>
+        <button onclick="toggleSlideMenu()" class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">
+          <i class="fas fa-bars mr-2"></i>Xem Demo
+        </button>
+        <div class="mt-3 text-xs text-orange-600">
+          ⚡ Ưu điểm: Tiết kiệm không gian, có thể chứa nhiều mục
+        </div>
+      </section>
+
+      <!-- Alternative 3: Floating Menu -->
+      <section class="bg-white rounded-lg shadow-lg p-4">
+        <h2 class="text-lg font-bold text-gray-800 mb-3">🎈 Floating Action Menu</h2>
+        <p class="text-gray-600 text-sm mb-3">Menu nổi với hiệu ứng mở rộng đẹp mắt</p>
+        <button onclick="toggleFloatingMenu()" class="bg-purple-500 text-white px-4 py-2 rounded-lg text-sm">
+          <i class="fas fa-plus mr-2"></i>Xem Demo
+        </button>
+        <div class="mt-3 text-xs text-purple-600">
+          🎨 Ưu điểm: Đẹp mắt, hiệu ứng ấn tượng, Material Design
+        </div>
+      </section>
+
+      <!-- Recommendation -->
+      <section class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
+        <h2 class="text-lg font-bold text-green-800 mb-3">🏆 Khuyến nghị</h2>
+        <p class="text-green-700 text-sm mb-3">
+          <strong>Bottom Navigation</strong> là lựa chọn tốt nhất cho Japanese Learning App vì:
+        </p>
+        <ul class="text-sm text-green-700 space-y-1">
+          <li>✅ Dễ tiếp cận trên mobile (thumb-friendly)</li>
+          <li>✅ Luôn hiển thị, không cần thao tác mở/đóng</li>
+          <li>✅ Phù hợp với 4 mục chính của app</li>
+          <li>✅ Tuân thủ Material Design guidelines</li>
+          <li>✅ Hiệu ứng đẹp, chuyên nghiệp</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <!-- Slide Menu -->
+  <div id="menuOverlay" class="menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40" onclick="toggleSlideMenu()"></div>
+  <div id="slideMenu" class="slide-menu fixed left-0 top-0 h-full w-64 bg-white shadow-xl z-50">
+    <div class="p-4 bg-blue-500 text-white">
+      <h3 class="font-bold">Menu</h3>
+    </div>
+    <nav class="p-4">
+      <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded">
+        <i class="fas fa-book mr-3"></i>Lý Thuyết
+      </a>
+      <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded">
+        <i class="fas fa-pencil-alt mr-3"></i>Thực Hành
+      </a>
+      <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded">
+        <i class="fas fa-redo mr-3"></i>Ôn Tập
+      </a>
+      <a href="#" class="block py-3 px-4 text-gray-700 hover:bg-gray-100 rounded">
+        <i class="fas fa-chart-bar mr-3"></i>Thống Kê
+      </a>
+    </nav>
+  </div>
+
+  <!-- Floating Menu -->
+  <div id="floatingMenu" class="floating-menu fixed z-50">
+    <div class="floating-menu-item mb-3">
+      <button class="w-12 h-12 bg-blue-500 text-white rounded-full shadow-lg">
+        <i class="fas fa-book"></i>
+      </button>
+    </div>
+    <div class="floating-menu-item mb-3">
+      <button class="w-12 h-12 bg-green-500 text-white rounded-full shadow-lg">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+    </div>
+    <div class="floating-menu-item mb-3">
+      <button class="w-12 h-12 bg-orange-500 text-white rounded-full shadow-lg">
+        <i class="fas fa-redo"></i>
+      </button>
+    </div>
+    <div class="floating-menu-item mb-3">
+      <button class="w-12 h-12 bg-purple-500 text-white rounded-full shadow-lg">
+        <i class="fas fa-chart-bar"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function toggleSlideMenu() {
+      const menu = document.getElementById('slideMenu');
+      const overlay = document.getElementById('menuOverlay');
+      menu.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+
+    function toggleFloatingMenu() {
+      const menu = document.getElementById('floatingMenu');
+      menu.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Theory UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">Test Theory Cards</h1>
+        
+        <!-- Test Cards Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="test-cards">
+            <!-- Card 1: Verbs -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-2 border-blue-500 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 transform group">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-running text-2xl text-blue-500 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-lg font-bold text-blue-700 dark:text-blue-300 group-hover:text-current">Động Từ - Hiện Tại</h3>
+                    </div>
+                    <span class="text-sm font-medium text-blue-700 dark:text-blue-300">25 câu</span>
+                </div>
+                
+                <p class="text-sm mb-4 text-blue-600/80 group-hover:opacity-100 transition-opacity">Luyện tập chuyển đổi động từ hiện tại từ thể lịch sự sang thể thường</p>
+                
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1 text-blue-700 dark:text-blue-300">
+                        <span>Tiến độ</span>
+                        <span>0/25 câu</span>
+                    </div>
+                    <div class="w-full bg-white/50 dark:bg-gray-800/50 rounded-full h-2 overflow-hidden">
+                        <div class="bg-blue-500 h-2 rounded-full transition-all duration-500 relative" style="width: 0%">
+                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white/70 dark:bg-gray-800/70 rounded-lg p-3 text-xs opacity-90 group-hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold mb-2 text-blue-700 dark:text-blue-300">Quy tắc chuyển đổi:</h4>
+                    <ul class="space-y-1 text-xs text-blue-600">
+                        <li>• います → う (Group 1): 書きます → 書く</li>
+                        <li>• ます → る (Group 2): 食べます → 食べる</li>
+                        <li>• します → する (Irregular): 勉強します → 勉強する</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 2: Adjectives -->
+            <div class="bg-gradient-to-br from-purple-50 to-violet-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-2 border-purple-500 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 transform group">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-palette text-2xl text-purple-500 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-lg font-bold text-purple-700 dark:text-purple-300 group-hover:text-current">Tính Từ - い</h3>
+                    </div>
+                    <span class="text-sm font-medium text-purple-700 dark:text-purple-300">20 câu</span>
+                </div>
+                
+                <p class="text-sm mb-4 text-purple-600/80 group-hover:opacity-100 transition-opacity">Luyện tập chuyển đổi tính từ い từ thể lịch sự sang thể thường</p>
+                
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1 text-purple-700 dark:text-purple-300">
+                        <span>Tiến độ</span>
+                        <span>0/20 câu</span>
+                    </div>
+                    <div class="w-full bg-white/50 dark:bg-gray-800/50 rounded-full h-2 overflow-hidden">
+                        <div class="bg-purple-500 h-2 rounded-full transition-all duration-500 relative" style="width: 0%">
+                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white/70 dark:bg-gray-800/70 rounded-lg p-3 text-xs opacity-90 group-hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold mb-2 text-purple-700 dark:text-purple-300">Quy tắc chuyển đổi:</h4>
+                    <ul class="space-y-1 text-xs text-purple-600">
+                        <li>• いです → い: おいしいです → おいしい</li>
+                        <li>• かったです → かった: たのしかったです → たのしかった</li>
+                        <li>• くないです → くない: おもしろくないです → おもしろくない</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3: Grammar -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-gray-700 dark:to-gray-600 p-6 rounded-xl border-2 border-green-500 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 transform group">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-cogs text-2xl text-green-500 group-hover:scale-110 transition-transform"></i>
+                        <h3 class="text-lg font-bold text-green-700 dark:text-green-300 group-hover:text-current">Ngữ Pháp - Phải</h3>
+                    </div>
+                    <span class="text-sm font-medium text-green-700 dark:text-green-300">12 câu</span>
+                </div>
+                
+                <p class="text-sm mb-4 text-green-600/80 group-hover:opacity-100 transition-opacity">Luyện tập mẫu ngữ pháp biểu thị sự bắt buộc</p>
+                
+                <div class="mb-3">
+                    <div class="flex justify-between text-sm mb-1 text-green-700 dark:text-green-300">
+                        <span>Tiến độ</span>
+                        <span>0/12 câu</span>
+                    </div>
+                    <div class="w-full bg-white/50 dark:bg-gray-800/50 rounded-full h-2 overflow-hidden">
+                        <div class="bg-green-500 h-2 rounded-full transition-all duration-500 relative" style="width: 0%">
+                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white/70 dark:bg-gray-800/70 rounded-lg p-3 text-xs opacity-90 group-hover:opacity-100 transition-opacity">
+                    <h4 class="font-bold mb-2 text-green-700 dark:text-green-300">Quy tắc chuyển đổi:</h4>
+                    <ul class="space-y-1 text-xs text-green-600">
+                        <li>• なければなりません → なければならない</li>
+                        <li>• しなければなりません → しなければならない</li>
+                        <li>• いかなければなりません → いかなければならない</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test hover effects
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                console.log('Card hovered');
+            });
+        });
+    </script>
+</body>
+</html>

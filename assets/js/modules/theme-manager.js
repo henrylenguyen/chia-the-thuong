@@ -11,6 +11,7 @@ export class ThemeManager {
     this.currentTheme = 'light';
     this.systemTheme = this.getSystemTheme();
     this.themeToggleBtn = null;
+    this.themeToggleMobileBtn = null;
     this.observers = [];
   }
 
@@ -20,8 +21,8 @@ export class ThemeManager {
   init() {
     console.log('🎨 Initializing Theme Manager...');
 
-    // Cache theme toggle button
-    this.themeToggleBtn = document.getElementById('theme-toggle');
+    // Cache theme toggle button (FAB only)
+    this.themeToggleBtn = document.getElementById('theme-toggle-mobile');
 
     // Load saved theme or detect system preference
     this.loadTheme();
@@ -71,7 +72,7 @@ export class ThemeManager {
    * Setup event listeners
    */
   setupEventListeners() {
-    // Theme toggle button
+    // Theme toggle button (FAB)
     if (this.themeToggleBtn) {
       this.themeToggleBtn.addEventListener('click', () => {
         this.toggle();
@@ -202,24 +203,35 @@ export class ThemeManager {
    * Update theme toggle button
    */
   updateToggleButton(actualTheme) {
-    if (!this.themeToggleBtn) return;
+    // Update FAB toggle button
+    if (this.themeToggleBtn) {
+      const lightIcon = this.themeToggleBtn.querySelector('.theme-icon-light');
+      const darkIcon = this.themeToggleBtn.querySelector('.theme-icon-dark');
 
-    const icon = this.themeToggleBtn.querySelector('i');
-    if (!icon) return;
+      if (lightIcon && darkIcon) {
+        if (actualTheme === 'dark') {
+          // Dark mode: show sun icon
+          lightIcon.classList.add('hidden');
+          darkIcon.classList.remove('hidden');
+        } else {
+          // Light mode: show moon icon
+          lightIcon.classList.remove('hidden');
+          darkIcon.classList.add('hidden');
+        }
 
-    // Update icon
-    icon.className = actualTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        // Update aria-label for accessibility
+        this.themeToggleBtn.setAttribute('aria-label',
+          actualTheme === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'
+        );
 
-    // Update aria-label for accessibility
-    this.themeToggleBtn.setAttribute('aria-label',
-      actualTheme === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'
-    );
-
-    // Add animation
-    icon.style.transform = 'rotate(360deg)';
-    setTimeout(() => {
-      icon.style.transform = '';
-    }, 300);
+        // Add animation to visible icon
+        const visibleIcon = actualTheme === 'dark' ? darkIcon : lightIcon;
+        visibleIcon.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+          visibleIcon.style.transform = '';
+        }, 300);
+      }
+    }
   }
 
   /**

@@ -1,20 +1,24 @@
 {
   "verbs-present": {
-    "title": "Quy tắc chuyển đổi động từ hiện tại",
+    "title": "Động Từ - Hiện Tại",
+    "description": "Luyện tập chuyển đổi động từ từ thể lịch sự sang thể thường",
+    "difficulty": "beginner",
     "rules": [
       "います → う (Group 1): 書きます → 書く",
-      "ます → る (Group 2): 食べます → 食べる", 
+      "ます → る (Group 2): 食べます → 食べる",
       "します → する (Irregular): 勉強します → 勉強する",
       "きます → くる (Irregular): 来ます → 来る"
     ],
     "examples": [
-      "がっこうに いきます → がっこうに いく",
-      "ほんを よみます → ほんを よむ",
-      "えいがを みます → えいがを みる"
+      { "japanese": "がっこうに いきます", "meaning": "がっこうに いく" },
+      { "japanese": "ほんを よみます", "meaning": "ほんを よむ" },
+      { "japanese": "えいがを みます", "meaning": "えいがを みる" }
     ]
   },
   "verbs-past": {
-    "title": "Quy tắc chuyển đổi động từ quá khứ",
+    "title": "Động Từ - Quá Khứ",
+    "description": "Luyện tập chuyển đổi động từ quá khứ từ thể lịch sự sang thể thường",
+    "difficulty": "beginner",
     "rules": [
       "きました → いた: 書きました → 書いた",
       "ぎました → いだ: 泳ぎました → 泳いだ",
@@ -23,63 +27,74 @@
       "にました → んだ: 死にました → 死んだ"
     ],
     "examples": [
-      "きのう えいがを みました → きのう えいがを みた",
-      "あさごはんを たべました → あさごはんを たべた"
+      { "japanese": "きのう えいがを みました", "meaning": "きのう えいがを みた" },
+      { "japanese": "あさごはんを たべました", "meaning": "あさごはんを たべた" }
     ]
   },
   "verbs-negative": {
-    "title": "Quy tắc chuyển đổi động từ phủ định",
+    "title": "Động Từ - Phủ Định",
+    "description": "Luyện tập chuyển đổi động từ phủ định từ thể lịch sự sang thể thường",
+    "difficulty": "intermediate",
     "rules": [
       "きません → かない: 書きません → 書かない",
-      "ぎません → がない: 泳ぎません → 泳がない", 
+      "ぎません → がない: 泳ぎません → 泳がない",
       "しません → さない: 話しません → 話さない",
       "ちません → たない: 待ちません → 待たない",
       "にません → なない: 死にません → 死なない"
     ],
     "examples": [
-      "きょうは はたらきません → きょうは はたらかない",
-      "おさけを のみません → おさけを のまない"
+      { "japanese": "きょうは はたらきません", "meaning": "きょうは はたらかない" },
+      { "japanese": "おさけを のみません", "meaning": "おさけを のまない" }
     ]
   },
   "verbs-past-negative": {
-    "title": "Quy tắc chuyển đổi động từ quá khứ phủ định",
+    "title": "Động Từ - Quá Khứ Phủ Định",
+    "description": "Luyện tập chuyển đổi động từ quá khứ phủ định từ thể lịch sự sang thể thường",
+    "difficulty": "intermediate",
     "rules": [
       "きませんでした → かなかった",
       "ぎませんでした → がなかった",
-      "しませんでした → さなかった", 
+      "しませんでした → さなかった",
       "ちませんでした → たなかった",
       "にませんでした → ななかった"
     ],
     "examples": [
-      "きのうは べんきょうしませんでした → きのうは べんきょうしなかった",
-      "あさごはんを たべませんでした → あさごはんを たべなかった"
+      {
+        "japanese": "きのうは べんきょうしませんでした",
+        "meaning": "きのうは べんきょうしなかった"
+      },
+      { "japanese": "あさごはんを たべませんでした", "meaning": "あさごはんを たべなかった" }
     ]
   },
   "adjectives-i": {
-    "title": "Quy tắc chuyển đổi tính từ い",
+    "title": "Tính Từ い",
+    "description": "Luyện tập chuyển đổi tính từ い từ thể lịch sự sang thể thường",
+    "difficulty": "beginner",
     "rules": [
       "Hiện tại: おいしいです → おいしい",
-      "Quá khứ: おいしかったです → おいしかった", 
+      "Quá khứ: おいしかったです → おいしかった",
       "Phủ định: おいしくないです → おいしくない",
       "Quá khứ PĐ: おいしくなかったです → おいしくなかった",
       "Đặc biệt: いいです → いい (quá khứ: よかった)"
     ],
     "examples": [
-      "このりょうりは おいしいです → このりょうりは おいしい",
-      "きょうは あついです → きょうは あつい"
+      { "japanese": "このりょうりは おいしいです", "meaning": "このりょうりは おいしい" },
+      { "japanese": "きょうは あついです", "meaning": "きょうは あつい" }
     ]
   },
   "adjectives-na": {
-    "title": "Quy tắc chuyển đổi tính từ な",
+    "title": "Tính Từ な",
+    "description": "Luyện tập chuyển đổi tính từ な từ thể lịch sự sang thể thường",
+    "difficulty": "intermediate",
     "rules": [
       "Hiện tại: きれいです → きれいだ",
       "Quá khứ: きれいでした → きれいだった",
-      "Phủ định: きれいじゃありません → きれいじゃない", 
+      "Phủ định: きれいじゃありません → きれいじゃない",
       "Quá khứ PĐ: きれいじゃありませんでした → きれいじゃなかった"
     ],
     "examples": [
-      "このまちは しずかです → このまちは しずかだ",
-      "かれは しんせつです → かれは しんせつだ"
+      { "japanese": "このまちは しずかです", "meaning": "このまちは しずかだ" },
+      { "japanese": "かれは しんせつです", "meaning": "かれは しんせつだ" }
     ]
   },
   "nouns": {

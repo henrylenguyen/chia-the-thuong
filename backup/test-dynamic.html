@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dynamic Loading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">🧪 Test Dynamic Loading</h1>
+
+        <!-- Test Results -->
+        <div id="test-results" class="mb-8 space-y-4">
+            <!-- Results will be populated here -->
+        </div>
+
+        <!-- Exercise Cards Container -->
+        <div id="exercise-cards-container" class="space-y-8">
+            <!-- Dynamic exercise cards will be populated here -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { DataLoader } from './assets/js/modules/data-loader.js';
+        import { DynamicRenderer } from './assets/js/modules/dynamic-renderer.js';
+        import { ConfigManager } from './assets/js/modules/config-manager.js';
+        import { initializeConfig, getMessage, getSetting, isFeatureEnabled } from './assets/js/utils/constants.js';
+
+        async function runTests() {
+            const resultsContainer = document.getElementById('test-results');
+            const exerciseContainer = document.getElementById('exercise-cards-container');
+
+            try {
+                // Test 0: Initialize Config Manager
+                resultsContainer.innerHTML += `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        🔄 Testing config manager initialization...
+                    </div>
+                `;
+
+                await initializeConfig();
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        ✅ Config manager initialized successfully!
+                        <br>Messages: ${getMessage('ui.buttons.start')}
+                        <br>Settings: ${getSetting('defaults.theme')}
+                        <br>Features: ${isFeatureEnabled('achievements')}
+                    </div>
+                `;
+
+                // Test 1: Load App Config
+                resultsContainer.innerHTML += `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        🔄 Testing app config loading...
+                    </div>
+                `;
+
+                const dataLoader = new DataLoader();
+                const config = await dataLoader.loadAppConfig();
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        ✅ App config loaded: ${config.app.name} v${config.app.version}
+                        <br>Categories: ${Object.keys(config.categories).length}
+                        <br>Features: ${Object.keys(config.features).length}
+                    </div>
+                `;
+
+                // Test 2: Load Exercise Definitions
+                resultsContainer.innerHTML += `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        🔄 Testing exercise definitions loading...
+                    </div>
+                `;
+
+                const exercises = await dataLoader.loadExerciseDefinitions();
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        ✅ Exercise definitions loaded: ${Object.keys(exercises).length} exercises
+                        <br>Categories: ${[...new Set(Object.values(exercises).map(e => e.category))].join(', ')}
+                    </div>
+                `;
+
+                // Test 3: Get Available Exercises
+                resultsContainer.innerHTML += `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        🔄 Testing available exercises...
+                    </div>
+                `;
+
+                const availableExercises = await dataLoader.getAvailableExercises();
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        ✅ Available exercises: ${availableExercises.length} exercises
+                        <br>Enabled: ${availableExercises.filter(e => e.enabled !== false).length}
+                        <br>Sample: ${availableExercises.slice(0, 3).map(e => e.title).join(', ')}
+                    </div>
+                `;
+
+                // Test 4: Dynamic Renderer
+                resultsContainer.innerHTML += `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        🔄 Testing dynamic renderer...
+                    </div>
+                `;
+
+                const renderer = new DynamicRenderer(dataLoader);
+                await renderer.renderExerciseCards(exerciseContainer);
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        ✅ Dynamic renderer completed successfully!
+                        <br>Check the exercise cards below ⬇️
+                    </div>
+                `;
+
+                // Test 5: Event Listener Test
+                document.addEventListener('exerciseSelected', (e) => {
+                    resultsContainer.innerHTML += `
+                        <div class="bg-purple-100 border border-purple-400 text-purple-700 px-4 py-3 rounded">
+                            🎯 Exercise selected: ${e.detail.exercise.title} (${e.detail.exercise.id})
+                        </div>
+                    `;
+                });
+
+                resultsContainer.innerHTML += `
+                    <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+                        💡 Click on any exercise card to test event handling!
+                    </div>
+                `;
+
+            } catch (error) {
+                resultsContainer.innerHTML += `
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        ❌ Test failed: ${error.message}
+                        <br>Stack: ${error.stack}
+                    </div>
+                `;
+            }
+        }
+
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+
+</html>

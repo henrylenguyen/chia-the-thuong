@@ -1,0 +1,21 @@
+{
+  "user": {
+    "theme": "light",
+    "language": "vi",
+    "fontSize": "medium",
+    "soundEnabled": false,
+    "animationsEnabled": true,
+    "showExplanations": true,
+    "shuffleQuestions": true,
+    "showHints": true,
+    "autoAdvance": false,
+    "showProgress": true
+  },
+  "quiz": {
+    "shuffleQuestions": true,
+    "showExplanations": true,
+    "allowSkip": false,
+    "enableHints": true,
+    "maxHints": 3
+  }
+}

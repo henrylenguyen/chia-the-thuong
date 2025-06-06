@@ -3,15 +3,17 @@
  * Central controller for the Japanese Learning App
  */
 
-import { EXERCISE_DEFINITIONS, APP_CONFIG, STORAGE_KEYS } from './utils/constants.js';
+import { ExerciseRenderer } from './components/exercise-renderer.js';
+import { PracticeRenderer } from './components/practice-renderer.js';
+import { TheoryRenderer } from './components/theory-renderer.js';
 import { DataLoader } from './modules/data-loader.js';
+import { DynamicRenderer } from './modules/dynamic-renderer.js';
 import { Navigation } from './modules/navigation.js';
 import { QuizManager } from './modules/quiz-manager.js';
 import { StatsManager } from './modules/stats-manager.js';
 import { StorageManager } from './modules/storage-manager.js';
 import { ThemeManager } from './modules/theme-manager.js';
-import { ExerciseRenderer } from './components/exercise-renderer.js';
-import { TheoryRenderer } from './components/theory-renderer.js';
+import { CSS_CLASSES, DOM_IDS, KEYBOARD, STORAGE_KEYS, TIMING, initializeConfig } from './utils/constants.js';
 
 export class JapaneseApp {
   constructor() {
@@ -30,6 +32,7 @@ export class JapaneseApp {
 
     // Initialize managers
     this.dataLoader = new DataLoader();
+    this.dynamicRenderer = new DynamicRenderer(this.dataLoader);
     this.navigation = new Navigation();
     this.quiz = new QuizManager();
     this.stats = new StatsManager();
@@ -37,6 +40,11 @@ export class JapaneseApp {
     this.theme = new ThemeManager();
     this.exerciseRenderer = new ExerciseRenderer();
     this.theoryRenderer = new TheoryRenderer();
+    this.practiceRenderer = new PracticeRenderer();
+
+    // Initialize review and statistics renderers dynamically
+    this.reviewRenderer = null;
+    this.statisticsRenderer = null;
 
     // Bind methods
     this.init = this.init.bind(this);
@@ -49,6 +57,9 @@ export class JapaneseApp {
   async init() {
     try {
       console.log('🚀 Initializing Japanese Learning App...');
+
+      // Initialize configuration first
+      await initializeConfig();
 
       // Initialize managers
       await this.initializeManagers();
@@ -91,6 +102,16 @@ export class JapaneseApp {
       this.handlePageChange(e.detail.page);
     });
 
+    // Listen for dynamic exercise selection
+    document.addEventListener('exerciseSelected', (e) => {
+      this.startExercise(e.detail.exercise.id);
+    });
+
+    // Listen for review quiz start
+    document.addEventListener('startReviewQuiz', (e) => {
+      this.startReviewQuiz(e.detail.questions);
+    });
+
     // Initialize quiz manager (will be done after data loading)
 
     // Initialize stats manager
@@ -99,8 +120,8 @@ export class JapaneseApp {
 
   setupEventListeners() {
     // Quiz controls
-    const checkBtn = document.getElementById('check-btn');
-    const nextBtn = document.getElementById('next-btn');
+    const checkBtn = document.getElementById(DOM_IDS.CHECK_BTN);
+    const nextBtn = document.getElementById(DOM_IDS.NEXT_BTN);
     const backBtn = document.getElementById('back-to-selection');
     const retryBtn = document.getElementById('retry-wrong');
 
@@ -117,17 +138,17 @@ export class JapaneseApp {
     if (closeResultsBtn) closeResultsBtn.addEventListener('click', () => this.closeResults());
 
     // Answer input
-    const answerInput = document.getElementById('answer-input');
+    const answerInput = document.getElementById(DOM_IDS.ANSWER_INPUT);
     if (answerInput) {
       answerInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === KEYBOARD.ENTER) {
           e.preventDefault();
-          const checkBtn = document.getElementById('check-btn');
-          const nextBtn = document.getElementById('next-btn');
+          const checkBtn = document.getElementById(DOM_IDS.CHECK_BTN);
+          const nextBtn = document.getElementById(DOM_IDS.NEXT_BTN);
 
-          if (checkBtn && !checkBtn.classList.contains('hidden')) {
+          if (checkBtn && !checkBtn.classList.contains(CSS_CLASSES.HIDDEN)) {
             this.checkAnswer();
-          } else if (nextBtn && !nextBtn.classList.contains('hidden')) {
+          } else if (nextBtn && !nextBtn.classList.contains(CSS_CLASSES.HIDDEN)) {
             this.nextQuestion();
           }
         }
@@ -138,7 +159,7 @@ export class JapaneseApp {
   async loadData() {
     try {
       const loadingText = document.querySelector('#loading-screen .text-xl');
-      
+
       if (loadingText) {
         loadingText.textContent = 'Đang tải dữ liệu...';
       }
@@ -159,6 +180,7 @@ export class JapaneseApp {
       this.quiz.init({
         questionsData: this.questionsData,
         answersData: this.answersData,
+        exerciseDefinitions: this.exerciseDefinitions,
         statsManager: this.stats,
         storageManager: this.storage
       });
@@ -172,15 +194,17 @@ export class JapaneseApp {
 
       // Initialize renderers
       this.theoryRenderer.init(this.theoryData, this.exerciseDefinitions, this.questionsData);
+      this.practiceRenderer.init(this.theoryData, this.questionsData, this.answersData, this.exerciseDefinitions);
       this.exerciseRenderer.init(this.exerciseDefinitions);
 
       // Initialize UI now that data is loaded
       this.initializeUI();
 
-      // Delay theory rendering slightly to ensure all data is ready
+      // Delay content rendering slightly to ensure all data is ready
       setTimeout(() => {
         this.renderTheoryContent();
-      }, 100);
+        this.renderPracticeContent();
+      }, TIMING.AUTO_FOCUS_DELAY);
 
     } catch (error) {
       console.error('❌ Error loading data:', error);
@@ -209,7 +233,7 @@ export class JapaneseApp {
       }
 
       switch (e.key) {
-        case 'Escape':
+        case KEYBOARD.ESCAPE:
           if (this.currentExercise) {
             this.closeQuiz();
           }
@@ -230,7 +254,7 @@ export class JapaneseApp {
 
   handlePageChange(page) {
     this.currentPage = page;
-    
+
     // Load page-specific content
     if (page === 'review') {
       this.loadReviewContent();
@@ -248,7 +272,7 @@ export class JapaneseApp {
     } else {
       this.sessionStats.wrong++;
       this.sessionStats.streak = 0;
-      
+
       // Add to wrong answers
       this.wrongAnswers.push({
         question: result.question,
@@ -261,7 +285,7 @@ export class JapaneseApp {
 
     // Update global stats
     this.stats.updateStats(result);
-    
+
     // Save data
     this.saveData();
   }
@@ -310,7 +334,7 @@ export class JapaneseApp {
     const accuracy = this.globalStats.totalQuestions > 0
       ? Math.round((this.globalStats.totalCorrect / this.globalStats.totalQuestions) * 100)
       : 0;
-    
+
     const accuracyElement = document.getElementById('accuracy-rate');
     if (accuracyElement) {
       accuracyElement.textContent = accuracy + '%';
@@ -322,8 +346,8 @@ export class JapaneseApp {
     if (loadingScreen) {
       loadingScreen.classList.add('opacity-0');
       setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-      }, 300);
+        loadingScreen.classList.add(CSS_CLASSES.HIDDEN);
+      }, TIMING.ANIMATION_DURATION);
     }
   }
 
@@ -352,14 +376,14 @@ export class JapaneseApp {
     this.sessionStats = { correct: 0, total: 0, streak: 0, wrong: 0 };
 
     // Start quiz
-    this.quiz.startQuiz(exerciseKey, questions, answers);
-    
+    this.quiz.startExercise(exerciseKey);
+
     // Show practice page
     this.navigation.navigateTo('practice');
   }
 
   checkAnswer() {
-    this.quiz.checkCurrentAnswer();
+    this.quiz.handleSubmitAnswer();
   }
 
   nextQuestion() {
@@ -367,9 +391,9 @@ export class JapaneseApp {
   }
 
   closeQuiz() {
-    this.quiz.endQuiz();
+    this.quiz.closeQuiz();
     this.currentExercise = null;
-    this.navigation.navigateTo('theory');
+    this.navigation.navigateTo('practice');
   }
 
   retryCurrentExercise() {
@@ -378,15 +402,98 @@ export class JapaneseApp {
     }
   }
 
+  startReviewQuiz(questions) {
+    if (!questions || questions.length === 0) {
+      this.showError('Không có câu sai để ôn tập!');
+      return;
+    }
+
+    // Set up review mode
+    this.currentExercise = 'review';
+    this.currentQuestionIndex = 0;
+    this.sessionStats = { correct: 0, total: 0, streak: 0, wrong: 0 };
+
+    // Start quiz with review questions
+    this.quiz.startReviewQuiz(questions);
+
+    // Show practice page
+    this.navigation.navigateTo('practice');
+  }
+
   retryWrongAnswers() {
-    // TODO: Implement retry wrong answers functionality
-    console.log('Retry wrong answers not implemented yet');
+    if (this.reviewRenderer) {
+      this.reviewRenderer.startReviewQuiz();
+    } else {
+      console.log('Review renderer not initialized');
+    }
+  }
+
+  clearWrongAnswers() {
+    if (this.reviewRenderer) {
+      this.reviewRenderer.clearWrongAnswers();
+    }
+  }
+
+  removeWrongAnswer(index) {
+    if (this.reviewRenderer) {
+      this.reviewRenderer.removeWrongAnswer(index);
+    }
+  }
+
+  exportData() {
+    try {
+      const data = this.storage.exportData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `japanese-app-backup-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      console.log('📤 Data exported successfully');
+    } catch (error) {
+      console.error('❌ Export failed:', error);
+      alert('Xuất dữ liệu thất bại!');
+    }
+  }
+
+  importData() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            this.storage.importData(data);
+            alert('Nhập dữ liệu thành công!');
+            location.reload(); // Reload to apply imported data
+          } catch (error) {
+            console.error('❌ Import failed:', error);
+            alert('Nhập dữ liệu thất bại!');
+          }
+        };
+        reader.readAsText(file);
+      }
+    };
+    input.click();
+  }
+
+  resetData() {
+    if (confirm('Bạn có chắc muốn xóa tất cả dữ liệu? Hành động này không thể hoàn tác!')) {
+      this.storage.clear();
+      alert('Đã xóa tất cả dữ liệu!');
+      location.reload();
+    }
   }
 
   closeResults() {
-    const modal = document.getElementById('results-modal');
+    const modal = document.getElementById(DOM_IDS.RESULTS_MODAL);
     if (modal) {
-      modal.classList.add('hidden');
+      modal.classList.add(CSS_CLASSES.HIDDEN);
     }
   }
 
@@ -396,22 +503,61 @@ export class JapaneseApp {
   }
 
   // Content loading methods
-  loadReviewContent() {
-    // TODO: Implement review content loading
-    console.log('Loading review content...');
+  async loadReviewContent() {
+    try {
+      if (!this.reviewRenderer) {
+        const { ReviewRenderer } = await import('./components/review-renderer.js');
+        this.reviewRenderer = new ReviewRenderer();
+        this.reviewRenderer.init(this.storage);
+      }
+      this.reviewRenderer.renderReviewContent();
+      console.log('📖 Review content loaded');
+    } catch (error) {
+      console.error('❌ Error loading review content:', error);
+    }
   }
 
-  loadStatistics() {
-    // TODO: Implement statistics loading
-    console.log('Loading statistics...');
+  async loadStatistics() {
+    try {
+      if (!this.statisticsRenderer) {
+        const { StatisticsRenderer } = await import('./components/statistics-renderer.js');
+        this.statisticsRenderer = new StatisticsRenderer();
+        this.statisticsRenderer.init(this.storage, this.stats);
+      }
+      this.statisticsRenderer.renderStatisticsContent();
+      console.log('📊 Statistics content loaded');
+    } catch (error) {
+      console.error('❌ Error loading statistics content:', error);
+    }
   }
 
-  renderExerciseCards() {
-    this.exerciseRenderer.renderExerciseCards(
-      this.questionsData,
-      this.globalStats,
-      (exerciseKey) => this.startExercise(exerciseKey)
-    );
+  async renderExerciseCards() {
+    try {
+      const container = document.getElementById(DOM_IDS.EXERCISE_CARDS_CONTAINER) ||
+        document.querySelector('.exercise-cards') ||
+        document.querySelector('#practice .grid');
+
+      if (container) {
+        await this.dynamicRenderer.renderExerciseCards(container);
+        console.log('🎨 Dynamic exercise cards rendered');
+      } else {
+        console.warn('⚠️ Exercise cards container not found');
+        // Fallback to old renderer
+        this.exerciseRenderer.renderExerciseCards(
+          this.questionsData,
+          this.globalStats,
+          (exerciseKey) => this.startExercise(exerciseKey)
+        );
+      }
+    } catch (error) {
+      console.error('❌ Error rendering dynamic exercise cards:', error);
+      // Fallback to old renderer
+      this.exerciseRenderer.renderExerciseCards(
+        this.questionsData,
+        this.globalStats,
+        (exerciseKey) => this.startExercise(exerciseKey)
+      );
+    }
   }
 
   renderTheoryContent() {
@@ -423,6 +569,20 @@ export class JapaneseApp {
         theoryData: !!this.theoryData,
         exerciseDefinitions: !!this.exerciseDefinitions,
         questionsData: !!this.questionsData
+      });
+    }
+  }
+
+  renderPracticeContent() {
+    if (this.practiceRenderer && this.theoryData && this.questionsData && this.answersData && this.exerciseDefinitions) {
+      this.practiceRenderer.renderPracticeContent();
+    } else {
+      console.warn('Practice content not rendered - missing data:', {
+        practiceRenderer: !!this.practiceRenderer,
+        theoryData: !!this.theoryData,
+        questionsData: !!this.questionsData,
+        answersData: !!this.answersData,
+        exerciseDefinitions: !!this.exerciseDefinitions
       });
     }
   }

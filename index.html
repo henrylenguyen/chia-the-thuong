@@ -115,6 +115,576 @@
       border-color: #ef4444 !important;
       background-color: #7f1d1d !important;
     }
+
+    /* Bottom Navigation Styles */
+    .bottom-nav {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .bottom-nav-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      border-radius: 12px;
+      margin: 0 2px;
+    }
+
+    .bottom-nav-item:hover {
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .bottom-nav-item.active {
+      transform: translateY(-2px);
+      background: rgba(102, 126, 234, 0.15);
+    }
+
+    .bottom-nav-item.active::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 0 0 3px 3px;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    .bottom-nav-icon {
+      transition: all 0.3s ease;
+    }
+
+    .bottom-nav-item.active .bottom-nav-icon {
+      transform: scale(1.1);
+      color: #667eea;
+      animation: bounce 0.5s ease-out;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      60%,
+      100% {
+        transform: scale(1.1);
+      }
+
+      40% {
+        transform: scale(1.2);
+      }
+
+      80% {
+        transform: scale(1.05);
+      }
+    }
+
+    .bottom-nav-text {
+      font-size: 0.75rem;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+
+    .bottom-nav-item.active .bottom-nav-text {
+      opacity: 1;
+      font-weight: 600;
+      color: #667eea;
+      transform: scale(1.05);
+    }
+
+    /* Simple Desktop Navigation Styles */
+    .nav-btn {
+      position: relative;
+    }
+
+    .nav-btn.active {
+      color: #667eea !important;
+      border-bottom-color: #667eea !important;
+    }
+
+    .nav-btn:hover:not(.active) {
+      color: #667eea;
+    }
+
+    .dark .nav-btn.active {
+      color: #93c5fd !important;
+      border-bottom-color: #93c5fd !important;
+    }
+
+    .dark .nav-btn:hover:not(.active) {
+      color: #93c5fd;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 80px;
+        /* Space for bottom nav */
+      }
+
+      .main-content {
+        padding-bottom: 2rem;
+      }
+
+      /* Hide desktop navigation on mobile */
+      .hidden-mobile {
+        display: none !important;
+      }
+
+      /* Adjust hero text for mobile */
+      .hero-title {
+        font-size: 2.5rem !important;
+      }
+
+      .hero-subtitle {
+        font-size: 1.125rem !important;
+      }
+
+      /* Improve card spacing on mobile */
+      .exercise-card {
+        margin-bottom: 1rem;
+      }
+
+      /* Better quiz layout on mobile */
+      #quiz-container .p-8 {
+        padding: 1.5rem !important;
+      }
+
+      /* Adjust stats grid for mobile */
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+      }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem !important;
+      }
+
+      .bottom-nav-text {
+        font-size: 0.6rem;
+      }
+
+      .fab {
+        width: 48px;
+        height: 48px;
+        right: 16px;
+      }
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    /* Adjust FAB position on mobile to avoid bottom nav */
+    @media (max-width: 768px) {
+      .fab {
+        bottom: 100px;
+      }
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .fab:active {
+      transform: scale(0.95);
+    }
+
+    /* Pulse animation for FAB */
+    .fab::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      opacity: 0.3;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+
+      50% {
+        transform: scale(1.2);
+        opacity: 0.1;
+      }
+
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    /* Card hover effects */
+    .exercise-card {
+      transition: all 0.3s ease;
+    }
+
+    .exercise-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Loading animation improvements */
+    .loading-dots {
+      display: inline-block;
+    }
+
+    .loading-dots::after {
+      content: '';
+      animation: dots 1.5s infinite;
+    }
+
+    @keyframes dots {
+
+      0%,
+      20% {
+        content: '';
+      }
+
+      40% {
+        content: '.';
+      }
+
+      60% {
+        content: '..';
+      }
+
+      80%,
+      100% {
+        content: '...';
+      }
+    }
+
+    /* Custom animation classes for HTML validation fixes */
+    .reverse-spin {
+      animation-direction: reverse;
+      animation-duration: 1.5s;
+    }
+
+    .slow-pulse {
+      animation-duration: 2s;
+    }
+
+    .bounce-delay-0 {
+      animation-delay: 0s;
+    }
+
+    .bounce-delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .bounce-delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .bounce-delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    .bounce-delay-4 {
+      animation-delay: 0.4s;
+    }
+
+    /* Enhanced Quiz Animations */
+    .animate-slide-out {
+      animation: slideOut 0.15s ease-in forwards;
+    }
+
+    .animate-slide-in {
+      animation: slideIn 0.3s ease-out forwards;
+    }
+
+    .animate-shake {
+      animation: shake 0.6s ease-in-out;
+    }
+
+    .animate-pulse-success {
+      animation: pulseSuccess 0.8s ease-in-out;
+    }
+
+    .animate-bounce-in {
+      animation: bounceIn 0.6s ease-out;
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .celebrate {
+      animation: celebrate 1s ease-out;
+    }
+
+    /* Quiz Animation Keyframes */
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-5px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes pulseSuccess {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes celebrate {
+      0% {
+        transform: scale(1);
+      }
+
+      25% {
+        transform: scale(1.02) rotate(1deg);
+      }
+
+      50% {
+        transform: scale(1.04) rotate(-1deg);
+      }
+
+      75% {
+        transform: scale(1.02) rotate(1deg);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
+
+      50% {
+        transform: translate(-50%, -70%) scale(1.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -100%) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Results Modal Animations */
+    .animate-count-up {
+      animation: countUp 1s ease-out;
+    }
+
+    @keyframes countUp {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Hamburger Menu Styles */
+    .hamburger {
+      width: 24px;
+      height: 18px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .hamburger-line {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: currentColor;
+      border-radius: 1px;
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: all 0.25s ease-in-out;
+    }
+
+    .hamburger-line:nth-child(1) {
+      top: 0px;
+    }
+
+    .hamburger-line:nth-child(2) {
+      top: 8px;
+    }
+
+    .hamburger-line:nth-child(3) {
+      top: 16px;
+    }
+
+    /* Hamburger Animation */
+    #mobile-menu-btn.active .hamburger-line:nth-child(1) {
+      top: 8px;
+      transform: rotate(135deg);
+    }
+
+    #mobile-menu-btn.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+      left: -60px;
+    }
+
+    #mobile-menu-btn.active .hamburger-line:nth-child(3) {
+      top: 8px;
+      transform: rotate(-135deg);
+    }
+
+    /* Mobile Menu Styles */
+    #mobile-menu.show {
+      display: block;
+    }
+
+    #mobile-menu.show .mobile-menu-backdrop {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    #mobile-menu.show .mobile-menu-panel {
+      transform: translateX(0);
+    }
+
+    /* Mobile Menu Item Animations */
+    .mobile-nav-btn {
+      transform: translateX(20px);
+      opacity: 0;
+      animation: slideInRight 0.3s ease-out forwards;
+    }
+
+    .mobile-nav-btn:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .mobile-nav-btn:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .mobile-nav-btn:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .mobile-nav-btn:nth-child(4) {
+      animation-delay: 0.25s;
+    }
+
+    @keyframes slideInRight {
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Mobile Menu Active State */
+    .mobile-nav-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .mobile-nav-btn.active i {
+      color: white !important;
+    }
+
+    .mobile-nav-btn.active .text-gray-500 {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    /* Touch-friendly improvements */
+    @media (max-width: 768px) {
+      .mobile-nav-btn {
+        min-height: 60px;
+        touch-action: manipulation;
+      }
+
+      .hamburger {
+        padding: 8px;
+      }
+    }
   </style>
 </head>
 
@@ -122,11 +692,36 @@
   <!-- Loading Screen -->
   <div id="loading-screen"
     class="fixed inset-0 bg-white dark:bg-gray-900 flex flex-col items-center justify-center z-50">
-    <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent mb-4"></div>
-    <div class="text-xl font-medium text-gray-700 dark:text-gray-300 mb-2">Đang tải dữ liệu...</div>
-    <div class="w-64 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-      <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full animate-pulse"
-        style="width: 100%; animation-duration: 2s;"></div>
+    <!-- Logo Animation -->
+    <div class="mb-8">
+      <i class="fas fa-torii-gate text-6xl text-blue-500 animate-bounce"></i>
+    </div>
+
+    <!-- Spinner -->
+    <div class="relative mb-6">
+      <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-500 border-t-transparent"></div>
+      <div
+        class="absolute inset-0 rounded-full h-16 w-16 border-4 border-purple-500 border-b-transparent animate-spin reverse-spin">
+      </div>
+    </div>
+
+    <!-- Loading Text -->
+    <div class="text-xl font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <span class="loading-dots">Đang tải dữ liệu</span>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="w-64 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+      <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full animate-pulse w-full slow-pulse"></div>
+    </div>
+
+    <!-- Japanese Characters Animation -->
+    <div class="mt-6 text-2xl font-japanese text-gray-400 dark:text-gray-600">
+      <span class="inline-block animate-bounce bounce-delay-0">日</span>
+      <span class="inline-block animate-bounce bounce-delay-1">本</span>
+      <span class="inline-block animate-bounce bounce-delay-2">語</span>
+      <span class="inline-block animate-bounce bounce-delay-3">学</span>
+      <span class="inline-block animate-bounce bounce-delay-4">習</span>
     </div>
   </div>
 
@@ -141,80 +736,143 @@
           <h1 class="text-xl font-bold gradient-text font-japanese">日本語学習</h1>
         </div>
 
-        <!-- Navigation -->
-        <nav class="hidden md:flex space-x-2">
-          <button class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 bg-blue-500 text-white"
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-8" aria-label="Main navigation">
+          <button type="button"
+            class="nav-btn px-4 py-3 font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent"
             data-page="theory">
-            <i class="fas fa-book mr-2"></i>Lý Thuyết
+            <i class="fas fa-book mr-2"></i>
+            <span>Lý Thuyết</span>
           </button>
-          <button
-            class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          <button type="button"
+            class="nav-btn px-4 py-3 font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent"
             data-page="practice">
-            <i class="fas fa-pencil-alt mr-2"></i>Thực Hành
+            <i class="fas fa-pencil-alt mr-2"></i>
+            <span>Thực Hành</span>
           </button>
-          <button
-            class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          <button type="button"
+            class="nav-btn px-4 py-3 font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent"
             data-page="review">
-            <i class="fas fa-redo mr-2"></i>Ôn Tập
+            <i class="fas fa-redo mr-2"></i>
+            <span>Ôn Tập</span>
           </button>
-          <button
-            class="nav-btn px-4 py-2 rounded-lg font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+          <button type="button"
+            class="nav-btn px-4 py-3 font-medium transition-all duration-300 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent"
             data-page="statistics">
-            <i class="fas fa-chart-bar mr-2"></i>Thống Kê
+            <i class="fas fa-chart-bar mr-2"></i>
+            <span>Thống Kê</span>
           </button>
         </nav>
 
-        <!-- Theme Toggle -->
-        <button id="theme-toggle"
-          class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <i class="fas fa-moon dark:hidden"></i>
-          <i class="fas fa-sun hidden dark:block"></i>
-        </button>
-
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300">
-          <i class="fas fa-bars"></i>
+        <button type="button" id="mobile-menu-btn"
+          class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+          aria-label="Toggle mobile menu" aria-expanded="false">
+          <span class="hamburger">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </span>
         </button>
+
+
       </div>
     </div>
 
-    <!-- Mobile Navigation -->
-    <div id="mobile-menu"
-      class="hidden md:hidden border-t border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/90">
-      <div class="px-4 py-2 space-y-1">
-        <button class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium bg-blue-500 text-white"
-          data-page="theory">
-          <i class="fas fa-book mr-2"></i>Lý Thuyết
-        </button>
-        <button
-          class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-          data-page="practice">
-          <i class="fas fa-pencil-alt mr-2"></i>Thực Hành
-        </button>
-        <button
-          class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-          data-page="review">
-          <i class="fas fa-redo mr-2"></i>Ôn Tập
-        </button>
-        <button
-          class="mobile-nav-btn w-full text-left px-3 py-2 rounded-lg font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-          data-page="statistics">
-          <i class="fas fa-chart-bar mr-2"></i>Thống Kê
+
+  </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 md:hidden">
+    <!-- Backdrop -->
+    <div class="mobile-menu-backdrop fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+
+    <!-- Menu Panel -->
+    <div
+      class="mobile-menu-panel fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out">
+      <!-- Menu Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <div class="flex items-center space-x-3">
+          <i class="fas fa-torii-gate text-xl gradient-text"></i>
+          <h2 class="text-lg font-bold gradient-text font-japanese">日本語学習</h2>
+        </div>
+        <button type="button" id="mobile-menu-close"
+          class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+          aria-label="Close menu">
+          <i class="fas fa-times text-xl text-gray-600 dark:text-gray-400"></i>
         </button>
       </div>
+
+      <!-- Menu Items -->
+      <nav class="p-6" aria-label="Mobile navigation">
+        <ul class="space-y-2">
+          <li>
+            <button type="button"
+              class="mobile-nav-btn w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              data-page="theory">
+              <i class="fas fa-book text-xl mr-4 text-blue-500"></i>
+              <span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">Lý Thuyết</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Học kiến thức cơ bản</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button"
+              class="mobile-nav-btn w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              data-page="practice">
+              <i class="fas fa-pencil-alt text-xl mr-4 text-green-500"></i>
+              <span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">Thực Hành</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Làm bài tập và kiểm tra</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button"
+              class="mobile-nav-btn w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              data-page="review">
+              <i class="fas fa-redo text-xl mr-4 text-orange-500"></i>
+              <span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">Ôn Tập</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Ôn lại câu sai</span>
+              </span>
+            </button>
+          </li>
+          <li>
+            <button type="button"
+              class="mobile-nav-btn w-full flex items-center px-4 py-3 rounded-xl text-left transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+              data-page="statistics">
+              <i class="fas fa-chart-bar text-xl mr-4 text-purple-500"></i>
+              <span>
+                <span class="font-medium text-gray-900 dark:text-gray-100">Thống Kê</span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">Xem tiến độ học tập</span>
+              </span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Menu Footer -->
+      <div class="absolute bottom-0 left-0 right-0 p-6 border-t border-gray-200 dark:border-gray-700">
+        <div class="text-center text-sm text-gray-500 dark:text-gray-400">
+          <p>Phiên bản 1.0</p>
+          <p class="mt-1">Học tiếng Nhật hiệu quả</p>
+        </div>
+      </div>
     </div>
-  </header>
+  </div>
 
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Theory Page -->
     <div id="theory-page" class="page animate-slide-up">
       <!-- Hero Section -->
-      <div class="text-center mb-12">
-        <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4 font-japanese">
+      <div class="text-center mb-8 md:mb-12">
+        <h1 class="hero-title text-4xl md:text-6xl font-bold gradient-text mb-4 font-japanese">
           普通形 (Thể Thường)
         </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        <p class="hero-subtitle text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
           Nắm vững kiến thức cơ bản về thể thường trong tiếng Nhật một cách dễ dàng và trực quan
         </p>
       </div>
@@ -236,7 +894,7 @@
       </div>
 
       <!-- Stats Dashboard -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="stats-grid grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div
           class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center border border-gray-200 dark:border-gray-700">
           <i class="fas fa-check-circle text-3xl text-green-500 mb-2"></i>
@@ -264,8 +922,8 @@
       </div>
 
       <!-- Exercise Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="exercise-grid">
-        <!-- Exercise cards will be populated by JavaScript -->
+      <div class="space-y-8" id="exercise-cards-container">
+        <!-- Dynamic exercise cards will be populated by JavaScript -->
       </div>
     </div>
 
@@ -288,22 +946,8 @@
         <p class="text-xl text-gray-600 dark:text-gray-400">Theo dõi tiến độ học tập của bạn</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Progress Chart -->
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-          <h3 class="text-xl font-bold mb-4">Tiến Độ Theo Thời Gian</h3>
-          <div id="progress-chart" class="h-64 flex items-center justify-center text-gray-500">
-            Biểu đồ tiến độ sẽ được hiển thị ở đây
-          </div>
-        </div>
-
-        <!-- Exercise Progress -->
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-          <h3 class="text-xl font-bold mb-4">Tiến Độ Bài Tập</h3>
-          <div id="exercise-progress" class="space-y-4">
-            <!-- Exercise progress will be populated by JavaScript -->
-          </div>
-        </div>
+      <div id="statistics-content">
+        <!-- Statistics content will be rendered here -->
       </div>
     </div>
 
@@ -321,7 +965,7 @@
             <!-- Progress Bar -->
             <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
               <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300"
-                   id="quiz-progress-bar" style="width: 4%"></div>
+                id="quiz-progress-bar"></div>
             </div>
           </div>
         </div>
@@ -329,20 +973,25 @@
         <!-- Question Card -->
         <div class="flex-1 flex items-center justify-center p-6">
           <div class="w-full max-w-4xl">
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
+            <div
+              class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
               <!-- Question Content with Left Border -->
               <div class="border-l-4 border-blue-500 pl-6">
-                <div class="text-lg mb-4 text-gray-700 dark:text-gray-300" id="question-text">Chuyển câu sau sang thể thường:</div>
+                <div class="text-lg mb-4 text-gray-700 dark:text-gray-300" id="question-text">Chuyển câu sau sang thể
+                  thường:</div>
 
-                <div class="text-3xl font-bold mb-2 text-blue-700 dark:text-blue-300 font-japanese" id="japanese-sentence">
+                <div class="text-3xl font-bold mb-2 text-blue-700 dark:text-blue-300 font-japanese"
+                  id="japanese-sentence">
                   きのう えいがを みました。
                 </div>
 
-                <div class="text-gray-600 dark:text-gray-400 italic mb-6" id="vietnamese-meaning">(hôm qua đã xem phim)</div>
+                <div class="text-gray-600 dark:text-gray-400 italic mb-6" id="vietnamese-meaning">(hôm qua đã xem phim)
+                </div>
 
                 <div class="text-lg mb-6">
                   → <span id="sentence-prefix" class="font-japanese">きのう えいがを</span>
-                  <span class="border-b-2 border-dashed border-blue-500 px-4 py-1 mx-2 min-w-[120px] inline-block text-center bg-gray-50 dark:bg-gray-700 rounded">_____</span>。
+                  <span
+                    class="border-b-2 border-dashed border-blue-500 px-4 py-1 mx-2 min-w-[120px] inline-block text-center bg-gray-50 dark:bg-gray-700 rounded">_____</span>。
                 </div>
 
                 <!-- Answer Input -->
@@ -358,11 +1007,11 @@
               <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <!-- Main Action Buttons -->
                 <div class="flex gap-3 justify-center mb-4">
-                  <button id="check-btn"
+                  <button type="button" id="check-btn"
                     class="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                     <i class="fas fa-check mr-2"></i>Kiểm Tra
                   </button>
-                  <button id="next-btn"
+                  <button type="button" id="next-btn"
                     class="hidden px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                     <i class="fas fa-arrow-right mr-2"></i>Tiếp Theo
                   </button>
@@ -370,7 +1019,7 @@
 
                 <!-- Navigation Button -->
                 <div class="flex justify-start">
-                  <button id="back-to-selection"
+                  <button type="button" id="back-to-selection"
                     class="px-6 py-2 text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 border border-blue-500 dark:border-blue-400 hover:border-blue-600 dark:hover:border-blue-300 rounded-xl font-medium transition-all duration-300 hover:bg-blue-50 dark:hover:bg-blue-900/20">
                     <i class="fas fa-arrow-left mr-2"></i>Quay Lại
                   </button>
@@ -407,18 +1056,57 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-3">
-          <button id="retry-exercise"
+          <button type="button" id="retry-exercise"
             class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
             <i class="fas fa-redo mr-2"></i>Làm Lại
           </button>
-          <button id="close-results"
+          <button type="button" id="close-results"
             class="flex-1 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors">
             <i class="fas fa-home mr-2"></i>Trang Chủ
           </button>
         </div>
       </div>
     </div>
+
+
   </main>
+
+  <!-- Bottom Navigation (Mobile Only) -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bottom-nav bg-white/90 dark:bg-gray-900/90"
+    aria-label="Bottom navigation">
+    <div class="flex justify-around items-center py-2 px-4">
+      <!-- Theory -->
+      <button type="button" class="bottom-nav-item active flex flex-col items-center py-2 px-3" data-page="theory">
+        <i class="fas fa-book bottom-nav-icon text-xl mb-1"></i>
+        <span class="bottom-nav-text">Lý Thuyết</span>
+      </button>
+
+      <!-- Practice -->
+      <button type="button" class="bottom-nav-item flex flex-col items-center py-2 px-3" data-page="practice">
+        <i class="fas fa-pencil-alt bottom-nav-icon text-xl mb-1"></i>
+        <span class="bottom-nav-text">Thực Hành</span>
+      </button>
+
+      <!-- Review -->
+      <button type="button" class="bottom-nav-item flex flex-col items-center py-2 px-3" data-page="review">
+        <i class="fas fa-redo bottom-nav-icon text-xl mb-1"></i>
+        <span class="bottom-nav-text">Ôn Tập</span>
+      </button>
+
+      <!-- Statistics -->
+      <button type="button" class="bottom-nav-item flex flex-col items-center py-2 px-3" data-page="statistics">
+        <i class="fas fa-chart-bar bottom-nav-icon text-xl mb-1"></i>
+        <span class="bottom-nav-text">Thống Kê</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Floating Action Button (Theme Toggle) -->
+  <button type="button" id="theme-toggle-mobile" class="fab flex items-center justify-center text-white"
+    aria-label="Toggle theme">
+    <i class="fas fa-moon text-xl theme-icon-light"></i>
+    <i class="fas fa-sun text-xl theme-icon-dark hidden"></i>
+  </button>
 
   <!-- Import main app module -->
   <script type="module" src="./assets/js/app-main.js"></script>
