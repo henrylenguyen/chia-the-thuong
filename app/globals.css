@@ -7,85 +7,945 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CSS Variables cho theme */
+/* ===== GRADIENT EFFECTS ===== */
+.gradient-bg {
+  background: var(--primary-gradient);
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent; /* Fallback for non-webkit browsers */
+}
+
+.glass-effect {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ===== LOADING ANIMATIONS ===== */
+/* Loading dots animation */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%, 100% {
+    content: '...';
+  }
+}
+
+/* Reverse spin animation */
+.reverse-spin {
+  animation-direction: reverse;
+  animation-duration: 1.5s;
+}
+
+/* Slow pulse animation */
+.slow-pulse {
+  animation-duration: 2s;
+}
+
+/* Bounce delay animations for Japanese characters */
+.bounce-delay-0 {
+  animation-delay: 0s;
+}
+
+.bounce-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.bounce-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.bounce-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.bounce-delay-4 {
+  animation-delay: 0.4s;
+}
+
+/* Japanese font family */
+.font-japanese {
+  font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+/* ===== RESPONSIVE UTILITIES ===== */
+.card-responsive {
+  @apply w-full;
+}
+
+@media (min-width: 640px) {
+  .card-responsive {
+    min-width: 320px;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-responsive {
+    min-width: 360px;
+    max-width: 450px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-responsive {
+    min-width: 400px;
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .card-responsive {
+    min-width: 450px;
+    max-width: 550px;
+  }
+}
+
+/* CSS Variables cho theme - Japanese Learning App - MODERN DESIGN */
 :root {
+  /* Background colors */
   --background: #ffffff;
-  --foreground: #171717;
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #3b82f6;
-  --radius: 0.5rem;
+  --foreground: #2c3e50;
+  --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+  /* Primary gradient theme - Modern Blue-Purple */
+  --primary-blue: #667eea;
+  --primary-purple: #764ba2;
+  --primary-blue-light: #8a9eff;
+  --primary-blue-dark: #4c5fd7;
+  --primary-purple-light: #9168c4;
+  --primary-purple-dark: #5d3a8a;
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --primary-gradient-hover: linear-gradient(135deg, #4c5fd7 0%, #5d3a8a 100%);
+
+  /* Theory colors - Green theme */
+  --theory-green: #10b981;
+  --theory-green-light: #6ee7b7;
+  --theory-green-dark: #059669;
+  --theory-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --theory-bg: #f0fdf4;
+  --theory-border: #10b981;
+
+  /* Semantic colors - Enhanced */
+  --success-green: #10b981;
+  --success-light: #6ee7b7;
+  --success-dark: #059669;
+  --success-gradient: linear-gradient(135deg, #6bcf7f 0%, #4ecdc4 100%);
+  --error-red: #ef4444;
+  --error-light: #f87171;
+  --error-dark: #dc2626;
+  --error-gradient: linear-gradient(135deg, #ff4757 0%, #ff6b9d 100%);
+  --warning-yellow: #f59e0b;
+  --warning-light: #fbbf24;
+  --warning-dark: #d97706;
+  --warning-gradient: linear-gradient(135deg, #ff8a5b 0%, #ff6b9d 100%);
+  --info-blue: #3b82f6;
+  --info-light: #60a5fa;
+  --info-dark: #2563eb;
+
+  /* Japanese-inspired accent colors */
+  --sakura-pink: #ff6b9d;
+  --ocean-blue: #4ecdc4;
+  --sunset-orange: #ff8a5b;
+  --forest-green: #6bcf7f;
+  --royal-purple: #a8e6cf;
+  --cherry-red: #ff4757;
+
+  /* Neutral colors - Enhanced contrast */
+  --neutral-white: #ffffff;
+  --neutral-gray-50: #f8fafc;
+  --neutral-gray-100: #f1f5f9;
+  --neutral-gray-200: #e2e8f0;
+  --neutral-gray-300: #cbd5e1;
+  --neutral-gray-400: #94a3b8;
+  --neutral-gray-500: #64748b;
+  --neutral-gray-600: #475569;
+  --neutral-gray-700: #334155;
+  --neutral-gray-800: #1e293b;
+  --neutral-gray-900: #0f172a;
+
+  /* Text colors - Better contrast */
+  --text-primary: #2c3e50;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --text-japanese: #1e40af;
+
+  /* Border colors */
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-dark: #94a3b8;
+
+  /* Background overlays */
+  --bg-overlay: rgba(0, 0, 0, 0.05);
+  --bg-overlay-dark: rgba(0, 0, 0, 0.1);
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+
+  /* Modern shadows - Enhanced depth */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Border radius - Modern rounded corners */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Japanese font family */
+  --font-japanese: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', sans-serif;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #3b82f6;
+  /* Background colors - Dark mode */
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --background-gradient: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+
+  /* Text colors - Dark mode enhanced */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-japanese: #60a5fa;
+
+  /* Border colors - Dark mode */
+  --border-light: #334155;
+  --border-medium: #475569;
+  --border-dark: #64748b;
+
+  /* Background overlays - Dark mode */
+  --bg-overlay: rgba(255, 255, 255, 0.05);
+  --bg-overlay-dark: rgba(255, 255, 255, 0.1);
+  --bg-card: #1e293b;
+  --bg-card-hover: #334155;
+
+  /* Theory colors - Dark mode */
+  --theory-bg: #064e3b;
+  --theory-border: #10b981;
+
+  /* Shadows - Dark mode enhanced */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+
+  /* Radix UI compatible colors - Updated */
+  --primary: #667eea;
   --primary-foreground: #ffffff;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
+  --secondary: #334155;
+  --secondary-foreground: #f1f5f9;
+  --muted: #334155;
+  --muted-foreground: #cbd5e1;
+  --accent: #334155;
+  --accent-foreground: #f1f5f9;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #334155;
-  --input: #334155;
-  --ring: #3b82f6;
+  --border: #475569;
+  --input: #475569;
+  --ring: #667eea;
 }
 
 /* Base styles */
 @layer base {
   * {
-    @apply border-border;
+    border-color: var(--border-light);
   }
-  
+
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
+
   /* Japanese text styling */
   .japanese-text {
     font-family: var(--font-noto-sans-jp), sans-serif;
     font-feature-settings: "palt" 1;
   }
-  
+
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
   }
-  
+
   /* Focus styles for accessibility */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary;
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
   }
 }
 
 /* Component styles */
 @layer components {
-  /* Button variants */
-  .btn {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  /* ===== EXERCISE CARD STYLES ===== */
+  .exercise-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
   }
-  
-  .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+
+  .exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
   }
-  
-  .btn-secondary {
-    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+
+  .exercise-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .exercise-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .exercise-form-badge {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .exercise-description {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .exercise-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+
+  .stat-icon {
+    width: 16px;
+    height: 16px;
+    color: #667eea;
+  }
+
+  .difficulty-stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .star {
+    width: 14px;
+    height: 14px;
+    color: #fbbf24;
+  }
+
+  .star.empty {
+    color: #e5e7eb;
+  }
+
+  .progress-section {
+    margin-bottom: 1rem;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+
+  .progress-percentage {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #667eea;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #f3f4f6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+
+  .exercise-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .action-button {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .action-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  .action-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ===== THEORY CARD STYLES ===== */
+  .theory-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid #10b981;
+  }
+
+  .theory-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .theory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .theory-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    font-family: var(--font-japanese);
+  }
+
+  .expand-icon {
+    width: 20px;
+    height: 20px;
+    color: #6b7280;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  .theory-card.expanded .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  .theory-description {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .theory-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .theory-progress {
+    margin-bottom: 1rem;
+  }
+
+  .theory-content {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #10b981;
+  }
+
+  .theory-content h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .theory-content p {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .example-box {
+    background: #e0f2fe;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 3px solid #0284c7;
+  }
+
+  .japanese-text {
+    font-family: var(--font-japanese);
+    font-size: 1.1rem;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+  }
+
+  .romanji {
+    font-style: italic;
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .translation {
+    color: #374151;
+    font-size: 0.9rem;
+  }
+
+  /* ===== QUIZ CARD STYLES ===== */
+  .quiz-container {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.1),
+      0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+  }
+
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f3f4f6;
+  }
+
+  .quiz-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .quiz-progress-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .question-counter {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .timer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #f59e0b;
+    font-weight: 500;
+  }
+
+  .quiz-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #f3f4f6;
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+
+  .quiz-progress-fill {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+    }
+
+  .question-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid #667eea;
+  }
+
+  .question-text {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .japanese-question {
+    font-family: var(--font-japanese);
+    font-size: 1.5rem;
+    color: #1e40af;
+    margin: 1rem 0;
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    border: 2px dashed #e5e7eb;
+  }
+
+  .hint-text {
+    color: #6b7280;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .answer-section {
+    margin-bottom: 2rem;
+  }
+
+  .answer-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-family: var(--font-japanese);
+    transition: border-color 0.2s ease;
+  }
+
+  .answer-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  .quiz-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hint-button {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hint-button:hover {
+    background: #d97706;
+    transform: translateY(-1px);
+  }
+
+  .hint-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .submit-button {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .submit-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+
+  .submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ===== STATUS BADGES ===== */
+  .status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .status-completed {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  .status-in-progress {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .status-not-started {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+
+  /* ===== CARD STATES ===== */
+  .card-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+  }
+
+  .card-disabled:hover {
+    transform: none;
+    box-shadow: var(--shadow-md);
+  }
+
+  .card-success {
+    border-left-color: #10b981;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  }
+
+  .card-error {
+    border-left-color: #ef4444;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  }
+
+  /* ===== LOADING STATES ===== */
+  .loading-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .loading-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* ===== DARK MODE STYLES ===== */
+  .dark .exercise-card,
+  .dark .theory-card,
+  .dark .quiz-container {
+    background: #1e293b;
+    border-color: #475569;
+  }
+
+  .dark .exercise-card:hover,
+  .dark .theory-card:hover {
+    background: #334155;
+  }
+
+  .dark .exercise-title,
+  .dark .theory-title,
+  .dark .quiz-title {
+    color: #f1f5f9;
+  }
+
+  .dark .exercise-description,
+  .dark .theory-description {
+    color: #cbd5e1;
+  }
+
+  .dark .stat-item {
+    color: #cbd5e1;
+  }
+
+  .dark .progress-label {
+    color: #cbd5e1;
+  }
+
+  .dark .status-not-started {
+    background: #374151;
+    color: #cbd5e1;
+  }
+
+  .dark .example-box {
+    background: #164e63;
+    border-left-color: #0ea5e9;
+  }
+
+  .dark .question-section {
+    background: #334155;
+    border-left-color: #667eea;
+  }
+
+  .dark .japanese-question {
+    background: #1e293b;
+    border-color: #475569;
+  }
+
+  .dark .answer-input {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+  }
+
+  .dark .answer-input:focus {
+    border-color: #667eea;
+  }
+
+  .dark .card-success {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  }
+
+  .dark .card-error {
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+  }
+
+  .dark .skeleton {
+    background: linear-gradient(90deg, #374151 25%, #475569 50%, #374151 75%);
+    background-size: 200% 100%;
+  }
+
+  .dark .star.empty {
+    color: #475569;
+  }
+
+  .dark .theory-content {
+    background: #334155;
+  }
+
+  .dark .theory-content h4 {
+    color: #f1f5f9;
+  }
+
+  .dark .theory-content p {
+    color: #cbd5e1;
+  }
+
+  .dark .quiz-header {
+    border-bottom-color: #475569;
+  }
+
+  .dark .quiz-progress-bar {
+    background: #475569;
   }
 }
 
@@ -94,12 +954,47 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
+  /* Text color utilities */
+  .text-primary {
+    color: var(--text-primary);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .text-muted {
+    color: var(--text-muted);
+  }
+
+  /* Border utilities */
+  .border-light {
+    border-color: var(--border-light);
+  }
+
+  .border-medium {
+    border-color: var(--border-medium);
+  }
+
+  .border-dark {
+    border-color: var(--border-dark);
+  }
+
+  /* Background utilities */
+  .bg-overlay {
+    background-color: var(--bg-overlay);
+  }
+
+  .bg-overlay-dark {
+    background-color: var(--bg-overlay-dark);
+  }
+
   /* Animation utilities */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.5s ease-out;
   }
@@ -124,4 +1019,143 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Bouncing animation cho logo loading */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Success pulse animation */
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Error shake animation */
+@keyframes errorShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Modern Japanese text styles */
+.japanese-text-modern {
+  font-family: var(--font-japanese);
+  font-size: 1.1rem;
+  color: var(--text-japanese);
+  line-height: 1.6;
+  font-feature-settings: "palt" 1;
+}
+
+.japanese-question {
+  font-family: var(--font-japanese);
+  font-size: 1.5rem;
+  color: var(--text-japanese);
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--border-medium);
+  margin: 1rem 0;
+}
+
+.example-box-modern {
+  background: #e0f2fe;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 3px solid #0284c7;
+}
+
+.dark .example-box-modern {
+  background: #164e63;
+  border-left-color: #0ea5e9;
+}
+
+/* Difficulty stars */
+.difficulty-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star-filled {
+  color: #fbbf24;
+}
+
+.star-empty {
+  color: var(--neutral-gray-300);
+}
+
+.dark .star-empty {
+  color: var(--neutral-gray-600);
+}
+
+/* Modern input styles */
+.input-modern {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  font-size: 1.1rem;
+  font-family: var(--font-japanese);
+  transition: border-color 0.2s ease;
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.input-modern:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Utility classes cho animations */
+.animate-bounce-custom {
+  animation: bounce 2s infinite;
+}
+
+.animate-success-pulse {
+  animation: successPulse 0.6s ease-out;
+}
+
+.animate-error-shake {
+  animation: errorShake 0.4s ease-out;
+}
+
+.animate-card-hover {
+  transition: all 0.3s ease;
+}
+
+.animate-card-hover:hover {
+  transform: translateY(-4px);
+}
+
+.animate-button-hover {
+  transition: all 0.2s ease;
+}
+
+.animate-button-hover:hover {
+  transform: translateY(-1px);
 }

@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Learning App - Card Design Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== EXERCISE CARD ===== */
+        .exercise-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .exercise-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-form-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .exercise-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .exercise-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .stat-icon {
+            width: 16px;
+            height: 16px;
+            color: #667eea;
+        }
+
+        .difficulty-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            width: 14px;
+            height: 14px;
+            color: #fbbf24;
+        }
+
+        .star.empty {
+            color: #e5e7eb;
+        }
+
+        .progress-section {
+            margin-bottom: 1rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .progress-percentage {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .exercise-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-in-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-not-started {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* ===== THEORY CARD ===== */
+        .theory-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow:
+                0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid #10b981;
+        }
+
+        .theory-card:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .theory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .theory-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+        }
+
+        .expand-icon {
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+            transition: transform 0.2s ease;
+        }
+
+        .theory-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .theory-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .theory-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .theory-progress {
+            margin-bottom: 1rem;
+        }
+
+        .theory-content {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #10b981;
+        }
+
+        .theory-content h4 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .theory-content p {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .example-box {
+            background: #e0f2fe;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 3px solid #0284c7;
+        }
+
+        .japanese-text {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 1.1rem;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .romanji {
+            font-style: italic;
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .translation {
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        /* ===== QUIZ CARD (FULL SCREEN) ===== */
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .quiz-progress-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .question-counter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f59e0b;
+            font-weight: 500;
+        }
+
+        .quiz-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #f3f4f6;
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .question-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .japanese-question {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 1.5rem;
+            color: #1e40af;
+            margin: 1rem 0;
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 2px dashed #e5e7eb;
+        }
+
+        .hint-text {
+            color: #6b7280;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .answer-section {
+            margin-bottom: 2rem;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            transition: border-color 0.2s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hint-button {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hint-button:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* ===== DARK MODE STYLES ===== */
+        .dark {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+
+        .dark .container {
+            color: #f1f5f9;
+        }
+
+        .dark h1 {
+            color: #f1f5f9;
+        }
+
+        .dark .section-title {
+            color: #f1f5f9;
+        }
+
+        .dark .exercise-card,
+        .dark .theory-card,
+        .dark .quiz-container {
+            background: #1e293b;
+            border-color: #475569;
+        }
+
+        .dark .exercise-card:hover,
+        .dark .theory-card:hover {
+            background: #334155;
+        }
+
+        .dark .exercise-title,
+        .dark .theory-title,
+        .dark .quiz-title {
+            color: #f1f5f9;
+        }
+
+        .dark .exercise-description,
+        .dark .theory-description {
+            color: #cbd5e1;
+        }
+
+        .dark .stat-item {
+            color: #cbd5e1;
+        }
+
+        .dark .progress-label {
+            color: #cbd5e1;
+        }
+
+        .dark .status-not-started {
+            background: #374151;
+            color: #cbd5e1;
+        }
+
+        .dark .example-box-modern {
+            background: #164e63;
+            border-left-color: #0ea5e9;
+        }
+
+        .dark .question-section {
+            background: #334155;
+            border-left-color: #667eea;
+        }
+
+        .dark .japanese-question {
+            background: #1e293b;
+            border-color: #475569;
+        }
+
+        .dark .answer-input {
+            background: #1e293b;
+            border-color: #475569;
+            color: #f1f5f9;
+        }
+
+        .dark .answer-input:focus {
+            border-color: #667eea;
+        }
+
+        /* ===== LOADING STATES ===== */
+        .loading-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .dark .skeleton {
+            background: linear-gradient(90deg, #374151 25%, #475569 50%, #374151 75%);
+            background-size: 200% 100%;
+        }
+
+        /* ===== DISABLED STATES ===== */
+        .card-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            filter: grayscale(0.3);
+        }
+
+        .card-disabled:hover {
+            transform: none;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== SUCCESS/ERROR STATES ===== */
+        .card-success {
+            border-left-color: #10b981;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .card-error {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+
+        .dark .card-success {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+        }
+
+        .dark .card-error {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+        }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .quiz-container {
+                padding: 1.5rem;
+            }
+
+            .quiz-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .quiz-progress-info {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+        🌙
+    </button>
+
+    <div class="container">
+        <h1>🎌 Japanese Learning App - Card Design Demo</h1>
+
+        <!-- EXERCISE CARDS SECTION -->
+        <div class="section">
+            <h2 class="section-title">Exercise Cards</h2>
+            <div class="cards-grid">
+                <!-- Exercise Card 1 - Not Started -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <h3 class="exercise-title">Te Form Practice</h3>
+                            <span class="exercise-form-badge">TE</span>
+                        </div>
+                    </div>
+                    <p class="exercise-description">Luyện tập động từ dạng て cơ bản</p>
+
+                    <div class="exercise-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>120 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~15 phút</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span>(3/5)</span>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-not-started">Chưa bắt đầu</span>
+                        <button class="action-button">Bắt đầu</button>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 2 - In Progress -->
+                <div class="exercise-card">
+                    <div class="exercise-header">
+                        <div>
+                            <h3 class="exercise-title">Ta Form Practice</h3>
+                            <span class="exercise-form-badge">TA</span>
+                        </div>
+                    </div>
+                    <p class="exercise-description">Luyện tập động từ dạng た quá khứ</p>
+
+                    <div class="exercise-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>95 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~12 phút</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span>(4/5)</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span class="progress-label">Tiến độ</span>
+                            <span class="progress-percentage">65%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-in-progress">Đang làm</span>
+                        <button class="action-button">Tiếp tục</button>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 3 - Completed -->
+                <div class="exercise-card card-success">
+                    <div class="exercise-header">
+                        <div>
+                            <h3 class="exercise-title">Nai Form Practice</h3>
+                            <span class="exercise-form-badge">NAI</span>
+                        </div>
+                    </div>
+                    <p class="exercise-description">Luyện tập động từ dạng ない phủ định</p>
+
+                    <div class="exercise-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>80 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~10 phút</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                                <span class="star empty">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                            <span>(2/5)</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <span class="progress-label">Tiến độ</span>
+                            <span class="progress-percentage">100%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-completed">Đã hoàn thành</span>
+                        <button class="action-button">Ôn tập</button>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 4 - Disabled -->
+                <div class="exercise-card card-disabled">
+                    <div class="exercise-header">
+                        <div>
+                            <h3 class="exercise-title">Ru Form Practice</h3>
+                            <span class="exercise-form-badge">RU</span>
+                        </div>
+                    </div>
+                    <p class="exercise-description">Luyện tập động từ dạng る cơ bản (Chưa mở khóa)</p>
+
+                    <div class="exercise-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>150 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~20 phút</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                            <span>(5/5)</span>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-not-started">🔒 Chưa mở khóa</span>
+                        <button class="action-button" disabled>Yêu cầu cấp độ 3</button>
+                    </div>
+                </div>
+
+                <!-- Exercise Card 5 - Loading State -->
+                <div class="exercise-card loading-card">
+                    <div class="exercise-header">
+                        <div>
+                            <div class="skeleton"
+                                style="width: 120px; height: 24px; border-radius: 4px; margin-bottom: 8px;"></div>
+                            <div class="skeleton" style="width: 40px; height: 20px; border-radius: 12px;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton" style="width: 80%; height: 16px; border-radius: 4px; margin-bottom: 16px;">
+                    </div>
+
+                    <div class="exercise-stats">
+                        <div class="stat-item">
+                            <div class="skeleton" style="width: 60px; height: 16px; border-radius: 4px;"></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="skeleton" style="width: 70px; height: 16px; border-radius: 4px;"></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="skeleton" style="width: 80px; height: 16px; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <div class="skeleton" style="width: 90px; height: 24px; border-radius: 12px;"></div>
+                        <div class="skeleton" style="width: 80px; height: 32px; border-radius: 8px;"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- THEORY CARDS SECTION -->
+        <div class="section">
+            <h2 class="section-title">Theory Cards</h2>
+            <div class="cards-grid">
+                <!-- Theory Card 1 - Collapsed -->
+                <div class="theory-card">
+                    <div class="theory-header">
+                        <h3 class="theory-title">てください</h3>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <p class="theory-description">Cách lịch sự để yêu cầu ai đó làm gì</p>
+
+                    <div class="theory-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>120 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~25 phút</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="theory-progress">
+                        <div class="progress-header">
+                            <span class="progress-label">Tiến độ học</span>
+                            <span class="progress-percentage">38%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 38%"></div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-in-progress">Đang học</span>
+                        <button class="action-button">Tiếp tục học</button>
+                    </div>
+                </div>
+
+                <!-- Theory Card 2 - Expanded -->
+                <div class="theory-card expanded">
+                    <div class="theory-header">
+                        <h3 class="theory-title">てもいいです</h3>
+                        <span class="expand-icon">▲</span>
+                    </div>
+                    <p class="theory-description">Xin phép được làm gì đó</p>
+
+                    <div class="theory-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>85 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~18 phút</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                                <span class="star empty">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expanded Content -->
+                    <div class="theory-content">
+                        <h4>Giải thích chi tiết:</h4>
+                        <p>Mẫu câu てもいいです được sử dụng để đưa ra yêu cầu một cách lịch sự. Đây là cách thông dụng nhất
+                            để nhờ và trong tiếng Nhật. Cấu trúc: Động từ dạng て + ください</p>
+
+                        <h4>Ví dụ:</h4>
+                        <div class="example-box">
+                            <div class="japanese-text">手伝ってください。</div>
+                            <div class="romanji">Tetsudatte kudasai.</div>
+                            <div class="translation">Xin hãy giúp đỡ tôi.</div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-not-started">Chưa bắt đầu</span>
+                        <button class="action-button">Bắt đầu học</button>
+                    </div>
+                </div>
+
+                <!-- Theory Card 3 - Completed with High Difficulty -->
+                <div class="theory-card card-success">
+                    <div class="theory-header">
+                        <h3 class="theory-title font-japanese">ばかりでなく</h3>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <p class="theory-description">Không chỉ... mà còn (mức độ nâng cao)</p>
+
+                    <div class="theory-stats">
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>45 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~30 phút</span>
+                        </div>
+                    </div>
+
+                    <div class="theory-progress">
+                        <div class="progress-header">
+                            <span class="progress-label">Tiến độ học</span>
+                            <span class="progress-percentage">100%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-completed">Đã thành thạo</span>
+                        <button class="action-button">Ôn tập</button>
+                    </div>
+                </div>
+
+                <!-- Theory Card 4 - Loading State -->
+                <div class="theory-card loading-card">
+                    <div class="theory-header">
+                        <div class="skeleton" style="width: 100px; height: 28px; border-radius: 4px;"></div>
+                        <div class="skeleton" style="width: 20px; height: 20px; border-radius: 4px;"></div>
+                    </div>
+                    <div class="skeleton" style="width: 85%; height: 16px; border-radius: 4px; margin-bottom: 16px;">
+                    </div>
+
+                    <div class="theory-stats">
+                        <div class="stat-item">
+                            <div class="skeleton" style="width: 70px; height: 16px; border-radius: 4px;"></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="skeleton" style="width: 60px; height: 16px; border-radius: 4px;"></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="skeleton" style="width: 80px; height: 16px; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <div class="skeleton" style="width: 90px; height: 24px; border-radius: 12px;"></div>
+                        <div class="skeleton" style="width: 100px; height: 32px; border-radius: 8px;"></div>
+                    </div>
+                </div>
+
+                <!-- Theory Card 5 - Disabled/Locked -->
+                <div class="theory-card card-disabled">
+                    <div class="theory-header">
+                        <h3 class="theory-title font-japanese">というのは</h3>
+                        <span class="expand-icon">🔒</span>
+                    </div>
+                    <p class="theory-description">Cấu trúc giải thích nâng cao (Yêu cầu hoàn thành N4)</p>
+
+                    <div class="theory-stats">
+                        <div class="stat-item">
+                            <div class="difficulty-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📝</span>
+                            <span>60 câu</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⏱️</span>
+                            <span>~40 phút</span>
+                        </div>
+                    </div>
+
+                    <div class="exercise-footer">
+                        <span class="status-badge status-not-started">🔒 Chưa mở khóa</span>
+                        <button class="action-button" disabled>Yêu cầu N4</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- QUIZ CARD SECTION (FULL SCREEN) -->
+        <div class="section">
+            <h2 class="section-title">Quiz Card (Full Screen)</h2>
+
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2 class="quiz-title">Động Từ - Quá Khứ</h2>
+                    <div class="quiz-progress-info">
+                        <span class="question-counter">1/25</span>
+                        <div class="timer">
+                            <span>⏱️</span>
+                            <span>00:00</span>
+                        </div>
+                        <div class="timer">
+                            <span>🏆</span>
+                            <span>0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" style="width: 10%"></div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-text">
+                        <strong>Chuyển động từ sau sang thể thường:</strong>
+                    </div>
+
+                    <div class="japanese-question">
+                        きのう えいがを みました。
+                    </div>
+
+                    <div class="hint-text">(hôm qua đã xem phim)</div>
+
+                    <div class="question-text">
+                        → きのう えいがを <span
+                            style="border-bottom: 2px dashed #667eea; padding: 0 2rem;">________________</span>.
+                    </div>
+                </div>
+
+                <div class="answer-section">
+                    <input type="text" class="answer-input" placeholder="Nhập đáp án của bạn..." />
+                </div>
+
+                <div class="quiz-actions">
+                    <button class="hint-button">
+                        <span>💡</span>
+                        <span>Gợi ý</span>
+                    </button>
+                    <button class="submit-button">Nhập đáp án</button>
+                </div>
+            </div>
+
+            <!-- Quiz Card 2 - Correct Answer State -->
+            <div class="quiz-container card-success">
+                <div class="quiz-header">
+                    <h2 class="quiz-title">Động Từ - Quá Khứ</h2>
+                    <div class="quiz-progress-info">
+                        <span class="question-counter">2/25</span>
+                        <div class="timer">
+                            <span>⏱️</span>
+                            <span>00:45</span>
+                        </div>
+                        <div class="timer">
+                            <span>🏆</span>
+                            <span>10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" style="width: 15%"></div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-text">
+                        <strong>Chuyển động từ sau sang thể thường:</strong>
+                    </div>
+
+                    <div class="japanese-question font-japanese">
+                        きのう えいがを みました。
+                    </div>
+
+                    <div class="hint-text">(hôm qua đã xem phim)</div>
+
+                    <div class="question-text">
+                        → きのう えいがを <span
+                            style="color: #10b981; font-weight: bold; border-bottom: 2px solid #10b981; padding: 0 1rem;">みた</span>.
+                    </div>
+                </div>
+
+                <div class="answer-section">
+                    <div
+                        style="background: #d1fae5; border: 2px solid #10b981; border-radius: 12px; padding: 1rem; text-align: center;">
+                        <span style="color: #065f46; font-weight: bold;">🎉 Đáp án của bạn: みた - Chính xác!</span>
+                    </div>
+                </div>
+
+                <div class="quiz-actions">
+                    <div style="color: #10b981; font-weight: bold;">
+                        <span>✅</span>
+                        <span>+10 điểm</span>
+                    </div>
+                    <button class="submit-button">Câu tiếp theo</button>
+                </div>
+            </div>
+
+            <!-- Quiz Card 3 - Wrong Answer State -->
+            <div class="quiz-container card-error">
+                <div class="quiz-header">
+                    <h2 class="quiz-title">Động Từ - Quá Khứ</h2>
+                    <div class="quiz-progress-info">
+                        <span class="question-counter">3/25</span>
+                        <div class="timer">
+                            <span>⏱️</span>
+                            <span>01:20</span>
+                        </div>
+                        <div class="timer">
+                            <span>🏆</span>
+                            <span>10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" style="width: 20%"></div>
+                </div>
+
+                <div class="question-section">
+                    <div class="question-text">
+                        <strong> Chuyển động từ sau sang thể thường:</strong>
+                    </div>
+
+                    <div class="japanese-question font-japanese">
+                        あした がっこうに いきます。
+                    </div>
+
+                    <div class="hint-text">(ngày mai sẽ đi học)</div>
+
+                    <div class="question-text">
+                        → あした がっこうに <span
+                            style="color: #ef4444; font-weight: bold; border-bottom: 2px solid #ef4444; padding: 0 1rem;">いく</span>.
+                    </div>
+                </div>
+
+                <div class="answer-section">
+                    <div style="background: #fee2e2; border: 2px solid #ef4444; border-radius: 12px; padding: 1rem;">
+                        <div style="color: #dc2626; font-weight: bold; margin-bottom: 0.5rem;">❌ Đáp án của bạn: いった
+                        </div>
+                        <div style="color: #065f46; font-weight: bold;">✅ Đáp án đúng: いく</div>
+                        <div style="color: #6b7280; margin-top: 0.5rem; font-size: 0.9rem;">
+                            💡 Giải thích: Đây là thì tương lai, "あした" (ngày mai) chỉ thời gian
+                            tương lai.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-actions">
+                    <div style="color: #ef4444; font-weight: bold;">
+                        <span>❌</span>
+                        <span>0 điểm</span>
+                    </div>
+                    <button class="submit-button">Câu tiếp theo</button>
+                </div>
+            </div>
+
+            <!-- Quiz Card 4 - Loading State -->
+            <div class="quiz-container loading-card">
+                <div class="quiz-header">
+                    <div class="skeleton" style="width: 150px; height: 28px; border-radius: 4px;"></div>
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="skeleton" style="width: 60px; height: 32px; border-radius: 20px;"></div>
+                        <div class="skeleton" style="width: 80px; height: 32px; border-radius: 20px;"></div>
+                        <div class="skeleton" style="width: 60px; height: 32px; border-radius: 20px;"></div>
+                    </div>
+                </div>
+
+                <div class="quiz-progress-bar">
+                    <div class="skeleton" style="width: 100%; height: 6px; border-radius: 3px;"></div>
+                </div>
+
+                <div class="question-section">
+                    <div class="skeleton" style="width: 90%; height: 20px; border-radius: 4px; margin-bottom: 1rem;">
+                    </div>
+                    <div class="skeleton" style="width: 70%; height: 32px; border-radius: 8px; margin: 1rem auto;">
+                    </div>
+                    <div class="skeleton" style="width: 60%; height: 16px; border-radius: 4px; margin: 1rem auto;">
+                    </div>
+                    <div class="skeleton" style="width: 80%; height: 20px; border-radius: 4px; margin: 1rem auto;">
+                    </div>
+                </div>
+
+                <div class="answer-section">
+                    <div class="skeleton" style="width: 100%; height: 48px; border-radius: 12px;"></div>
+                </div>
+
+                <div class="quiz-actions">
+                    <div class="skeleton" style="width: 80px; height: 40px; border-radius: 8px;"></div>
+                    <div class="skeleton" style="width: 120px; height: 40px; border-radius: 8px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-toggle');
+
+            body.classList.toggle('dark');
+
+            if (body.classList.contains('dark')) {
+                themeButton.textContent = '☀️';
+                themeButton.title = 'Switch to Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeButton.textContent = '🌙';
+                themeButton.title = 'Switch to Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeButton = document.querySelector('.theme-toggle');
+
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                themeButton.textContent = '☀️';
+                themeButton.title = 'Switch to Light Mode';
+            }
+        }
+
+        // Theory Card Expand/Collapse
+        document.querySelectorAll('.theory-card:not(.card-disabled):not(.loading-card):not(.card-error)').forEach(card => {
+            card.addEventListener('click', function (e) {
+                // Don't toggle if clicking on buttons
+                if (e.target.matches('button') || e.target.closest('button')) {
+                    return;
+                }
+
+                this.classList.toggle('expanded');
+                const icon = this.querySelector('.expand-icon');
+                if (icon && !icon.textContent.includes('🔒') && !icon.textContent.includes('⚠️')) {
+                    icon.textContent = this.classList.contains('expanded') ? '▲' : '▼';
+                }
+            });
+        });
+
+        // Card Click Feedback (not disabled/loading/error cards)
+        document.querySelectorAll('.exercise-card:not(.card-disabled):not(.loading-card):not(.card-error), .quiz-container:not(.loading-card):not(.card-error)').forEach(card => {
+            card.addEventListener('click', function (e) {
+                if (!e.target.matches('button') && !e.target.closest('button') && !e.target.matches('input')) {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
+            });
+        });
+
+        // Button Click Effects
+        document.querySelectorAll('button:not([disabled])').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.stopPropagation();
+
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(255, 255, 255, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                `;
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Quiz Input Functionality
+        document.querySelectorAll('.answer-input').forEach(input => {
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    const submitButton = this.closest('.quiz-container').querySelector('.submit-button');
+                    if (submitButton && !submitButton.disabled) {
+                        submitButton.click();
+                    }
+                }
+            });
+
+            input.addEventListener('input', function () {
+                const submitButton = this.closest('.quiz-container').querySelector('.submit-button');
+                if (submitButton) {
+                    submitButton.disabled = this.value.trim() === '';
+                    submitButton.style.opacity = this.value.trim() === '' ? '0.5' : '1';
+                }
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            loadTheme();
+
+            // Add accessibility improvements
+            document.querySelectorAll('.exercise-card, .theory-card').forEach(card => {
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+
+                card.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function (e) {
+            // Toggle theme with Ctrl/Cmd + D
+            if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        console.log('🎌 Japanese Learning App - Card Design Demo Loaded!');
+        console.log('💡 Keyboard shortcuts: Ctrl/Cmd + D to toggle dark mode');
+    </script>
+</body>
+
+</html>

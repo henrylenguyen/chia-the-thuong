@@ -1,0 +1,695 @@
+{
+  "metadata": {
+    "total_questions": 4200,
+    "forms_breakdown": {
+      "te_form": 1200,
+      "ta_form": 1000,
+      "nai_form": 980,
+      "ru_form": 1020
+    },
+    "grammar_patterns_total": 47,
+    "forms": ["te", "ta", "nai", "ru"],
+    "verb_types": ["ichidan", "godan", "irregular"],
+    "difficulty_levels": [1, 2, 3, 4, 5],
+    "target_language": "vietnamese",
+    "ui_language": "vietnamese",
+    "categories": [
+      "daily_life",
+      "work",
+      "family",
+      "food",
+      "travel",
+      "school",
+      "shopping",
+      "health",
+      "weather",
+      "time"
+    ]
+  },
+
+  "ui_design": {
+    "color_palette": {
+      "primary": {
+        "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        "blue": "#667eea",
+        "purple": "#764ba2",
+        "blue_light": "#8a9eff",
+        "blue_dark": "#4c5fd7",
+        "purple_light": "#9168c4",
+        "purple_dark": "#5d3a8a"
+      },
+      "secondary": {
+        "teal": "#00cfc8",
+        "orange": "#ff8a50",
+        "mint": "#7fffd4",
+        "coral": "#ff6b6b"
+      },
+      "neutral": {
+        "white": "#ffffff",
+        "gray_50": "#f8fafc",
+        "gray_100": "#f1f5f9",
+        "gray_200": "#e2e8f0",
+        "gray_300": "#cbd5e1",
+        "gray_400": "#94a3b8",
+        "gray_500": "#64748b",
+        "gray_600": "#475569",
+        "gray_700": "#334155",
+        "gray_800": "#1e293b",
+        "gray_900": "#0f172a",
+        "black": "#000000"
+      },
+      "semantic": {
+        "success": "#10b981",
+        "success_light": "#6ee7b7",
+        "success_dark": "#047857",
+        "warning": "#f59e0b",
+        "warning_light": "#fbbf24",
+        "warning_dark": "#d97706",
+        "error": "#ef4444",
+        "error_light": "#f87171",
+        "error_dark": "#dc2626",
+        "info": "#3b82f6",
+        "info_light": "#60a5fa",
+        "info_dark": "#1d4ed8"
+      },
+      "backgrounds": {
+        "primary": "#ffffff",
+        "secondary": "#f8fafc",
+        "tertiary": "#f1f5f9",
+        "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        "overlay": "rgba(102, 126, 234, 0.1)"
+      },
+      "text": {
+        "primary": "#0f172a",
+        "secondary": "#475569",
+        "tertiary": "#94a3b8",
+        "inverse": "#ffffff",
+        "accent": "#667eea"
+      },
+      "borders_shadows": {
+        "border_light": "#e2e8f0",
+        "border_medium": "#cbd5e1",
+        "border_dark": "#94a3b8",
+        "shadow_sm": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        "shadow_md": "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+        "shadow_lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+        "shadow_gradient": "0 4px 15px 0 rgba(102, 126, 234, 0.3)"
+      }
+    },
+    "design_principles": {
+      "mobile_first": true,
+      "accessibility": "WCAG 2.1 AA",
+      "modern_aesthetic": "Clean, minimal với gradient accents",
+      "vietnamese_typography": "Hỗ trợ tiếng Việt hoàn toàn",
+      "trend_inspiration": "2025 ethereal tones & sea-to-sky gradient",
+      "color_psychology": {
+        "blue": "Tin cậy, chuyên nghiệp, học tập",
+        "purple": "Sáng tạo, trí tuệ, tiến bộ",
+        "gradient": "Hiện đại, năng động, hấp dẫn"
+      }
+    }
+  },
+
+  "grammar_patterns": {
+    "te_form": {
+      "basic_conjugation": {
+        "godan": {
+          "u_tsu_ru": {
+            "pattern": "う/つ/る → って",
+            "examples": ["会う → 会って", "立つ → 立って", "割る → 割って"]
+          },
+          "nu_bu_mu": {
+            "pattern": "ぬ/ぶ/む → んで",
+            "examples": ["死ぬ → 死んで", "遊ぶ → 遊んで", "休む → 休んで"]
+          },
+          "su": {
+            "pattern": "す → して",
+            "examples": ["話す → 話して", "貸す → 貸して"]
+          },
+          "ku": {
+            "pattern": "く → いて",
+            "examples": ["書く → 書いて", "歩く → 歩いて"]
+          },
+          "gu": {
+            "pattern": "ぐ → いで",
+            "examples": ["泳ぐ → 泳いで", "脱ぐ → 脱いで"]
+          }
+        },
+        "ichidan": {
+          "pattern": "る → て",
+          "examples": ["食べる → 食べて", "見る → 見て", "起きる → 起きて"]
+        },
+        "irregular": {
+          "examples": ["行く → 行って", "来る → 来て", "する → して"]
+        }
+      },
+      "grammar_patterns": {
+        "te_kudasai": {
+          "meaning": "Xin hãy làm gì đó",
+          "vietnamese_explanation": "Dùng để nhờ vả, yêu cầu một cách lịch sự",
+          "example": "待ってください",
+          "vietnamese_example": "Xin hãy đợi",
+          "questions": 120
+        },
+        "te_mo_ii_desu": {
+          "meaning": "Được phép làm gì đó",
+          "vietnamese_explanation": "Xin phép hoặc cho phép ai đó làm việc gì",
+          "example": "食べてもいいです",
+          "vietnamese_example": "Có thể ăn được",
+          "questions": 100
+        },
+        "te_wa_ikemasen": {
+          "meaning": "Không được phép làm",
+          "vietnamese_explanation": "Cấm đoán, không được làm việc gì đó",
+          "example": "入ってはいけません",
+          "vietnamese_example": "Không được vào",
+          "questions": 100
+        },
+        "te_imasu": {
+          "meaning": "Đang làm gì đó",
+          "vietnamese_explanation": "Thể tiếp diễn, hành động đang diễn ra",
+          "example": "勉強しています",
+          "vietnamese_example": "Đang học bài",
+          "questions": 120
+        },
+        "te_kara": {
+          "meaning": "Sau khi làm gì đó",
+          "vietnamese_explanation": "Thứ tự hành động, sau khi hoàn thành việc A thì làm việc B",
+          "example": "食べてから行きます",
+          "vietnamese_example": "Sau khi ăn xong thì đi",
+          "questions": 80
+        },
+        "te_agemasu": {
+          "meaning": "Làm giúp người khác",
+          "vietnamese_explanation": "Thể hiện việc mình làm cho người khác (từ trên xuống dưới)",
+          "example": "手伝ってあげます",
+          "vietnamese_example": "Tôi sẽ giúp bạn",
+          "questions": 70
+        },
+        "te_kuremasu": {
+          "meaning": "Người khác làm giúp mình",
+          "vietnamese_explanation": "Thể hiện việc người khác làm cho mình (từ ngang hàng)",
+          "example": "教えてくれます",
+          "vietnamese_example": "Anh ấy dạy cho tôi",
+          "questions": 70
+        },
+        "te_moraimasu": {
+          "meaning": "Nhận được sự giúp đỡ",
+          "vietnamese_explanation": "Thể hiện việc mình nhận được sự giúp đỡ từ người khác",
+          "example": "見てもらいます",
+          "vietnamese_example": "Tôi nhờ xem giúp",
+          "questions": 70
+        },
+        "te_itadakemasen_ka": {
+          "meaning": "Yêu cầu lịch sự",
+          "vietnamese_explanation": "Cách nói rất lịch sự khi nhờ vả người khác",
+          "example": "手伝っていただけませんか",
+          "vietnamese_example": "Xin anh/chị giúp đỡ được không ạ?",
+          "questions": 60
+        },
+        "te_arimasu": {
+          "meaning": "Trạng thái từ hành động",
+          "vietnamese_explanation": "Thể hiện trạng thái được tạo ra từ một hành động",
+          "example": "書いてあります",
+          "vietnamese_example": "Đã được viết sẵn",
+          "questions": 60
+        },
+        "te_shimaimasu": {
+          "meaning": "Hoàn thành/hối tiếc",
+          "vietnamese_explanation": "Thể hiện việc hoàn thành hoặc cảm giác hối tiếc",
+          "example": "忘れてしまいました",
+          "vietnamese_example": "Đã quên mất rồi",
+          "questions": 60
+        },
+        "te_okimasu": {
+          "meaning": "Làm trước",
+          "vietnamese_explanation": "Chuẩn bị trước, làm sẵn để dành",
+          "example": "買っておきます",
+          "vietnamese_example": "Mua sẵn để dành",
+          "questions": 60
+        },
+        "te_mimasu": {
+          "meaning": "Thử làm",
+          "vietnamese_explanation": "Thử nghiệm, làm thử xem",
+          "example": "食べてみます",
+          "vietnamese_example": "Thử ăn xem",
+          "questions": 60
+        },
+        "te_kimasu": {
+          "meaning": "Đi và quay về",
+          "vietnamese_explanation": "Đi làm gì đó rồi quay về",
+          "example": "買ってきます",
+          "vietnamese_example": "Đi mua về",
+          "questions": 50
+        },
+        "te_mo": {
+          "meaning": "Dù cho/mặc dù",
+          "vietnamese_explanation": "Thể hiện sự tương phản, dù có điều kiện gì đi nữa",
+          "example": "雨が降っても行きます",
+          "vietnamese_example": "Dù trời mưa vẫn đi",
+          "questions": 50
+        },
+        "te_sequence": {
+          "meaning": "Chuỗi hành động",
+          "vietnamese_explanation": "Liệt kê các hành động liên tiếp",
+          "example": "起きて、食べて、行きます",
+          "vietnamese_example": "Thức dậy, ăn sáng, rồi đi",
+          "questions": 80
+        },
+        "te_kamaimasen": {
+          "meaning": "Không sao cả",
+          "vietnamese_explanation": "Cho phép, không có vấn đề gì",
+          "example": "帰ってもかまいません",
+          "vietnamese_example": "Về cũng không sao",
+          "questions": 40
+        }
+      },
+      "total_questions": 1200
+    },
+
+    "ta_form": {
+      "basic_conjugation": {
+        "godan": {
+          "u_tsu_ru": {
+            "pattern": "う/つ/る → った",
+            "examples": ["会う → 会った", "立つ → 立った"]
+          },
+          "nu_bu_mu": {
+            "pattern": "ぬ/ぶ/む → んだ",
+            "examples": ["死ぬ → 死んだ", "遊ぶ → 遊んだ"]
+          },
+          "su": { "pattern": "す → した", "examples": ["話す → 話した"] },
+          "ku": { "pattern": "く → いた", "examples": ["書く → 書いた"] },
+          "gu": { "pattern": "ぐ → いだ", "examples": ["泳ぐ → 泳いだ"] }
+        },
+        "ichidan": {
+          "pattern": "る → た",
+          "examples": ["食べる → 食べた", "見る → 見た"]
+        },
+        "irregular": {
+          "examples": ["行く → 行った", "来る → 来た", "する → した"]
+        }
+      },
+      "grammar_patterns": {
+        "ta_koto_ga_arimasu": {
+          "meaning": "Have experience",
+          "example": "日本に行ったことがあります",
+          "questions": 200
+        },
+        "ta_koto_ga_arimasen": {
+          "meaning": "Never done before",
+          "example": "寿司を食べたことがありません",
+          "questions": 150
+        },
+        "ta_hou_ga_ii_desu": {
+          "meaning": "Should do/better to",
+          "example": "早く寝たほうがいいです",
+          "questions": 150
+        },
+        "ta_bakari_desu": {
+          "meaning": "Just finished",
+          "example": "食べたばかりです",
+          "questions": 120
+        },
+        "ta_ato_de": {
+          "meaning": "After doing",
+          "example": "宿題をしたあとで遊びます",
+          "questions": 120
+        },
+        "tari_tari_shimasu": {
+          "meaning": "Sometimes this, sometimes that",
+          "example": "本を読んだり、音楽を聞いたりします",
+          "questions": 150
+        },
+        "ta_noun": {
+          "meaning": "Past tense modifier",
+          "example": "昨日買った本",
+          "questions": 100
+        },
+        "tara": {
+          "meaning": "If/when conditional",
+          "example": "雨が降ったら家にいます",
+          "questions": 100
+        }
+      },
+      "total_questions": 1000
+    },
+
+    "nai_form": {
+      "basic_conjugation": {
+        "godan": {
+          "pattern": "Change to あ-sound + ない",
+          "examples": [
+            "書く → 書かない",
+            "話す → 話さない",
+            "読む → 読まない",
+            "泳ぐ → 泳がない",
+            "死ぬ → 死なない",
+            "遊ぶ → 遊ばない"
+          ]
+        },
+        "ichidan": {
+          "pattern": "る → ない",
+          "examples": ["食べる → 食べない", "見る → 見ない"]
+        },
+        "irregular": {
+          "examples": ["来る → 来ない", "する → しない"]
+        }
+      },
+      "grammar_patterns": {
+        "naide_kudasai": {
+          "meaning": "Please don't do",
+          "example": "タバコを吸わないでください",
+          "questions": 120
+        },
+        "nakute_wa_ikemasen": {
+          "meaning": "Must do (obligation)",
+          "example": "宿題をしなくてはいけません",
+          "questions": 150
+        },
+        "nakereba_naranai": {
+          "meaning": "Must do (formal)",
+          "example": "早く行かなければならない",
+          "questions": 100
+        },
+        "nakute_mo_ii_desu": {
+          "meaning": "Don't have to",
+          "example": "来なくてもいいです",
+          "questions": 120
+        },
+        "naide": {
+          "meaning": "Without doing",
+          "example": "食べないで寝ました",
+          "questions": 80
+        },
+        "nai_to": {
+          "meaning": "If you don't",
+          "example": "急がないと遅れます",
+          "questions": 100
+        },
+        "nakute": {
+          "meaning": "Because not doing",
+          "example": "時間がなくて行けません",
+          "questions": 80
+        },
+        "nai_hou_ga_ii_desu": {
+          "meaning": "Better not to",
+          "example": "飲まないほうがいいです",
+          "questions": 100
+        },
+        "nai_koto_ga_arimasu": {
+          "meaning": "Sometimes don't",
+          "example": "朝ごはんを食べないことがあります",
+          "questions": 80
+        },
+        "naide_iru": {
+          "meaning": "Continue not doing",
+          "example": "まだ食べないでいます",
+          "questions": 50
+        }
+      },
+      "total_questions": 980
+    },
+
+    "ru_form": {
+      "description": "Dictionary form - base form of verbs",
+      "basic_usage": {
+        "examples": ["書く", "話す", "食べる", "見る", "来る", "する"]
+      },
+      "grammar_patterns": {
+        "tsumori_desu": {
+          "meaning": "Intend to do",
+          "example": "明日映画を見るつもりです",
+          "questions": 100
+        },
+        "yotei_desu": {
+          "meaning": "Plan to do",
+          "example": "来月日本に行く予定です",
+          "questions": 80
+        },
+        "koto_ga_dekimasu": {
+          "meaning": "Can do/able to",
+          "example": "日本語を話すことができます",
+          "questions": 120
+        },
+        "koto_ga_arimasu": {
+          "meaning": "Sometimes do",
+          "example": "映画を見ることがあります",
+          "questions": 80
+        },
+        "mae_ni": {
+          "meaning": "Before doing",
+          "example": "寝る前に本を読みます",
+          "questions": 100
+        },
+        "toki": {
+          "meaning": "When doing",
+          "example": "日本に行く時、写真を撮ります",
+          "questions": 80
+        },
+        "no_ga_suki_desu": {
+          "meaning": "Like doing",
+          "example": "音楽を聞くのが好きです",
+          "questions": 100
+        },
+        "no_ga_jouzu_desu": {
+          "meaning": "Good at doing",
+          "example": "料理を作るのが上手です",
+          "questions": 80
+        },
+        "no_ga_heta_desu": {
+          "meaning": "Bad at doing",
+          "example": "歌うのが下手です",
+          "questions": 60
+        },
+        "tame_ni": {
+          "meaning": "In order to",
+          "example": "日本語を勉強するために来ました",
+          "questions": 80
+        },
+        "to_omoimasu": {
+          "meaning": "Think that will",
+          "example": "明日雨が降ると思います",
+          "questions": 80
+        },
+        "deshou": {
+          "meaning": "Probably will",
+          "example": "明日晴れるでしょう",
+          "questions": 60
+        }
+      },
+      "total_questions": 1020
+    }
+  },
+
+  "sample_questions": [
+    {
+      "id": 1,
+      "form": "te",
+      "polite": "たべます",
+      "casual": "たべて",
+      "verb_type": "ichidan",
+      "difficulty": 1,
+      "category": "food",
+      "explanation": "Ichidan verb: remove ます and add て",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "form": "te",
+      "polite": "かきます",
+      "casual": "かいて",
+      "verb_type": "godan",
+      "difficulty": 2,
+      "category": "daily_life",
+      "explanation": "Godan verb ending in く: change く to いて",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "form": "ta",
+      "polite": "はなしました",
+      "casual": "はなした",
+      "verb_type": "godan",
+      "difficulty": 2,
+      "category": "daily_life",
+      "explanation": "Godan verb ending in す: change す to した",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "form": "nai",
+      "polite": "よみません",
+      "casual": "よまない",
+      "verb_type": "godan",
+      "difficulty": 3,
+      "category": "daily_life",
+      "explanation": "Godan verb: change む to ま + ない",
+      "created_at": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 5,
+      "form": "ru",
+      "polite": "きます",
+      "casual": "くる",
+      "verb_type": "irregular",
+      "difficulty": 4,
+      "category": "daily_life",
+      "explanation": "Irregular verb: 来ます → 来る",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+
+  "n5_verbs_by_type": {
+    "ichidan": [
+      "たべる",
+      "みる",
+      "おきる",
+      "ねる",
+      "でる",
+      "いる",
+      "あびる",
+      "おぼえる",
+      "おりる",
+      "きえる",
+      "きる",
+      "こたえる",
+      "しめる",
+      "つかれる",
+      "つける",
+      "つとめる",
+      "でかける",
+      "できる",
+      "はれる",
+      "みせる",
+      "わすれる"
+    ],
+    "godan": [
+      "あう",
+      "あく",
+      "あそぶ",
+      "あらう",
+      "ある",
+      "あるく",
+      "いう",
+      "いく",
+      "うたう",
+      "うる",
+      "およぐ",
+      "おわる",
+      "かう",
+      "かえす",
+      "かえる",
+      "かく",
+      "かす",
+      "かぶる",
+      "かりる",
+      "きく",
+      "きる",
+      "さく",
+      "しぬ",
+      "しる",
+      "すう",
+      "すむ",
+      "すわる",
+      "たつ",
+      "たのむ",
+      "ちがう",
+      "つかう",
+      "つく",
+      "つくる",
+      "とぶ",
+      "とまる",
+      "とる",
+      "なく",
+      "ならぶ",
+      "なる",
+      "ぬぐ",
+      "のぼる",
+      "のむ",
+      "のる",
+      "はいる",
+      "はく",
+      "はじまる",
+      "はしる",
+      "はたらく",
+      "はなす",
+      "はる",
+      "ひく",
+      "ふく",
+      "ふる",
+      "まがる",
+      "まつ",
+      "みがく",
+      "もつ",
+      "やすむ",
+      "よぶ",
+      "よむ",
+      "わかる",
+      "わたす",
+      "わたる"
+    ],
+    "irregular": ["くる", "する"]
+  },
+
+  "difficulty_distribution": {
+    "level_1": { "percentage": 20, "description": "Basic ichidan verbs" },
+    "level_2": { "percentage": 25, "description": "Common godan verbs" },
+    "level_3": { "percentage": 30, "description": "Mixed patterns" },
+    "level_4": {
+      "percentage": 20,
+      "description": "Irregular and tricky verbs"
+    },
+    "level_5": { "percentage": 5, "description": "Advanced patterns" }
+  },
+
+  "categories_distribution": {
+    "daily_life": 800,
+    "food": 600,
+    "work": 500,
+    "family": 400,
+    "travel": 400,
+    "school": 400,
+    "shopping": 300,
+    "health": 300,
+    "weather": 200,
+    "time": 200
+  },
+
+  "storage_requirements": {
+    "estimated_size": "50-100MB total",
+    "breakdown": {
+      "questions_data": "~2MB (4200 questions)",
+      "user_progress": "~2MB (4200+ records)",
+      "statistics": "~500KB (47 patterns)",
+      "spaced_repetition": "~1MB",
+      "cached_content": "~5-10MB",
+      "future_audio": "~40-80MB"
+    },
+    "why_indexeddb": "localStorage 5-10MB limit insufficient for 4200+ questions with progress tracking"
+  },
+
+  "localization": {
+    "primary_language": "vietnamese",
+    "ui_language": "vietnamese",
+    "content_language": "japanese_with_vietnamese_explanations",
+    "requirements": {
+      "all_ui_text": "Tiếng Việt",
+      "grammar_explanations": "Giải thích bằng tiếng Việt",
+      "jsdoc_comments": "Tài liệu code bằng tiếng Việt",
+      "error_messages": "Thông báo lỗi bằng tiếng Việt",
+      "examples": "Ví dụ có dịch tiếng Việt",
+      "cultural_context": "Giải thích theo văn hóa Việt Nam"
+    }
+  },
+
+  "development_notes": {
+    "target_audience": "Người Việt học tiếng Nhật N5",
+    "ui_framework": "Next.js 14 + TypeScript + Tailwind CSS",
+    "color_scheme": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    "design_trend": "2025 ethereal tones - thanh thản, tin cậy, hiện đại",
+    "mobile_first": true,
+    "accessibility": "WCAG 2.1 AA compliance",
+    "performance": "IndexedDB cho 4200+ câu hỏi, lazy loading, pagination"
+  }
+}
